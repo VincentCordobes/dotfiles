@@ -7,7 +7,8 @@ export ZSH=/Users/vincent/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
+ZSH_THEME="pure"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -55,6 +56,8 @@ plugins=(git, cp, tmux)
 
 source $ZSH/oh-my-zsh.sh
 
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -79,9 +82,18 @@ source $ZSH/oh-my-zsh.sh
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
+
+# =======================
+# My stuffs...
+# =======================
+# Aaliases
 alias vim="nvim"
+alias cdFluo="cd ~/workspace/fluo"
+
+# Spiped 
+alias spipedMysql="spiped -D -e -s [0.0.0.0]:8306 -t [92.222.161.113]:8306 -k ~/.ssh/spiped_fluo_mysql_prod.key"
+alias spipedtest1="spiped -D -e -s [0.0.0.0]:8307 -t [37.59.112.191]:8306 -k /Users/Vincent/.ssh/spiped_fluo_test1.key"
+
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
@@ -89,4 +101,22 @@ alias vim="nvim"
 
 # use ag for fzf
 export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+export PYGMENTS_NODE_COMMAND="node"
+
+# export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+export NVM_DIR="/Users/vincent/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+function fluoBackend() {
+ pushd
+ cd ~/workspace/fluo/backend
+ mvn clean install -DskipTests
+ cd backend-app
+ mvn jetty:run
+ popd
+}
+
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh

@@ -14,6 +14,7 @@ Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
+Plug 'mileszs/ack.vim'
 
 Plug 'othree/html5.vim', { 'for': 'html' } " html5 support
 Plug 'mxw/vim-jsx' 
@@ -42,7 +43,7 @@ Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javasc
 Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 " Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
-" Plug 'steelsojka/deoplete-flow'
+Plug 'steelsojka/deoplete-flow'
 " Plug 'flowtype/vim-flow'
 Plug 'Shougo/echodoc.vim'
 
@@ -72,13 +73,15 @@ set nopaste
 set noshowmode
 filetype on
 set relativenumber number
-set tabstop=2 shiftwidth=2 expandtab
+" set tabstop=2 shiftwidth=2 expandtab
+set tabstop=4 shiftwidth=4 expandtab
 " set conceallevel=0
 set scrolloff=3
 set showmatch " show matching braces
 set encoding=utf8
 set hidden                  " current buffer can be put into background
 set ttimeoutlen=50 " this is for the timeout on ecape press I hope..
+set autoread                    " Automatically reread changed files without asking me anything
 
 map <ScrollWheelUp> <C-Y>
 map <S-ScrollWheelUp> <C-U>
@@ -91,11 +94,17 @@ let g:jsx_ext_required = 0
 
 " vim javascript conf
 " let g:javascript_plugin_jsdoc = 1
-" let g:javascript_plugin_flow = 1
+let g:javascript_plugin_flow = 1
 
 "airline-config
+let g:airline_powerline_fonts = 1
+let g:airline_theme='oceanicnext'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = '|'
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = '|'
 
 "Themes
 syntax on
@@ -107,14 +116,12 @@ highlight htmlArg cterm=italic
 highlight xmlString cterm=italic
 
 
+
 " neomake custom colors
 hi NeomakeError guifg=#ff0000 ctermfg=196 gui=undercurl cterm=undercurl
 hi NeomakeErrorSign guifg=#ff0000 ctermfg=196
 
-let g:airline_powerline_fonts = 1
 set laststatus=2
-" let g:airline_theme='oceanicnext'
-" let g:airline_theme='wombat'
 
 " EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -123,15 +130,21 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " Neomake
-let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
-let g:neomake_jsx_enabled_makers = ['eslint', 'flow']
+" let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
+let g:neomake_javascript_enabled_makers = ['eslint']
+" let g:neomake_jsx_enabled_makers = ['eslint', 'flow']
+let g:neomake_jsx_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_exe = $PWD .'/node_modules/.bin/eslint'
-let g:neomake_typescript_tslint_exe = $PWD .'/node_modules/.bin/tslint'
-let g:neomake_javascript_flow_exe = $PWD .'/node_modules/.bin/flow'
+" let g:neomake_typescript_tslint_exe = $PWD .'/node_modules/.bin/tslint'
+" let g:neomake_javascript_flow_exe = $PWD .'/node_modules/.bin/flow'
+" let g:neomake_jsx_flow_exe = $PWD .'/node_modules/.bin/flow'
 
 
 " let g:neomake_python_enabled_makers = ['pep8', 'pylint', 'flake8']
 
+
+" let g:neomake_open_list = 2
+let g:neomake_list_height = 10
 
 autocmd! BufWritePost * Neomake
 
@@ -158,7 +171,7 @@ let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
 let g:tern#command = ["tern"]
 let g:tern#arguments = ["--persistent"]
 
-autocmd FileType javascript nnoremap <silent> <buffer> gd :TernDef<CR>
+" autocmd FileType javascript nnoremap <silent> <buffer> gd :TernDef<CR>
 " close top panel after accept completion
 " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
@@ -221,7 +234,9 @@ let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 
 
 " mapping nerdtree
-map <C-n> :NERDTreeToggle<CR>
+noremap <C-n> :NERDTreeToggle<CR>
+noremap <C-f> :NERDTreeFind<CR>
+
 
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -229,3 +244,44 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " open NERDTree automatically when vim starts up on opening a directory
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+
+" flow config
+function! StrTrim(txt)
+  return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+endfunction
+
+let g:flow_path = StrTrim(system('PATH=$(npm bin):$PATH && which flow'))
+
+if findfile('.flowconfig', '.;') !=# ''
+  let g:flow_path = StrTrim(system('PATH=$(npm bin):$PATH && which flow'))
+  if g:flow_path != 'flow not found'
+
+    let g:neomake_javascript_flow_maker = {
+          \ 'exe': 'sh',
+          \ 'args': ['-c', g:flow_path.' --json 2> /dev/null | flow-vim-quickfix'],
+          \ 'errorformat': '%E%f:%l:%c\,%n: %m',
+          \ 'cwd': '%:p:h' 
+          \ }
+    let g:neomake_javascript_enabled_makers = g:neomake_javascript_enabled_makers + [ 'flow']
+    let g:deoplete#sources#flow#flow_bin = g:flow_path
+  endif
+endif
+
+" This is kinda useful to prevent Neomake from unnecessary runs
+if !empty(g:neomake_javascript_enabled_makers)
+  autocmd! BufWritePost * Neomake
+endif
+
+
+
+" prettier
+" autocmd FileType javascript set formatprg=prettier\ --stdin
+" autocmd BufWritePre *.js :normal gggqG
+" autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
+
+" Use ag to grep through files
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
