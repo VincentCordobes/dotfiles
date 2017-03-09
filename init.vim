@@ -70,11 +70,14 @@ set clipboard+=unnamedplus
 set pastetoggle=<f6>
 set nopaste
 
-set noshowmode
 filetype on
+set noshowmode "we use vim airlin
 set relativenumber number
 " set tabstop=2 shiftwidth=2 expandtab
-set tabstop=4 shiftwidth=4 expandtab
+set tabstop=4 
+set shiftwidth=4 "number space on reindent << >>
+set expandtab "spaces instead of tab
+
 " set conceallevel=0
 set scrolloff=3
 set showmatch " show matching braces
@@ -82,11 +85,26 @@ set encoding=utf8
 set hidden                  " current buffer can be put into background
 set ttimeoutlen=50 " this is for the timeout on ecape press I hope..
 set autoread                    " Automatically reread changed files without asking me anything
+set ignorecase               " Search case insensitive...
+set smartcase                " ... but not it begins with upper case 
+
+let mapleader = ","
 
 map <ScrollWheelUp> <C-Y>
 map <S-ScrollWheelUp> <C-U>
 " autocmd BufReadPost,FileReadPost,BufNewFile,BufEnter * call system("tmux rename-window 'vim | " . expand("%:t") . "'")
 " autocmd VimLeave * call system("tmux rename-window 'tmux'")
+
+" turn off swap file
+set noswapfile
+set nobackup
+
+" Keep selection when indenting/outdenting.
+vnoremap > >gv
+vnoremap < <gv
+
+" Un-highlight search matches
+nnoremap <leader><leader> :noh<CR>
 
 
 "vim jsx
@@ -200,10 +218,10 @@ let g:vim_json_syntax_conceal = 0
 
 
 " moving up and down work as you would expect
-nnoremap <silent> j gj
-nnoremap <silent> k gk
-nnoremap <silent> ^ g^
-nnoremap <silent> $ g$
+noremap <Up> gk
+noremap <Down> gj
+noremap k gk
+noremap j gj
 
 autocmd BufNewFile,BufRead .babelrc set filetype=json
 autocmd BufNewFile,BufRead .jshintrc set filetype=json
@@ -285,3 +303,8 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
+" always put quickfix to the bottom
+autocmd FileType qf wincmd J
+
+" Because I often accidentally :W when I mean to :w.
+command! W w
