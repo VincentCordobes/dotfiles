@@ -15,6 +15,7 @@ Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job 
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-surround'
 
 Plug 'othree/html5.vim', { 'for': 'html' } " html5 support
 Plug 'mxw/vim-jsx' 
@@ -24,7 +25,7 @@ Plug 'elzr/vim-json', { 'for': 'json' } " JSON support
 
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " CSS3 syntax support
 
-Plug 'tpope/vim-markdown', { 'for': 'markdown' } " markdown support
+" Plug 'tpope/vim-markdown', { 'for': 'markdown' } " markdown support
 
 Plug 'junegunn/vim-easy-align'
 Plug 'tomtom/tcomment_vim' " comment stuff out
@@ -37,8 +38,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 Plug 'ervandew/supertab'
 
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
 Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 " Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
@@ -60,6 +61,10 @@ Plug 'suan/vim-instant-markdown'
 Plug 'ruanyl/vim-fixmyjs'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons' "This should be loaded at the end
+Plug 'LanguageTool', { 'for': ['markdown', 'tex', 'plaintex'] }
+Plug 'ryanoasis/vim-devicons' "This should be loaded at the end
+Plug 'jaawerth/nrun.vim'
+" Plug 'rhysd/vim-grammarous', { 'for': ['markdown'] }
 
 call plug#end()
 
@@ -73,12 +78,12 @@ set nopaste
 filetype on
 set noshowmode "we use vim airlin
 set relativenumber number
-" set tabstop=2 shiftwidth=2 expandtab
-set tabstop=4 
-set shiftwidth=4 "number space on reindent << >>
-set expandtab "spaces instead of tab
+set tabstop=2 shiftwidth=2 expandtab
+" set tabstop=4 
+" set shiftwidth=4 "number space on reindent << >>
+" set expandtab "spaces instead of tab
 
-" set conceallevel=0
+set conceallevel=0
 set scrolloff=3
 set showmatch " show matching braces
 set encoding=utf8
@@ -88,7 +93,8 @@ set autoread                    " Automatically reread changed files without ask
 set ignorecase               " Search case insensitive...
 set smartcase                " ... but not it begins with upper case 
 
-let mapleader = ","
+let mapleader = "\<space>"
+nnoremap <space> <Nop>
 
 map <ScrollWheelUp> <C-Y>
 map <S-ScrollWheelUp> <C-U>
@@ -104,7 +110,10 @@ vnoremap > >gv
 vnoremap < <gv
 
 " Un-highlight search matches
-nnoremap <leader><leader> :noh<CR>
+nnoremap <silent><leader><space> :noh<CR>
+
+" Ack
+nnoremap <leader>a :Ack
 
 
 "vim jsx
@@ -148,11 +157,23 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " Neomake
+
+" Eslint
+let g:neomake_jsx_enabled_makers = []
+let g:neomake_javascript_enabled_makers = []
+
+let g:eslint_path = nrun#Which('eslint')
+if g:eslint_path != 'eslint not found'
+  let g:neomake_javascript_eslint_exe = g:eslint_path
+  let g:neomake_jsx_enabled_makers = ['eslint']
+  let g:neomake_javascript_enabled_makers = ['eslint']
+endif
+
 " let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
-let g:neomake_javascript_enabled_makers = ['eslint']
+" let g:neomake_javascript_enabled_makers = ['eslint']
 " let g:neomake_jsx_enabled_makers = ['eslint', 'flow']
-let g:neomake_jsx_enabled_makers = ['eslint']
-let g:neomake_javascript_eslint_exe = $PWD .'/node_modules/.bin/eslint'
+" let g:neomake_jsx_enabled_makers = ['eslint']
+" let g:neomake_javascript_eslint_exe = $PWD .'/node_modules/.bin/eslint'
 " let g:neomake_typescript_tslint_exe = $PWD .'/node_modules/.bin/tslint'
 " let g:neomake_javascript_flow_exe = $PWD .'/node_modules/.bin/flow'
 " let g:neomake_jsx_flow_exe = $PWD .'/node_modules/.bin/flow'
@@ -165,7 +186,6 @@ let g:neomake_javascript_eslint_exe = $PWD .'/node_modules/.bin/eslint'
 let g:neomake_list_height = 10
 
 autocmd! BufWritePost * Neomake
-
 
 " fixmyjs
 let g:fixmyjs_engine = 'eslint'
@@ -185,7 +205,7 @@ let g:deoplete#omni#functions.javascript = [
   " \ 'jspc#omni'
 set completeopt=longest,menuone,preview
 let g:deoplete#sources = {}
-let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+let g:deoplete#sources['javascript.jsx'] = ['file', 'ternjs']
 let g:tern#command = ["tern"]
 let g:tern#arguments = ["--persistent"]
 
@@ -252,8 +272,10 @@ let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 
 
 " mapping nerdtree
-noremap <C-n> :NERDTreeToggle<CR>
-noremap <C-f> :NERDTreeFind<CR>
+" noremap <c-n> :NERDTreeToggle<CR>
+" noremap <C-f> :NERDTreeFind<CR>
+noremap <silent> <leader>n :NERDTreeToggle<CR>
+noremap <silent> <leader>f :NERDTreeFind<CR>
 
 
 " close vim if the only window left open is a NERDTree
@@ -265,14 +287,10 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 
 
 " flow config
-function! StrTrim(txt)
-  return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
-endfunction
 
-let g:flow_path = StrTrim(system('PATH=$(npm bin):$PATH && which flow'))
 
 if findfile('.flowconfig', '.;') !=# ''
-  let g:flow_path = StrTrim(system('PATH=$(npm bin):$PATH && which flow'))
+  let g:flow_path = nrun#Which('flow')
   if g:flow_path != 'flow not found'
 
     let g:neomake_javascript_flow_maker = {
@@ -285,12 +303,6 @@ if findfile('.flowconfig', '.;') !=# ''
     let g:deoplete#sources#flow#flow_bin = g:flow_path
   endif
 endif
-
-" This is kinda useful to prevent Neomake from unnecessary runs
-if !empty(g:neomake_javascript_enabled_makers)
-  autocmd! BufWritePost * Neomake
-endif
-
 
 
 " prettier
@@ -305,6 +317,29 @@ endif
 
 " always put quickfix to the bottom
 autocmd FileType qf wincmd J
+nnoremap <C-n> :cn<CR>
+nnoremap <C-m> :cp<CR>
+" nnoremap ? , 
 
 " Because I often accidentally :W when I mean to :w.
 command! W w
+
+nnoremap <C-h> :bprevious<CR>
+nnoremap <C-l> :bnext<CR>
+
+" we don't want to cycle through quickfix buffer!
+augroup qf
+    autocmd!
+    autocmd FileType qf set nobuflisted
+augroup END
+
+" git open quickfix
+autocmd QuickFixCmdPost *grep* cwindow
+
+
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gl :Glog<CR><CR>
+
+
+let g:languagetool_jar='/usr/local/Cellar/languagetool/3.6/libexec/languagetool-commandline.jar'

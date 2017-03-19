@@ -88,7 +88,10 @@ source $ZSH/oh-my-zsh.sh
 # =======================
 # Aaliases
 alias vim="nvim"
+alias vimdiff="nvim -d"
 alias cdFluo="cd ~/workspace/fluo"
+alias l='ls -lFh'
+alias la='ls -lAFh'
 
 # Spiped 
 alias spipedMysql="spiped -D -e -s [0.0.0.0]:8306 -t [92.222.161.113]:8306 -k ~/.ssh/spiped_fluo_mysql_prod.key"
@@ -120,3 +123,5 @@ function fluoBackend() {
 }
 
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+export PATH="$HOME/.yarn/bin:$PATH"
