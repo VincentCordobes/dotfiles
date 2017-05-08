@@ -34,7 +34,7 @@ Plug 'benekastah/neomake' " using neovim's job control functonality
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'ervandew/supertab'
 
-"" Misc syntax & indent support
+"" Misc syntax support
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'elzr/vim-json', { 'for': 'json' }
@@ -88,10 +88,10 @@ set nopaste " FIXME: don't remember why it's needed
 set noshowmode " display mode in messages (disable cuz we use vim airlin)
 set relativenumber number " just because
 
-" set tabstop=2 shiftwidth=2 expandtab
-set tabstop=4    " Number of spaces that a <Tab> in the file counts for.
-set shiftwidth=4 " number space on reindent << >>
-set expandtab    " spaces instead of tab
+set tabstop=2 shiftwidth=2 expandtab
+" set tabstop=4    " Number of spaces that a <Tab> in the file counts for.
+" set shiftwidth=4 " number space on reindent << >>
+" set expandtab    " spaces instead of tab
 
 set encoding=utf8
 set conceallevel=0
@@ -133,9 +133,8 @@ augroup qf
     autocmd FileType qf set nobuflisted
 augroup END
 
-"" Define some filetypes
+"" Define some extra filetype recognition
 autocmd BufNewFile,BufRead .babelrc set filetype=json
-autocmd BufNewFile,BufRead .jshintrc set filetype=json
 autocmd BufNewFile,BufRead .eslintrc set filetype=json
 
 "" Open quickfix after grep
@@ -184,20 +183,17 @@ xmap ga <Plug>(EasyAlign)
 "" Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-"" deoplete
+"" Cycle through completion with tab (no need supertab!!)
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
 "" Toggle Qf and LocList
 nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
 nmap <silent> <leader>q :call ToggleList("Quickfix List", 'c')<CR>
 
-"" QF navigation
-nnoremap <C-n> :cn<CR>
-nnoremap <C-m> :cp<CR>
-
-"" LocList navigation
-nnoremap <C-j> :lnext<CR>
-nnoremap <C-k> :lprevious<CR>
+"" QF or LF navigation
+nnoremap <silent><c-k> :call ListNav('previous')<CR>
+nnoremap <silent><c-j> :call ListNav('next')<CR>
 
 "" Buffer navigation
 nnoremap <C-h> :bprevious<CR>
@@ -212,7 +208,7 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gl :Glog<CR><CR>
 
-"" Dont go to the next occurence when *
+"" Dont go to the next occurence when we *
 nnoremap * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 
 
@@ -298,10 +294,6 @@ let g:deoplete#enable_smart_case = 1
 let g:deoplete#file#enable_buffer_path = 1
 
 autocmd CompleteDone * pclose! 
-
-"" cycle through the pmenu with tabs
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
 "" javascript completion
 " let g:deoplete#omni#functions = {}
@@ -437,6 +429,31 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 " Functions
 """""""""""
 
+
+" execute either cprevious/cnext or lprevious/lnext 
+" QFix has the priority if both are opened
+function! ListNav(cmd)
+    try
+        if IsBufOpen("Quickfix List")
+            exec('c'.a:cmd)
+        else
+            exec('l'.a:cmd)
+        endif
+    catch /E553/
+        echohl ErrorMsg 
+        echo "No more items"
+        echohl None
+    catch /E42/
+        echohl ErrorMsg 
+        echo "No Errors"
+        echohl None
+    catch /E776/
+        echohl ErrorMsg 
+        echo "No location list"
+        echohl None
+    endtry
+endfunction
+
 function! GetBufferList()
   redir =>buflist
   silent! ls!
@@ -444,18 +461,25 @@ function! GetBufferList()
   return buflist
 endfunction
 
-function! ToggleList(bufname, pfx)
+function! IsBufOpen(bufname)
   let buflist = GetBufferList()
   for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
     if bufwinnr(bufnum) != -1
-      exec(a:pfx.'close')
-      return
+      return 1
     endif
   endfor
+  return 0
+endfunction
+
+function! ToggleList(bufname, pfx)
+  if IsBufOpen(a:bufname)
+    exec(a:pfx.'close')
+    return
+  endif
   if a:pfx == 'l' && len(getloclist(0)) == 0
-      echohl ErrorMsg
-      echo "Location List is Empty."
-      return
+    echohl ErrorMsg
+    echo "Location List is Empty"
+    return
   endif
   let winnr = winnr()
   exec(a:pfx.'open')
