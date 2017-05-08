@@ -260,7 +260,14 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " Neomake
 """""""""
-autocmd! BufWritePost * Neomake! | Neomake
+function! ExecAllNeomake()
+  if exists('g:neomake_enabled_makers') && len(g:neomake_enabled_makers) > 0
+    Neomake! | Neomake
+  else
+    Neomake
+  endif
+endfunction
+autocmd! BufWritePost * :call ExecAllNeomake()
 let g:neomake_list_height = 10
 " let g:neomake_open_list = 2 " auto open list if error
 
