@@ -18,6 +18,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " Plug 'mattn/emmet-vim' useless as I am using utlisnips right ?
 Plug 'sbdchd/neoformat' " autoformat according to various engine
+Plug 'moll/vim-bbye'
 
 """ Utils
 Plug 'jaawerth/nrun.vim' " faster which for node
@@ -76,6 +77,8 @@ Plug 'LanguageTool', { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] } " ju
 " Plug 'ryanoasis/vim-devicons' "This should be loaded at the end
 call plug#end()
 
+source ~/dotfiles/utils.vim
+
 """"""""""""""""""""""""""""""""""""""
 " General settings
 """"""""""""""""""""""""""""""""""""""
@@ -124,6 +127,10 @@ nnoremap <space> <Nop>
 "" Remove auto comment new line..
 au FileType * set fo-=c fo-=r fo-=o
 
+"" Define some extra filetype recognition
+autocmd BufNewFile,BufRead .babelrc set filetype=json
+autocmd BufNewFile,BufRead .eslintrc set filetype=json
+
 "" Always put quickfix to the bottom
 autocmd FileType qf wincmd J
 
@@ -133,12 +140,10 @@ augroup qf
     autocmd FileType qf set nobuflisted
 augroup END
 
-"" Define some extra filetype recognition
-autocmd BufNewFile,BufRead .babelrc set filetype=json
-autocmd BufNewFile,BufRead .eslintrc set filetype=json
-
 "" Open quickfix after grep
 autocmd QuickFixCmdPost *grep* cwindow
+
+au FileType qf call AdjustWindowHeight(3, 10)
 
 
 """"""""""""""""""""""""""""""""""""""
@@ -171,7 +176,7 @@ vnoremap < <gv
 nnoremap <silent><leader><space> :noh<CR>
 
 "" Ack
-nnoremap <leader>a :Ack
+nnoremap <leader>a :Ack!
 
 "" Scrolling
 map <ScrollWheelUp> <C-Y>
@@ -192,8 +197,8 @@ nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
 nmap <silent> <leader>q :call ToggleList("Quickfix List", 'c')<CR>
 
 "" QF or LF navigation
-nnoremap <silent><c-k> :call ListNav('previous')<CR>
-nnoremap <silent><c-j> :call ListNav('next')<CR>
+nnoremap <silent><c-k> :call ListNavigate('previous')<CR>
+nnoremap <silent><c-j> :call ListNavigate('next')<CR>
 
 "" Buffer navigation
 nnoremap <C-h> :bprevious<CR>
@@ -210,6 +215,9 @@ nnoremap <leader>gl :Glog<CR><CR>
 
 "" Dont go to the next occurence when we *
 nnoremap * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
+
+"" FZF
+nnoremap <silent> <C-p> :FZF<CR>
 
 
 """"""""""""""""""""""""""""""""""""""
@@ -258,15 +266,38 @@ let g:ale_set_quickfix = 1
 " let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
+
 " Neomake
 """""""""
+let g:neomake_open_qflist = 1
+let g:neomake_open_loclist = 0
+function! HasAtLeastOneMaker()
+  return (exists('g:neomake_enabled_makers') 
+        \ && len(g:neomake_enabled_makers) > 0)
+endfunction
+
 function! ExecAllNeomake()
-  if exists('g:neomake_enabled_makers') && len(g:neomake_enabled_makers) > 0
+  if HasAtLeastOneMaker()
     Neomake! | Neomake
   else
     Neomake
   endif
 endfunction
+
+function HandleNeomakeJobFinished()
+  let winnr = winnr()
+  if HasAtLeastOneMaker() && 
+        \ (IsBufOpen("Quickfix List") || g:neomake_open_qflist)
+    cwindow
+  elseif IsBufOpen("Location List") || g:neomake_open_loclist
+    lwindow 
+  endif
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+
+autocmd User NeomakeJobFinished :call HandleNeomakeJobFinished()
 autocmd! BufWritePost * :call ExecAllNeomake()
 let g:neomake_list_height = 10
 " let g:neomake_open_list = 2 " auto open list if error
@@ -324,8 +355,10 @@ let g:tern#arguments = ["--persistent"]
 " let g:deoplete#sources = {}
 " let g:deoplete#sources.reason = ['omni', 'buffer']
 
+
 " FlowType
-"""""""""""""
+" Flow got his own section cuz why not
+""""""""""""""""""""""""""""""""""""""""""
 if findfile('.flowconfig', '.;') !=# ''
   let g:flow_path = nrun#Which('flow')
   if g:flow_path != 'flow not found'
@@ -333,7 +366,7 @@ if findfile('.flowconfig', '.;') !=# ''
       "" vim-flow
       let g:flow#flowpath = g:flow_path
       let g:flow#enable = 0
-      let g:flow#autoclose = 1
+      " let g:flow#autoclose = 1
       " let g:flow#omnifunc = 0
       " let g:flow#timeout = 4
       nnoremap <leader>d :FlowJumpToDef<CR>
@@ -383,6 +416,7 @@ let g:neoformat_javascript_prettier = {
 let g:neoformat_try_formatprg = 1
 
 
+
 " ELM
 """""
 " let g:elm_format_autosave = 1
@@ -413,8 +447,6 @@ let g:jsx_ext_required = 0 " set filetype=javascript.jsx even on .js
 "" vim-json
 let g:vim_json_syntax_conceal = 0 " don't hide quotes in json files
 
-"" FZF
-nnoremap <silent> <C-p> :FZF<CR>
 
 "" vim-instant-markdown
 let g:instant_markdown_slow = 1
@@ -433,64 +465,4 @@ let g:languagetool_jar='/usr/local/Cellar/languagetool/3.6/libexec/languagetool-
 let g:UltiSnipsExpandTrigger="<C-j>"
 
 
-" Functions
-"""""""""""
 
-
-" execute either cprevious/cnext or lprevious/lnext 
-" QFix has the priority if both are opened
-function! ListNav(cmd)
-    try
-        if IsBufOpen("Quickfix List")
-            exec('c'.a:cmd)
-        else
-            exec('l'.a:cmd)
-        endif
-    catch /E553/
-        echohl ErrorMsg 
-        echo "No more items"
-        echohl None
-    catch /E42/
-        echohl ErrorMsg 
-        echo "No Errors"
-        echohl None
-    catch /E776/
-        echohl ErrorMsg 
-        echo "No location list"
-        echohl None
-    endtry
-endfunction
-
-function! GetBufferList()
-  redir =>buflist
-  silent! ls!
-  redir END
-  return buflist
-endfunction
-
-function! IsBufOpen(bufname)
-  let buflist = GetBufferList()
-  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
-    if bufwinnr(bufnum) != -1
-      return 1
-    endif
-  endfor
-  return 0
-endfunction
-
-function! ToggleList(bufname, pfx)
-  if IsBufOpen(a:bufname)
-    exec(a:pfx.'close')
-    return
-  endif
-  if a:pfx == 'l' && len(getloclist(0)) == 0
-    echohl ErrorMsg
-    echo "Location List is Empty"
-    return
-  endif
-  let winnr = winnr()
-  exec(a:pfx.'open')
-  if winnr() != winnr
-    wincmd p
-  endif
-endfunction
