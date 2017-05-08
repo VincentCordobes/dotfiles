@@ -278,18 +278,19 @@ endfunction
 
 function! ExecAllNeomake()
   if HasAtLeastOneMaker()
-    Neomake! | Neomake
-  else
-    Neomake
+    Neomake!
   endif
+  Neomake
 endfunction
 
 function HandleNeomakeJobFinished()
   let winnr = winnr()
-  if HasAtLeastOneMaker() && 
-        \ (IsBufOpen("Quickfix List") || g:neomake_open_qflist)
+  let qfopen = IsBufOpen("Quickfix List")
+  let loclistopen = IsBufOpen("Location List")
+  if qfopen || (HasAtLeastOneMaker() && g:neomake_open_qflist)
     cwindow
-  elseif IsBufOpen("Location List") || g:neomake_open_loclist
+  endif
+  if loclistopen || (!qfopen && g:neomake_open_loclist)
     lwindow 
   endif
   if winnr() != winnr
@@ -297,7 +298,7 @@ function HandleNeomakeJobFinished()
   endif
 endfunction
 
-autocmd User NeomakeJobFinished :call HandleNeomakeJobFinished()
+autocmd User NeomakeFinished :call HandleNeomakeJobFinished()
 autocmd! BufWritePost * :call ExecAllNeomake()
 let g:neomake_list_height = 10
 " let g:neomake_open_list = 2 " auto open list if error
