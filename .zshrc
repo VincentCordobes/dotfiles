@@ -68,9 +68,6 @@ alias cdFluo="cd ~/workspace/fluo"
 alias l='ls -lFh'
 alias la='ls -lAFh'
 
-# Spiped 
-alias spipedMysql="spiped -D -e -s [0.0.0.0]:8306 -t [92.222.161.113]:8306 -k ~/.ssh/spiped_fluo_mysql_prod.key"
-alias spipedtest1="spiped -D -e -s [0.0.0.0]:8307 -t [37.59.112.191]:8306 -k /Users/Vincent/.ssh/spiped_fluo_test1.key"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

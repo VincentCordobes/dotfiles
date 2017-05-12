@@ -91,10 +91,10 @@ set nopaste " FIXME: don't remember why it's needed
 set noshowmode " display mode in messages (disable cuz we use vim airlin)
 set relativenumber number " just because
 
-set tabstop=2 shiftwidth=2 expandtab
-" set tabstop=4    " Number of spaces that a <Tab> in the file counts for.
-" set shiftwidth=4 " number space on reindent << >>
-" set expandtab    " spaces instead of tab
+" set tabstop=2 shiftwidth=2 expandtab
+set tabstop=4    " Number of spaces that a <Tab> in the file counts for.
+set shiftwidth=4 " number space on reindent << >>
+set expandtab    " spaces instead of tab
 
 set encoding=utf8
 set conceallevel=0
@@ -131,19 +131,21 @@ au FileType * set fo-=c fo-=r fo-=o
 autocmd BufNewFile,BufRead .babelrc set filetype=json
 autocmd BufNewFile,BufRead .eslintrc set filetype=json
 
-"" Always put quickfix to the bottom
-autocmd FileType qf wincmd J
 
-" we don't want to cycle through quickfix buffer!
 augroup qf
     autocmd!
+
+    "" Always put quickfix to the bottom
+    autocmd FileType qf wincmd J
+
+    " we don't want to cycle through quickfix buffer!
     autocmd FileType qf set nobuflisted
+    autocmd FileType qf call AdjustWindowHeight(3, 10)
 augroup END
 
 "" Open quickfix after grep
 autocmd QuickFixCmdPost *grep* cwindow
 
-au FileType qf call AdjustWindowHeight(3, 10)
 
 
 """"""""""""""""""""""""""""""""""""""
@@ -219,6 +221,11 @@ nnoremap * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 "" FZF
 nnoremap <silent> <C-p> :FZF<CR>
 
+""""""""""""""""""""""""""""""""""""""
+" Commands
+""""""""""""""""""""""""""""""""""""""
+command! DisableOpenQF execute "let g:neomake_open_qflist = 0"
+command! EnableOpenQF execute "let g:neomake_open_qflist = 1"
 
 """"""""""""""""""""""""""""""""""""""
 " Plugins configuration
@@ -408,7 +415,7 @@ endif
 "" javascript (prettier)
 let g:neoformat_javascript_prettier = {
             \ 'exe': 'prettier',
-            \ 'args': ['--stdin', '--parser flow', '--single-quote', '--trailing-comma', 'es5'],
+            \ 'args': ['--stdin', '--parser flow', '--single-quote', '--trailing-comma', 'es5', '--tab-width 4'],
             \ 'stdin': 1,
             \ }
 " let g:neoformat_enabled_javascript = ['prettier']
@@ -464,6 +471,4 @@ let g:languagetool_jar='/usr/local/Cellar/languagetool/3.6/libexec/languagetool-
 
 " ultisnips 
 let g:UltiSnipsExpandTrigger="<C-j>"
-
-
-
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "my-snippets"]
