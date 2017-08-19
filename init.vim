@@ -7,7 +7,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree' " filetree
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'vim-airline/vim-airline' " statusline
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
@@ -15,7 +15,7 @@ Plug 'mileszs/ack.vim' " better grep
 Plug 'tomtom/tcomment_vim' " comment stuff out
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' " This slow down...
 " Plug 'mattn/emmet-vim' useless as I am using utlisnips right ?
 Plug 'sbdchd/neoformat' " autoformat according to various engine
 Plug 'moll/vim-bbye'
@@ -24,15 +24,22 @@ Plug 'moll/vim-bbye'
 Plug 'jaawerth/nrun.vim' " faster which for node
 
 "" Themes
-Plug 'mhartington/oceanic-next'
-Plug 'w0ng/vim-hybrid'
+" Plug 'mhartington/oceanic-next'
+" Plug 'w0ng/vim-hybrid'
+Plug 'rakr/vim-one'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'jonathanfilip/vim-lucius'
+Plug 'NLKNguyen/papercolor-theme'
+" Plug 'endel/vim-github-colorscheme'
+Plug 'albertorestifo/github.vim'
+" Plug 'junegunn/seoul256.vim'
 
 """ Make & Linting
 Plug 'benekastah/neomake' " using neovim's job control functonality
 " Plug 'w0rp/ale'
 
 "" Autocomplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'for': ['javascript', 'javascript.jsx'] }
 " Plug 'ervandew/supertab'
 
 "" Misc syntax support
@@ -50,7 +57,7 @@ Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 
 "" Javascript
-Plug 'ruanyl/vim-fixmyjs'
+Plug 'ruanyl/vim-fixmyjs', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] } " node support
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
@@ -66,13 +73,16 @@ Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
 
 "" Writing
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
+Plug 'vimwiki/vimwiki'
 Plug 'LanguageTool', { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
+" Plug 'rhysd/vim-grammarous'
 
 "" Reason
-" Plug 'reasonml/vim-reason-loader'
+Plug 'reasonml/vim-reason'
 
 "" ELM
-" Plug 'elmcast/elm-vim'
+Plug 'elmcast/elm-vim'
+" Plug 'pbogut/deoplete-elm'
 
 " Plug 'ryanoasis/vim-devicons' "This should be loaded at the end
 call plug#end()
@@ -91,13 +101,13 @@ set nopaste " FIXME: don't remember why it's needed
 set noshowmode " display mode in messages (disable cuz we use vim airlin)
 set relativenumber number " just because
 
-" set tabstop=2 shiftwidth=2 expandtab
-set tabstop=4    " Number of spaces that a <Tab> in the file counts for.
-set shiftwidth=4 " number space on reindent << >>
-set expandtab    " spaces instead of tab
+set tabstop=2 shiftwidth=2 expandtab
+" set tabstop=4    " Number of spaces that a <Tab> in the file counts for.
+" set shiftwidth=4 " number space on reindent << >>
+" set expandtab    " spaces instead of tab
 
 set encoding=utf8
-set conceallevel=0
+set conceallevel=2 " wether hide some char or not
 set scrolloff=3 " cursor padding when scrolling
 
 set showmatch      " show matching braces
@@ -116,6 +126,9 @@ set nobackup
 
 "" Because I often accidentally :W when I mean to :w.
 command! W w
+
+"" use bash
+set shell=/bin/sh
 
 "" We don't want neovim to be in french...
 language en_US
@@ -152,9 +165,19 @@ autocmd QuickFixCmdPost *grep* cwindow
 " Themes
 """"""""""""""""""""""""""""""""""""""
 syntax on
-let g:hybrid_custom_term_colors = 1
-set background=dark
-colorscheme hybrid
+
+if has('gui_running')
+    let g:hybrid_reduced_contrast = 1
+    set guifont=FiraCode-Regular:h15
+else
+    let g:hybrid_custom_term_colors = 1
+endif
+
+" set background=dark
+" colorscheme hybrid
+set background=light
+colorscheme github 
+
 highlight Comment cterm=italic
 highlight htmlArg cterm=italic
 highlight xmlString cterm=italic
@@ -181,8 +204,10 @@ nnoremap <silent><leader><space> :noh<CR>
 nnoremap <leader>a :Ack!
 
 "" Scrolling
-map <ScrollWheelUp> <C-Y>
-map <ScrollWheelDown> <C-E>
+if !has('gui_running')
+    map <ScrollWheelUp> <C-Y>
+    map <ScrollWheelDown> <C-E>
+endif
 
 "" EasyAlign
 "" Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -219,7 +244,15 @@ nnoremap <leader>gl :Glog<CR><CR>
 nnoremap * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 
 "" FZF
-nnoremap <silent> <C-p> :FZF<CR>
+if !has('gui_running')
+  nnoremap <silent> <C-p> :FZF<CR>
+endif
+imap <c-x><c-f> <plug>(fzf-complete-file-ag)
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>h :History<CR>
+
+"" execute q macro on selected lines
+xnoremap Q :'<,'>:normal @q<CR>
 
 """"""""""""""""""""""""""""""""""""""
 " Commands
@@ -234,7 +267,8 @@ command! EnableOpenQF execute "let g:neomake_open_qflist = 1"
 " Airline
 """""""""
 let g:airline_powerline_fonts = 1
-let g:airline_theme='oceanicnext'
+" let g:airline_theme='oceanicnext'
+let g:airline_theme='github'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_left_sep = ''
@@ -263,15 +297,15 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 
 " Ale
 """""
-let g:ale_lint_on_text_changed = 'never' " lint only on save
-let g:ale_lint_on_enter = 0
-let g:ale_open_list = 1 " open list window when errors
-let g:ale_set_quickfix = 1
+" let g:ale_lint_on_text_changed = 'never' " lint only on save
+" let g:ale_lint_on_enter = 0
+" let g:ale_open_list = 1 " open list window when errors
+" let g:ale_set_quickfix = 1
 " " let g:ale_sign_error = '╳'
 " let g:ale_sign_warning = '⚠️'
 " let g:ale_echo_msg_error_str = 'E'
 " let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 
 " Neomake
@@ -358,10 +392,10 @@ let g:tern#arguments = ["--persistent"]
 " let g:deoplete#sources#jedi#show_docstring = 1
 
 "" ocaml reason 
-" let g:deoplete#omni_patterns = {}
-" let g:deoplete#omni_patterns.reason = '[^. *\t]\.\w*\|\h\w*|#'
-" let g:deoplete#sources = {}
-" let g:deoplete#sources.reason = ['omni', 'buffer']
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.reason = '[^. *\t]\.\w*\|\h\w*|#'
+let g:deoplete#sources = {}
+let g:deoplete#sources.reason = ['omni', 'buffer']
 
 
 " FlowType
@@ -415,7 +449,7 @@ endif
 "" javascript (prettier)
 let g:neoformat_javascript_prettier = {
             \ 'exe': 'prettier',
-            \ 'args': ['--stdin', '--parser flow', '--single-quote', '--trailing-comma', 'es5', '--tab-width 4'],
+            \ 'args': ['--stdin', '--single-quote', '--trailing-comma es5'],
             \ 'stdin': 1,
             \ }
 " let g:neoformat_enabled_javascript = ['prettier']
@@ -427,13 +461,13 @@ let g:neoformat_try_formatprg = 1
 
 " ELM
 """""
-" let g:elm_format_autosave = 1
-" let g:deoplete#omni#functions = {}
-" let g:deoplete#omni#functions.elm = ['elm#Complete']
-" let g:deoplete#omni#input_patterns = {}
-" let g:deoplete#omni#input_patterns.elm = '[.\w]+'
-" let g:deoplete#sources = {}
-" let g:deoplete#sources.elm = ['omni', 'file', 'ultisnips']
+let g:elm_format_autosave = 1
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.elm = ['elm#Complete']
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.elm = '[^ \t]+'
+let g:deoplete#sources = {}
+let g:deoplete#sources.elm = ['omni', 'file', 'ultisnips']
 
 
 
@@ -453,7 +487,7 @@ let g:fixmyjs_use_local = 1 " use the node_modules one
 let g:jsx_ext_required = 0 " set filetype=javascript.jsx even on .js
 
 "" vim-json
-let g:vim_json_syntax_conceal = 0 " don't hide quotes in json files
+" let g:vim_json_syntax_conceal = 0 " don't hide quotes in json files
 
 
 "" vim-instant-markdown
@@ -472,3 +506,9 @@ let g:languagetool_jar='/usr/local/Cellar/languagetool/3.6/libexec/languagetool-
 " ultisnips 
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "my-snippets"]
+
+"vimwiki
+let g:vimwiki_list = [{'path': '~/vimwiki',
+            \ 'syntax': 'markdown', 'ext': '.md',
+            \ 'nested_syntaxes': {'python': 'python', 'markdown': 'markdown', 'sh': 'sh', 'sql': 'sql'}}]
+
