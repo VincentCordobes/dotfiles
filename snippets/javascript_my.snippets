@@ -6,3 +6,27 @@ describe('${1}', () => {
 });
 endsnippet
 
+
+snippet ttodo 
+throw new Error('TODO: ${1}');
+endsnippet
+
+
+snippet logs 
+console.log('${1} = ', JSON.stringify(${2:$1}, null, 5));
+endsnippet
+
+snippet log
+console.log(${0});
+endsnippet
+    
+
+snippet switchf 
+switch (${1}) {
+	case '${2}':
+	default: {
+		// eslint-disable-next-line no-unused-vars
+		const typeCheck: '${3}' = $1;
+	}
+}
+endsnippet
