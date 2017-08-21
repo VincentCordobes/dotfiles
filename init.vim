@@ -72,6 +72,7 @@ Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
 " Plug 'Quramy/vim-js-pretty-template'
 
 "" Writing
+Plug 'junegunn/goyo.vim'
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
 Plug 'vimwiki/vimwiki'
 Plug 'LanguageTool', { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
@@ -174,9 +175,11 @@ else
 endif
 
 " set background=dark
-" colorscheme hybrid
-set background=light
-colorscheme github 
+function! SetColorScheme()
+  set background=light
+  colorscheme github 
+endfunction
+call SetColorScheme()
 
 highlight Comment cterm=italic
 highlight htmlArg cterm=italic
@@ -512,3 +515,5 @@ let g:vimwiki_list = [{'path': '~/vimwiki',
             \ 'syntax': 'markdown', 'ext': '.md',
             \ 'nested_syntaxes': {'python': 'python', 'markdown': 'markdown', 'sh': 'sh', 'sql': 'sql'}}]
 
+"" Goyo
+autocmd! User GoyoLeave nested call SetColorScheme()
