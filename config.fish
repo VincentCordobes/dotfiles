@@ -2,6 +2,8 @@
 function fish_mode_prompt ; end
 
 set -x EDITOR 'nvim'
+set -x LANG 'en_US.UTF-8'
+set -x LC_ALL 'en_US.UTF-8'
 
 # aliases
 alias vim "nvim"
