@@ -63,7 +63,7 @@ Plug 'lervag/vimtex' ", { 'for': 'tex' }
 Plug 'junegunn/goyo.vim'
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
 Plug 'vimwiki/vimwiki'
-Plug 'LanguageTool', { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
+Plug 'vim-scripts/LanguageTool', { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
 
 call plug#end()
 
