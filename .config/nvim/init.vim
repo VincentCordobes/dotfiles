@@ -27,9 +27,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'jaawerth/nrun.vim' " faster which for node
 
 "" Themes
-Plug 'rakr/vim-one'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'albertorestifo/github.vim'
+Plug 'albertorestifo/github.vim', {'commit': '5dd1be6' }
 
 """ Make & Linting
 " Plug 'benekastah/neomake' " using neovim's job control functonality
@@ -165,11 +163,6 @@ function! s:configureTheme()
   colorscheme github 
 endfunction
 call s:configureTheme()
-
-highlight Comment cterm=italic
-highlight htmlArg cterm=italic
-highlight xmlString cterm=italic
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings

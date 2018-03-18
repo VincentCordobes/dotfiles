@@ -1,0 +1,6 @@
+fzf
+gpg
+thefuck
+autojump
+youtube-dl
+the_silver_searcher

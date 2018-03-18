@@ -1,0 +1,7 @@
+[user]
+	name = Vincent Cordobes
+	email = vincent.cordobes@gmail.com
+[core]
+	editor = nvim
+[pull]
+	rebase = true
