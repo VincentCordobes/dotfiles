@@ -98,6 +98,9 @@ set guicursor=     " Tell neovim to not change the cursor type in insert mode
 set laststatus=2   " Always display the statusline
 set mouse=a
 
+let g:python_host_prog = '/Users/vincent/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '/Users/vincent/.pyenv/versions/neovim3/bin/python'
+
 "" Scrolling
 if !has('gui_running')
     map <ScrollWheelUp> <C-Y>
