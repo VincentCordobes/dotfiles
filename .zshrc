@@ -6,6 +6,7 @@ export ZSH=/Users/vincent/.oh-my-zsh
 
 ZSH_THEME=""
 CASE_SENSITIVE="true"
+DISABLE_AUTO_TITLE="true"
 plugins=(zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
@@ -47,10 +48,10 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--color=light,hl+:14,bg+:255,hl:14'
 
-# pyenv
-export PATH="/Users/vincent/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# # pyenv
+# export PATH="/Users/vincent/.pyenv/bin:$PATH"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 
 # prompt
 autoload -U promptinit; promptinit
