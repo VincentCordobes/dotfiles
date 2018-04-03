@@ -37,6 +37,7 @@ alias l='ls -lFh'
 alias la='ls -lAFh'
 alias vw='vim_wiki'
 alias gs='git status'
+alias ctop='ctop -i'
 
 # nvm stuff
 export NVM_DIR="$HOME/.nvm"
