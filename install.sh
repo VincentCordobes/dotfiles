@@ -2,12 +2,9 @@
 
 mkdir -p ~/tmp
 mkdir -p ~/.config/nvim
-mkdir -p ~/.config/fish
-mkdir -p ~/.config/fish/functions/
 
 ln -sf $PWD/.gitconfig ~/.gitconfig
-ln -sf $PWD/.config/fish/config.fish ~/.config/fish/config.fish
-ln -sf $PWD/.config/fish/functions/* ~/.config/fish/functions/
+ln -sf $PWD/.zshrc ~/.zshrc
 ln -sf $PWD/.config/nvim/init.vim    ~/.config/nvim/init.vim
 ln -sfn $PWD/snippets                ~/.config/nvim/my-snippets
 
