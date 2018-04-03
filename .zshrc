@@ -6,6 +6,7 @@ export ZSH=/Users/vincent/.oh-my-zsh
 
 ZSH_THEME=""
 CASE_SENSITIVE="true"
+plugins=(zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -54,7 +55,6 @@ eval "$(pyenv virtualenv-init -)"
 # prompt
 autoload -U promptinit; promptinit
 prompt pure
-
 
 # Specific Payfit
 source $HOME/payfit/stack/.zshrc
