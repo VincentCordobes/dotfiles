@@ -167,6 +167,10 @@ function! s:configureTheme()
 endfunction
 call s:configureTheme()
 
+
+hi DiffText ctermfg=none ctermbg=10
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -215,8 +219,10 @@ noremap <silent> <leader>n :NERDTreeToggle<CR>
 noremap <silent> <leader>f :NERDTreeFind<CR>
 
 "" Git (fugitive)
-nnoremap <leader>gs :Gstatus<CR>
+" nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gd :Gvdiff<CR>
+nnoremap <leader>gs :GFiles?<CR>
 
 "" Dont go to the next occurence when we *
 nnoremap * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
@@ -343,10 +349,12 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_selectionUI = 'fzf'
 let g:LanguageClient_serverCommands = {
-  \ 'javascript': ['flow-language-server', '--stdio'],
-  \ 'javascript.jsx': ['flow-language-server', '--stdio'],
+  \ 'javascript': ['javascript-typescript-stdio'],
+  \ 'javascript.jsx': ['javascript-typescript-stdio'],
   \ 'typescript': ['javascript-typescript-stdio'],
   \ }
+" \ 'javascript': ['flow-language-server', '--stdio'],
+" \ 'javascript.jsx': ['flow-language-server', '--stdio'],
 
 " Deoplete
 """"""""""
@@ -479,7 +487,7 @@ if executable('ag')
 endif
 
 " languagetool
-let g:languagetool_jar='/usr/local/Cellar/languagetool/3.9/libexec/languagetool-commandline.jar'
+let g:languagetool_jar='/usr/local/Cellar/languagetool/4.1/libexec/languagetool-commandline.jar'
 
 " ultisnips 
 let g:UltiSnipsExpandTrigger="<C-j>"
@@ -489,6 +497,9 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "my-snippets"]
 " FIXME: I don't know how to do this for now..
 command! VimwikiIndex2
       \ call vimwiki#base#goto_index(2)
+
+command! VimwikiIndex3
+      \ call vimwiki#base#goto_index(3)
 
 let wiki_perso = {}
 let wiki_perso.path = '~/Dropbox/wiki/'
@@ -502,11 +513,13 @@ let wiki_fluo = {}
 let wiki_fluo.path = '~/Dropbox/job/fluo/wiki/'
 let wiki_fluo.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql'}
 let wiki_fluo.auto_tags = 1 
-let g:vimwiki_list = [wiki_perso, wiki_fluo]
-" let g:vimwiki_list = [{'path': '~/Dropbox/wiki',
-"                      \ 'syntax': 'markdown', 'ext': '.md',
-"                      \ 'nested_syntaxes': {'python': 'python', 'markdown': 'markdown', 'sh': 'sh', 'sql': 'sql'}}]
 
+"payfit wiki
+let wiki_payfit = {}
+let wiki_payfit.path = '~/Dropbox/job/payfit/wiki/'
+let wiki_payfit.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql'}
+let wiki_payfit.auto_tags = 1 
+let g:vimwiki_list = [wiki_perso, wiki_fluo, wiki_payfit]
 
 function! VimwikiLinkHandler(link)
   " Use Vim to open external files with the 'vfile:' scheme.  E.g.:

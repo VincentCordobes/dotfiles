@@ -7,9 +7,12 @@ echo "Installing homebrew..."
 echo "Installing nvm"
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
 
-# Install brew packages
 echo "Installing brew packages..."
 xargs brew install < $(dirname "$0")/brew.txt
 echo "Done"
 
 $(brew --prefix)/opt/fzf/install
+
+
+echo "Installing vscode settings..."
+ln -sf $PWD/../code/* ~/Library/Application\ Support/Code/User/

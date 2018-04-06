@@ -1,0 +1,72 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "workbench.colorTheme": "RealGithub",
+    "flow.useNPMPackagedFlow": true,
+    "javascript.validate.enable": true,
+    "vim.disableAnnoyingNeovimMessage": true,
+    "workbenchjj.iconTheme": "vscode-icons",
+    // "editor.fontSize": 14,
+    "vim.leader": " ",
+    "vim.useSystemClipboard": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "vim.otherModesKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "leader",
+                "space"
+            ],
+            "after": [],
+            "commands": [
+                {
+                    "command": ":nohl",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "n"
+            ],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.action.toggleSidebarVisibility",
+                    "args": []
+                },
+                {
+                    "command": "workbench.action.focusFirstEditorGroup",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "d",
+            ],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.action.git.globalOpenChange",
+                    "args": []
+                },
+            ]
+        }
+    ],
+    "editor.tabSize": 2,
+    "editor.minimap.enabled": false,
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressResultsExplorerNotice": false,
+        "suppressShowKeyBindingsNotice": true
+    },
+    "window.zoomLevel": 1,
+    "editor.formatOnSave": true,
+    "vim.visualstar": true
+}

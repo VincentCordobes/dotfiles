@@ -7,7 +7,7 @@ export ZSH=/Users/vincent/.oh-my-zsh
 ZSH_THEME=""
 CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
-plugins=(zsh-syntax-highlighting)
+plugins=(git zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -36,8 +36,10 @@ alias vimdiff='nvim -d'
 alias l='ls -lFh'
 alias la='ls -lAFh'
 alias vw='vim_wiki'
+alias pwiki='payfit_wiki'
 alias gs='git status'
 alias ctop='ctop -i'
+alias tmp='tmp'
 
 # nvm stuff
 export NVM_DIR="$HOME/.nvm"
@@ -62,3 +64,23 @@ prompt pure
 source $HOME/payfit/stack/.zshrc
 
 export PATH="$PATH:./node_modules/.bin:../node_modules/.bin:./node_modules/eslint-config-payfit/node_modules/.bin"
+
+function vim_wiki {
+  pushd /Users/vincent/Dropbox/wiki/	
+  vim -c VimwikiIndex	
+  popd	
+}
+	
+function payfit_wiki {
+  pushd /Users/vincent/Dropbox/job/payfit/wiki/	
+  vim -c VimwikiIndex3
+  popd	
+}
+
+function tmp {
+  pushd /Users/vincent/tmp/
+  vim tmp.md
+  popd
+}
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

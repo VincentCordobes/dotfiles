@@ -6,3 +6,4 @@ youtube-dl
 the_silver_searcher
 neovim
 ctop
+languagetool
