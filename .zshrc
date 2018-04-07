@@ -35,11 +35,8 @@ alias ta='tmux attach -t'
 alias vimdiff='nvim -d'
 alias l='ls -lFh'
 alias la='ls -lAFh'
-alias vw='vim_wiki'
-alias pwiki='payfit_wiki'
 alias gs='git status'
 alias ctop='ctop -i'
-alias tmp='tmp'
 
 # nvm stuff
 export NVM_DIR="$HOME/.nvm"
@@ -65,22 +62,21 @@ source $HOME/payfit/stack/.zshrc
 
 export PATH="$PATH:./node_modules/.bin:../node_modules/.bin:./node_modules/eslint-config-payfit/node_modules/.bin"
 
-function vim_wiki {
-  pushd /Users/vincent/Dropbox/wiki/	
-  vim -c VimwikiIndex	
-  popd	
-}
-	
-function payfit_wiki {
-  pushd /Users/vincent/Dropbox/job/payfit/wiki/	
-  vim -c VimwikiIndex3
-  popd	
+vw() {
+  (cd /Users/vincent/Dropbox/wiki; vim -c VimwikiIndex; clear)
 }
 
-function tmp {
-  pushd /Users/vincent/tmp/
-  vim tmp.md
-  popd
+todo() {
+  (cd /Users/vincent/Dropbox/wiki; vim ./Tasks.md; clear)
 }
+	
+pwiki() {
+  (cd /Users/vincent/Dropbox/job/payfit/wiki; vim -c VimwikiIndex3; clear)
+}
+
+tmp() {
+  (cd /Users/vincent/tmp; vim tmp.md; clear)
+}
+
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
