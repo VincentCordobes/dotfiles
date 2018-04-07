@@ -6,8 +6,8 @@ call plug#begin('~/.config/nvim/plugged')
 "" Common
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree' " filetree
-Plug 'vim-airline/vim-airline' " statusline
+Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
+" Plug 'vim-airline/vim-airline' " statusline
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 Plug 'mileszs/ack.vim' " better grep
@@ -34,36 +34,33 @@ Plug 'albertorestifo/github.vim', {'commit': '5dd1be6' }
 
 
 "" Autocomplete
-Plug 'Shougo/deoplete.nvim' ", { 'for': ['javascript', 'javascript.jsx', 'python', 'tex'] }
+" Plug 'Shougo/deoplete.nvim' ", { 'for': ['javascript', 'javascript.jsx', 'python', 'tex'] }
 
 "" Misc syntax support
-Plug 'othree/html5.vim', { 'for': 'html' }
+Plug 'othree/html5.vim',       { 'for': 'html' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'elzr/vim-json',          { 'for': 'json' }
 
 "" Python
-Plug 'hdima/python-syntax', { 'for': 'python' }
-Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
-Plug 'zchee/deoplete-jedi', { 'for': 'python' }
-
-"" Elixir
-Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
-Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+" Plug 'hdima/python-syntax',          { 'for': 'python' }
+" Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+" Plug 'zchee/deoplete-jedi',          { 'for': 'python' }
 
 "" Javascript
-Plug 'ruanyl/vim-fixmyjs', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] } " node support
+Plug 'ruanyl/vim-fixmyjs',      { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'mxw/vim-jsx',             { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'moll/vim-node',           { 'for': ['javascript', 'javascript.jsx'] } " node support
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 
 "" Writing
-Plug 'lervag/vimtex' ", { 'for': 'tex' }
-Plug 'junegunn/goyo.vim'
-Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
 Plug 'vimwiki/vimwiki'
-Plug 'vim-scripts/LanguageTool', { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
+Plug 'lervag/vimtex' ,            { 'for': 'tex' }
+Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
+Plug 'vim-scripts/LanguageTool',  { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
+Plug 'junegunn/goyo.vim',         { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
 
 call plug#end()
+
 
 source ~/dotfiles/utils.vim
 
@@ -86,7 +83,7 @@ set tabstop=2 shiftwidth=2 expandtab
 
 set encoding=utf8
 set conceallevel=2 " wether hide some char or not
-set scrolloff=3 " cursor padding when scrolling
+set scrolloff=3    " cursor padding when scrolling
 
 set showmatch      " show matching braces
 set hidden         " current buffer can be put into background
@@ -364,80 +361,12 @@ let g:deoplete#file#enable_buffer_path = 1
 
 autocmd CompleteDone * pclose! 
 
-"" javascript completion
-" let g:deoplete#omni#functions = {}
-" let g:deoplete#omni#functions.javascript = [
-"   \ 'tern#Complete',
-" \]
-  " \ 'jspc#omni'
-" let g:deoplete#sources = {}
-" let g:deoplete#sources['javascript.jsx'] = ['file', 'ternjs']
-" let g:deoplete#sources['javascript.jsx'] = ['file']
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
-
-
-"" python completion
-" let g:deoplete#sources#jedi#show_docstring = 1
-
-"" ocaml reason 
-" let g:deoplete#omni_patterns = {}
-" let g:deoplete#omni_patterns.reason = '[^. *\t]\.\w*\|\h\w*|#'
-" let g:deoplete#sources = {}
-" let g:deoplete#sources.reason = ['omni', 'buffer']
-
-" FlowType
-" Flow got his own section cuz why not
-""""""""""""""""""""""""""""""""""""""""""
-" if findfile('.flowconfig', '.;') !=# ''
-"   let g:flow_path = nrun#Which('flow')
-"   if g:flow_path != 'flow not found'
-"
-"       "" vim-flow
-"       let g:flow#flowpath = g:flow_path
-"       let g:flow#enable = 0
-"       " let g:flow#autoclose = 1
-"       " let g:flow#omnifunc = 0
-"       " let g:flow#timeout = 4
-"       nnoremap <leader>d :FlowJumpToDef<CR>
-"       nnoremap <leader>t :FlowType<CR>
-"
-"       "" Neomake
-"       " let g:neomake_javascript_flow_exe = g:flow_path
-"       " let g:neomake_jsx_enabled_makers = g:neomake_jsx_enabled_makers + ['flow']
-"       " let g:neomake_javascript_enabled_makers = g:neomake_javascript_enabled_makers + ['flow']
-"
-"       "" Neomake! (QF)
-"       let g:neomake_flow_maker = neomake#makers#ft#javascript#flow()
-"       let g:neomake_flow_exe = g:flow_path
-"       let g:neomake_enabled_makers = ['flow']
-"
-"
-"       "" deoplete
-"       "" use vim-flow omnifunc in deoplete
-"       let g:deoplete#omni#input_patterns = {}
-"       let g:deoplete#omni#input_patterns['javascript.jsx'] = '[.\w]+'
-"
-"       let g:deoplete#sources = {}
-"       let g:deoplete#sources['javascript.jsx'] = ['omni', 'file', 'ultisnips']
-"   endif
-" endif
-
-
 if !exists('g:deoplete#omni#input_patterns')
     let g:deoplete#omni#input_patterns = {}
 endif
-" if exists('g:vimtex#re#deoplete')
-let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
-" endif
-
-" Prettier
-""""""""""
-
-" autocmd FileType javascript set formatprg=prettier\ --stdin
-" autocmd BufWritePre *.js :normal gggqG
-" autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
-
+if exists('g:vimtex#re#deoplete')
+  let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
+endif
 
 "" Neoformat
 """"""""""""
