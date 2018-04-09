@@ -56,8 +56,8 @@ Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'vimwiki/vimwiki'
 Plug 'lervag/vimtex' ,            { 'for': 'tex' }
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
-Plug 'vim-scripts/LanguageTool',  { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
-Plug 'junegunn/goyo.vim',         { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
+Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
+Plug 'junegunn/goyo.vim',        "{ 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
 
 call plug#end()
 
