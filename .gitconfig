@@ -3,7 +3,10 @@
 	email = vincent.cordobes@gmail.com
 [core]
 	editor = nvim
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [pull]
 	rebase = true
 [push]
 	followTags = true
+[merge]
+	tool = vimdiff

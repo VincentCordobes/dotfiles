@@ -8,3 +8,7 @@ neovim
 ctop
 languagetool
 translate-shell
+ranger
+mpv
+diff-so-fancy
+tmux

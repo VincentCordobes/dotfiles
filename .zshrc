@@ -5,7 +5,6 @@
 export ZSH=/Users/vincent/.oh-my-zsh
 
 ZSH_THEME=""
-CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
 plugins=(git zsh-syntax-highlighting)
 
@@ -46,7 +45,8 @@ alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS='--color=light,hl+:14,bg+:255,hl:14'
+# export FZF_DEFAULT_OPTS='--color=light,hl+:14,bg+:255,hl:14'
+export FZF_DEFAULT_OPTS='--color=light,bg+:255,hl:#00897B,hl+:#00897B'
 
 # # pyenv
 # export PATH="/Users/vincent/.pyenv/bin:$PATH"
@@ -62,6 +62,11 @@ source $HOME/payfit/stack/.zshrc
 
 export PATH="$PATH:./node_modules/.bin:../node_modules/.bin:./node_modules/eslint-config-payfit/node_modules/.bin"
 
+
+ptag() {
+  git log --oneline | grep "\[.*\]" | awk '!($2 in a) { a[$2];print $2 }' | fzf
+}
+
 vw() {
   (cd /Users/vincent/Dropbox/wiki; vim -c VimwikiIndex; clear)
 }
@@ -72,6 +77,10 @@ todo() {
 	
 pwiki() {
   (cd /Users/vincent/Dropbox/job/payfit/wiki; vim -c VimwikiIndex3; clear)
+}
+
+pdiary() {
+  (cd /Users/vincent/Dropbox/job/payfit/wiki; vim -c VimwikiMakeDiaryNote)
 }
 
 tmp() {

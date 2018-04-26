@@ -30,11 +30,11 @@ Plug 'jaawerth/nrun.vim' " faster which for node
 Plug 'albertorestifo/github.vim', {'commit': '5dd1be6' }
 
 """ Make & Linting
-" Plug 'benekastah/neomake' " using neovim's job control functonality
+Plug 'benekastah/neomake' " using neovim's job control functonality
 
 
 "" Autocomplete
-" Plug 'Shougo/deoplete.nvim' ", { 'for': ['javascript', 'javascript.jsx', 'python', 'tex'] }
+Plug 'Shougo/deoplete.nvim' ", { 'for': ['javascript', 'javascript.jsx', 'python', 'tex'] }
 
 "" Misc syntax support
 Plug 'othree/html5.vim',       { 'for': 'html' }
@@ -68,6 +68,7 @@ source ~/dotfiles/utils.vim
 " General settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 set clipboard+=unnamedplus
+set termguicolors
 
 set pastetoggle=<f6> " Currently needed for neovim paste issue
 set nopaste " FIXME: don't remember why it's needed
@@ -165,7 +166,18 @@ endfunction
 call s:configureTheme()
 
 
-hi DiffText ctermfg=none ctermbg=10
+hi DiffAdd guibg=#e6ffed
+hi DiffChange guibg=#e6ffed
+hi DiffDelete guifg=#a9312a guibg=#ffeef0
+hi DiffText guibg=#acf2bd
+
+hi SpellCap guibg=#FFCDD2
+hi SpellBad guibg=#FFCDD2
+hi SpellRare guibg=#FFCDD2
+hi SpellLocal guibg=#FFCDD2
+hi Visual guibg=#eeeeff
+hi SignColumn guibg=#e0e0e0
+hi NeomakeWarningSignDefault guifg=#a71d5d guibg=#e0e0e0
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -217,9 +229,11 @@ noremap <silent> <leader>f :NERDTreeFind<CR>
 
 "" Git (fugitive)
 " nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>gd :Gvdiff<CR>
-nnoremap <leader>gs :GFiles?<CR>
+nnoremap <silent><leader>gc :Gcommit<CR>
+nnoremap <silent><leader>gd :Gvdiff<CR>
+nnoremap <silent><leader>gb :Gblame<CR>
+nnoremap <silent><leader>gs :call ToggleGStatus()<CR>
+nnoremap <silent><leader>gf :GFiles?<CR>
 
 "" Dont go to the next occurence when we *
 nnoremap * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
@@ -231,6 +245,7 @@ endif
 imap <c-x><c-f> <plug>(fzf-complete-file-ag)
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>h :History<CR>
+nnoremap <leader>c :History:<CR>
 
 "" execute q macro on selected lines
 xnoremap Q :'<,'>:normal @q<CR>
@@ -248,7 +263,8 @@ nnoremap <leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
 command! DisableOpenQF execute "let g:neomake_open_qflist = 0"
 command! EnableOpenQF execute "let g:neomake_open_qflist = 1"
 command! Datef execute ":pu=strftime('%F')"
-
+command! Translate call Translate()
+command! Refs call LanguageClient_textDocument_references()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins configuration
@@ -284,56 +300,56 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 
 " Neomake
 """""""""
-" let g:neomake_open_qflist = 1
-" let g:neomake_open_loclist = 0
-" function! HasAtLeastOneMaker()
-"   return (exists('g:neomake_enabled_makers') 
-"         \ && len(g:neomake_enabled_makers) > 0)
-" endfunction
-"
-" function! ExecAllNeomake()
-"   if HasAtLeastOneMaker()
-"     Neomake!
-"   endif
-"   Neomake
-" endfunction
-"
-" function HandleNeomakeJobFinished()
-"   let winnr = winnr()
-"   let qfopen = IsBufOpen("Quickfix List")
-"   let loclistopen = IsBufOpen("Location List")
-"   if qfopen || (HasAtLeastOneMaker() && g:neomake_open_qflist)
-"     cwindow
-"   endif
-"   if loclistopen || (!qfopen && g:neomake_open_loclist)
-"     lwindow 
-"   endif
-"   if winnr() != winnr
-"     wincmd p
-"   endif
-" endfunction
-"
-" autocmd User NeomakeFinished :call HandleNeomakeJobFinished()
-" autocmd! BufWritePost * :call ExecAllNeomake()
-" let g:neomake_list_height = 10
-" " let g:neomake_open_list = 2 " auto open list if error
-"
-" " Neomake custom colors
-" hi NeomakeError guifg=#ff0000 ctermfg=196 gui=undercurl cterm=undercurl
-" hi NeomakeErrorSign guifg=#ff0000 ctermfg=196
-"
-" "" Javascript
-" let g:neomake_jsx_enabled_makers = []
-" let g:neomake_javascript_enabled_makers = []
-"
-" """ Eslint
-" let g:eslint_path = nrun#Which('eslint')
-" if g:eslint_path != 'eslint not found'
-"   let g:neomake_javascript_eslint_exe = g:eslint_path
-"   let g:neomake_jsx_enabled_makers = ['eslint']
-"   let g:neomake_javascript_enabled_makers = ['eslint']
-" endif
-"
+let g:neomake_open_qflist = 1
+let g:neomake_open_loclist = 0
+function! HasAtLeastOneMaker()
+  return (exists('g:neomake_enabled_makers') 
+        \ && len(g:neomake_enabled_makers) > 0)
+endfunction
+
+function! ExecAllNeomake()
+  if HasAtLeastOneMaker()
+    Neomake!
+  endif
+  Neomake
+endfunction
+
+function HandleNeomakeJobFinished()
+  let winnr = winnr()
+  let qfopen = IsBufOpen("Quickfix List")
+  let loclistopen = IsBufOpen("Location List")
+  if qfopen || (HasAtLeastOneMaker() && g:neomake_open_qflist)
+    cwindow
+  endif
+  if loclistopen || (!qfopen && g:neomake_open_loclist)
+    lwindow 
+  endif
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+
+autocmd User NeomakeFinished :call HandleNeomakeJobFinished()
+autocmd! BufWritePost * :call ExecAllNeomake()
+let g:neomake_list_height = 10
+" let g:neomake_open_list = 2 " auto open list if error
+
+" Neomake custom colors
+hi NeomakeError guifg=#ff0000 ctermfg=196 gui=undercurl cterm=undercurl
+hi NeomakeErrorSign guifg=#ff0000 ctermfg=196
+
+"" Javascript
+let g:neomake_jsx_enabled_makers = []
+let g:neomake_javascript_enabled_makers = []
+
+""" Eslint
+let g:eslint_path = nrun#Which('eslint')
+if g:eslint_path != 'eslint not found'
+  let g:neomake_javascript_eslint_exe = g:eslint_path
+  let g:neomake_jsx_enabled_makers = ['eslint']
+  let g:neomake_javascript_enabled_makers = ['eslint']
+endif
+
 " "" Python
 " let g:neomake_python_enabled_makers = ['pep8', 'pylint', 'flake8']
 "
@@ -343,15 +359,17 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 
 " LanguageClient
 """"""""""""""""
-let g:LanguageClient_autoStart = 1
+" let g:LanguageClient_autoStart = 1
+let g:LanguageClient_diagnosticsEnable=0
 let g:LanguageClient_selectionUI = 'fzf'
 let g:LanguageClient_serverCommands = {
   \ 'javascript': ['javascript-typescript-stdio'],
   \ 'javascript.jsx': ['javascript-typescript-stdio'],
   \ 'typescript': ['javascript-typescript-stdio'],
   \ }
-" \ 'javascript': ['flow-language-server', '--stdio'],
-" \ 'javascript.jsx': ['flow-language-server', '--stdio'],
+
+  " \ 'javascript': ['flow-language-server', '--stdio'],
+  " \ 'javascript.jsx': ['flow-language-server', '--stdio'],
 
 " Deoplete
 """"""""""
@@ -371,16 +389,20 @@ endif
 "" Neoformat
 """"""""""""
 "" javascript (prettier)
-let g:neoformat_javascript_prettier = {
-            \ 'exe': 'prettier',
-            \ 'args': ['--stdin', '--single-quote', '--trailing-comma', 'es5', '--parser', 'babylon'],
-            \ 'stdin': 1,
-            \ }
-let g:neoformat_enabled_javascript = ['prettier']
+" let g:neoformat_javascript_prettier = {
+"             \ 'exe': 'prettier',
+"             \ 'stdin': 1,
+"             \ }
+" let g:neoformat_enabled_javascript = ['prettier']
+" \ 'args': ['--stdin', '--single-quote', '--trailing-comma', 'es5', '--parser', 'babylon'],
 
 " Use formatprg when available
-let g:neoformat_try_formatprg = 1
+" let g:neoformat_try_formatprg = 1
 
+" augroup fmt
+"   autocmd!
+"   autocmd BufWritePre * undojoin | Neoformat
+" augroup END
 
 
 " ELM
@@ -404,6 +426,10 @@ let g:javascript_plugin_flow = 1
 
 "" vim-jsx
 let g:jsx_ext_required = 0 " set filetype=javascript.jsx even on .js
+
+
+"" vim-json
+let g:vim_json_syntax_conceal = 0
 
 "" vim-instant-markdown
 let g:instant_markdown_slow = 1
@@ -429,6 +455,9 @@ command! VimwikiIndex2
 
 command! VimwikiIndex3
       \ call vimwiki#base#goto_index(3)
+
+command! VimwikiMakeDiaryNote3
+\ call vimwiki#diary#make_note(v:count3)
 
 let wiki_perso = {}
 let wiki_perso.path = '~/Dropbox/wiki/'

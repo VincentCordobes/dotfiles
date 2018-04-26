@@ -1,9 +1,18 @@
 snippet desc 
 describe('${1}', () => {
-	it('${2}', async () => {
+	test('${2}', () => {
 		${3}
 	});
 });
+endsnippet
+
+snippet givenwhen
+// given
+${1}
+// when
+${2}
+// then
+${3}
 endsnippet
 
 
@@ -17,7 +26,7 @@ console.log('${1} = ', JSON.stringify(${2:$1}, null, 5));
 endsnippet
 
 snippet log
-console.log(${0});
+console.log(${0})
 endsnippet
     
 

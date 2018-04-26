@@ -62,3 +62,17 @@ function! AdjustWindowHeight(minheight, maxheight)
   endw
   exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
+
+
+function! Translate()
+  let l:tempFile = tempname()
+  sil exe '%!trans fr:en -no-ansi'
+endfunction
+
+function! ToggleGStatus()
+  if buflisted(bufname('.git/index'))
+    bd .git/index
+  else
+    Gstatus
+  endif
+endfunction
