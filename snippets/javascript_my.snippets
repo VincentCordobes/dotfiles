@@ -2,8 +2,8 @@ snippet desc
 describe('${1}', () => {
 	test('${2}', () => {
 		${3}
-	});
-});
+	})
+})
 endsnippet
 
 snippet givenwhen
@@ -17,12 +17,12 @@ endsnippet
 
 
 snippet ttodo 
-throw new Error('TODO: ${1}');
+throw new Error('TODO: ${1}')
 endsnippet
 
 
 snippet logs 
-console.log('${1} = ', JSON.stringify(${2:$1}, null, 5));
+console.log('${1} = ', JSON.stringify(${2:$1}, null, 5))
 endsnippet
 
 snippet log
@@ -38,4 +38,17 @@ switch (${1}) {
 		const typeCheck: '${3}' = $1;
 	}
 }
+endsnippet
+
+
+snippet eslintnl
+// eslint-disable-next-line $1
+endsnippet
+
+snippet im
+import ${1} from '${2:$1}'
+endsnippet
+
+snippet imm
+import { ${1} } from '${2}'
 endsnippet
