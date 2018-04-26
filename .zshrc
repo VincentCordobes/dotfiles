@@ -58,7 +58,9 @@ autoload -U promptinit; promptinit
 prompt pure
 
 # Specific Payfit
-source $HOME/payfit/stack/.zshrc
+if [[ -e $HOME/payfit/stack/.zshrc ]]; then
+  source $HOME/payfit/stack/.zshrc
+fi
 
 export PATH="$PATH:./node_modules/.bin:../node_modules/.bin:./node_modules/eslint-config-payfit/node_modules/.bin"
 
