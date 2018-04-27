@@ -22,6 +22,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+Plug 'bronson/vim-visual-star-search'
 
 "" Utils
 Plug 'jaawerth/nrun.vim' " faster which for node
@@ -166,10 +167,10 @@ endfunction
 call s:configureTheme()
 
 
-hi DiffAdd guibg=#e6ffed
-hi DiffChange guibg=#e6ffed
+hi DiffAdd guibg=#eff7d7
+hi DiffChange guibg=#eff7d7
 hi DiffDelete guifg=#a9312a guibg=#ffeef0
-hi DiffText guibg=#acf2bd
+hi DiffText guibg=#e6ee9c
 
 hi SpellCap guibg=#FFCDD2
 hi SpellBad guibg=#FFCDD2
@@ -360,8 +361,9 @@ endif
 " LanguageClient
 """"""""""""""""
 " let g:LanguageClient_autoStart = 1
-let g:LanguageClient_diagnosticsEnable=0
+" let g:LanguageClient_diagnosticsEnable=0
 let g:LanguageClient_selectionUI = 'fzf'
+let g:LanguageClient_diagnosticsList='Disabled'
 let g:LanguageClient_serverCommands = {
   \ 'javascript': ['javascript-typescript-stdio'],
   \ 'javascript.jsx': ['javascript-typescript-stdio'],
