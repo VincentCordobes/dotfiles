@@ -76,3 +76,13 @@ function! ToggleGStatus()
     Gstatus
   endif
 endfunction
+
+function! ToggleGvdiff()
+  let l:gitBuf = bufname('.git//0/')
+  if buflisted(l:gitBuf)
+    exe 'bd ' . l:gitBuf
+  else
+    Gvdiff
+    wincmd p
+  endif
+endfunction

@@ -114,7 +114,7 @@ set nobackup
 command! W w
 
 "" use bash
-set shell=/bin/sh
+" set shell=/bin/sh
 
 "" We don't want neovim to be in french...
 language en_US
@@ -172,13 +172,16 @@ hi DiffChange guibg=#eff7d7
 hi DiffDelete guifg=#a9312a guibg=#ffeef0
 hi DiffText guibg=#e6ee9c
 
-hi SpellCap guibg=#FFCDD2
-hi SpellBad guibg=#FFCDD2
-hi SpellRare guibg=#FFCDD2
-hi SpellLocal guibg=#FFCDD2
+hi SpellCap guibg=#ffcdd2
+hi SpellBad guibg=#ffcdd2
+hi SpellRare guibg=#ffcdd2
+hi SpellLocal guibg=#ffcdd2
 hi Visual guibg=#eeeeff
 hi SignColumn guibg=#e0e0e0
 hi NeomakeWarningSignDefault guifg=#a71d5d guibg=#e0e0e0
+
+hi Folded guifg=#464a4d guibg=LightGrey
+hi FoldColumn guifg=#464a4d guibg=#e0e0e0
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -231,12 +234,12 @@ noremap <silent> <leader>f :NERDTreeFind<CR>
 "" Git (fugitive)
 " nnoremap <leader>gs :Gstatus<CR>
 nnoremap <silent><leader>gc :Gcommit<CR>
-nnoremap <silent><leader>gd :Gvdiff<CR>
+nnoremap <silent><leader>gd :call ToggleGvdiff()<CR>
 nnoremap <silent><leader>gb :Gblame<CR>
 nnoremap <silent><leader>gs :call ToggleGStatus()<CR>
 nnoremap <silent><leader>gf :GFiles?<CR>
 
-"" Dont go to the next occurence when we *
+"" Dont go to the next occurence when we search *
 nnoremap * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 
 "" FZF
@@ -266,6 +269,11 @@ command! EnableOpenQF execute "let g:neomake_open_qflist = 1"
 command! Datef execute ":pu=strftime('%F')"
 command! Translate call Translate()
 command! Refs call LanguageClient_textDocument_references()
+
+
+" temp stuff
+command! Pre Neoformat | Neomake
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins configuration
@@ -379,7 +387,7 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#file#enable_buffer_path = 1
 
-autocmd CompleteDone * pclose! 
+" autocmd CompleteDone * pclose! 
 
 if !exists('g:deoplete#omni#input_patterns')
     let g:deoplete#omni#input_patterns = {}

@@ -12,3 +12,4 @@ ranger
 mpv
 diff-so-fancy
 tmux
+neofetch
