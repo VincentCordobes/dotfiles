@@ -13,3 +13,5 @@ mpv
 diff-so-fancy
 tmux
 neofetch
+pandoc
+gnuplot --with-qt

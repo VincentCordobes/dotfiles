@@ -64,9 +64,48 @@ function! AdjustWindowHeight(minheight, maxheight)
 endfunction
 
 
-function! Translate()
-  let l:tempFile = tempname()
-  sil exe '%!trans fr:en -no-ansi'
+function! CheckLastTrans() 
+  if (winnr("$") == 1 && exists("g:trans_buf"))
+    q!
+  endif
+endfunction
+
+augroup translate
+  autocmd!
+  autocmd bufenter * call CheckLastTrans()
+augroup END
+
+function! Translate(source_traget) range
+  " remove previously created buffer
+  call TranslateClear()
+
+  " let n = @n
+  " silent! normal gv"ny
+  silent! %y
+  botright 8new
+  let g:trans_buf = bufnr('%')
+  " silent! normal "nP
+  silent! put!
+  " let @n = n
+
+  let l:cmd = '%!trans '
+        \ . '-no-ansi '
+        \ . '-no-auto '
+        \ . '-no-warn '
+        \ . '-brief '
+        \ . a:source_traget 
+  echomsg l:cmd
+  exe l:cmd
+  execute('resize ' . line('$'))
+  wincmd p
+endfunction
+
+function! TranslateClear() abort
+  if exists('g:trans_buf')
+    if bufexists(g:trans_buf)
+      sil! exe "bd! " . g:trans_buf
+    endif
+  endif
 endfunction
 
 function! ToggleGStatus()

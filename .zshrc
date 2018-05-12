@@ -27,6 +27,7 @@ fi
 # VI keys
 export KEYTIMEOUT=1
 bindkey -v
+bindkey "^?" backward-delete-char
 
 # Aliases
 alias vim='nvim'
@@ -87,6 +88,19 @@ pdiary() {
 
 tmp() {
   (cd /Users/vincent/tmp; vim tmp.md; clear)
+}
+
+incworkout() {
+  WORKOUT_FILE=~/Dropbox/wiki/workout.gpi
+  now=$(date +%Y-%m-%d)
+  last_line=$(tail -n 1 $WORKOUT_FILE)
+  echo "last: $last_line"
+  echo "now: $now"
+  if [ "$now" = "$last_line" ]; then
+    echo "Already marked => ignore"
+  else
+    echo $now >> $WORKOUT_FILE
+  fi
 }
 
 

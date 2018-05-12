@@ -201,9 +201,9 @@ vnoremap < <gv
 "" Un-highlight search matches
 nnoremap <silent><leader><space> :noh<CR>
 
-"" Ack
+"" Grep
 nnoremap <leader>a :Ack!
-
+let g:ack_apply_qmappings=0
 
 "" EasyAlign
 "" Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -267,7 +267,10 @@ nnoremap <leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
 command! DisableOpenQF execute "let g:neomake_open_qflist = 0"
 command! EnableOpenQF execute "let g:neomake_open_qflist = 1"
 command! Datef execute ":pu=strftime('%F')"
-command! Translate call Translate()
+
+command! -range=% TFrEn call Translate('fr:en')
+command! -range=% TEnFr call Translate('en:fr')
+command! TClear call TranslateClear()
 command! Refs call LanguageClient_textDocument_references()
 
 
@@ -302,8 +305,8 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "" open NERDTree automatically when vim starts up on opening a directory
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
 
 
@@ -323,7 +326,7 @@ function! ExecAllNeomake()
   Neomake
 endfunction
 
-function HandleNeomakeJobFinished()
+function! HandleNeomakeJobFinished()
   let winnr = winnr()
   let qfopen = IsBufOpen("Quickfix List")
   let loclistopen = IsBufOpen("Location List")
@@ -338,8 +341,13 @@ function HandleNeomakeJobFinished()
   endif
 endfunction
 
-autocmd User NeomakeFinished :call HandleNeomakeJobFinished()
-autocmd! BufWritePost * :call ExecAllNeomake()
+
+augroup neomake
+  autocmd!
+  autocmd User NeomakeFinished :call HandleNeomakeJobFinished()
+  autocmd BufWritePost * :call ExecAllNeomake()
+augroup END
+
 let g:neomake_list_height = 10
 " let g:neomake_open_list = 2 " auto open list if error
 
@@ -385,16 +393,15 @@ let g:LanguageClient_serverCommands = {
 """"""""""
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
-let g:deoplete#file#enable_buffer_path = 1
 
 " autocmd CompleteDone * pclose! 
 
-if !exists('g:deoplete#omni#input_patterns')
-    let g:deoplete#omni#input_patterns = {}
-endif
-if exists('g:vimtex#re#deoplete')
-  let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
-endif
+" if !exists('g:deoplete#omni#input_patterns')
+"     let g:deoplete#omni#input_patterns = {}
+" endif
+" if exists('g:vimtex#re#deoplete')
+"   let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
+" endif
 
 "" Neoformat
 """"""""""""
@@ -417,19 +424,22 @@ endif
 
 " ELM
 """""
-let g:elm_format_autosave = 1
-let g:deoplete#omni#functions = {}
-let g:deoplete#omni#functions.elm = ['elm#Complete']
-let g:deoplete#omni#input_patterns = {}
-let g:deoplete#omni#input_patterns.elm = '[^ \t]+'
-let g:deoplete#sources = {}
-let g:deoplete#sources.elm = ['omni', 'file', 'ultisnips']
+" let g:elm_format_autosave = 1
+" let g:deoplete#omni#functions = {}
+" let g:deoplete#omni#functions.elm = ['elm#Complete']
+" let g:deoplete#omni#input_patterns = {}
+" let g:deoplete#omni#input_patterns.elm = '[^ \t]+'
+" let g:deoplete#sources = {}
+" let g:deoplete#sources.elm = ['omni', 'file', 'ultisnips']
 
 
 
 " Misc plugin related config
 " (usually small config)
 """"""""""""""""""""""""""""
+
+"" fzf
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 "" vim-javascript
 let g:javascript_plugin_flow = 1 
@@ -449,6 +459,8 @@ let g:instant_markdown_autostart = 0
 "" Use ag to grep through files
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
+" set grepprg=ag\ --vimgrep\ $*
+" set grepformat=%f:%l:%c:%m
 endif
 
 " languagetool
@@ -467,7 +479,7 @@ command! VimwikiIndex3
       \ call vimwiki#base#goto_index(3)
 
 command! VimwikiMakeDiaryNote3
-\ call vimwiki#diary#make_note(v:count3)
+      \ call vimwiki#diary#make_note(v:count3)
 
 let wiki_perso = {}
 let wiki_perso.path = '~/Dropbox/wiki/'
