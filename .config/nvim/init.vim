@@ -59,6 +59,7 @@ Plug 'lervag/vimtex' ,            { 'for': 'tex' }
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
 Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
 Plug 'junegunn/goyo.vim',        "{ 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
+Plug 'VincentCordobes/vim-translate', { 'branch': 'dev' }
 
 call plug#end()
 
@@ -268,14 +269,21 @@ command! DisableOpenQF execute "let g:neomake_open_qflist = 0"
 command! EnableOpenQF execute "let g:neomake_open_qflist = 1"
 command! Datef execute ":pu=strftime('%F')"
 
-command! -range=% TFrEn call Translate('fr:en')
-command! -range=% TEnFr call Translate('en:fr')
-command! TClear call TranslateClear()
+command! TFrEn Translate 'fr:en'
+command! TEnFr Translate 'en:fr'
+command! TClear TranslateClear
+
+nnoremap <silent><leader>t :Translate 'en:fr'<CR>
+nnoremap <silent><leader>e :TranslateClear<CR>
+
+
 command! Refs call LanguageClient_textDocument_references()
 
 
 " temp stuff
 command! Pre Neoformat | Neomake
+
+command! CpFilePath :let @+ = expand("%")
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -312,40 +320,19 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 
 " Neomake
 """""""""
-let g:neomake_open_qflist = 1
-let g:neomake_open_loclist = 0
-function! HasAtLeastOneMaker()
-  return (exists('g:neomake_enabled_makers') 
-        \ && len(g:neomake_enabled_makers) > 0)
-endfunction
-
-function! ExecAllNeomake()
-  if HasAtLeastOneMaker()
-    Neomake!
-  endif
-  Neomake
-endfunction
-
 function! HandleNeomakeJobFinished()
   let winnr = winnr()
-  let qfopen = IsBufOpen("Quickfix List")
-  let loclistopen = IsBufOpen("Location List")
-  if qfopen || (HasAtLeastOneMaker() && g:neomake_open_qflist)
-    cwindow
-  endif
-  if loclistopen || (!qfopen && g:neomake_open_loclist)
-    lwindow 
-  endif
+  cwindow
+  lwindow 
   if winnr() != winnr
     wincmd p
   endif
 endfunction
 
-
 augroup neomake
   autocmd!
   autocmd User NeomakeFinished :call HandleNeomakeJobFinished()
-  autocmd BufWritePost * :call ExecAllNeomake()
+  autocmd BufWritePost * :Neomake
 augroup END
 
 let g:neomake_list_height = 10
@@ -393,6 +380,7 @@ let g:LanguageClient_serverCommands = {
 """"""""""
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
+let g:deoplete#file#enable_buffer_path = 1 " buffer relative file path
 
 " autocmd CompleteDone * pclose! 
 

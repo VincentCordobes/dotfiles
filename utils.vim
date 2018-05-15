@@ -2,17 +2,17 @@
 " QuickFix has higher priority than LocList if both are open
 function! ListNavigate(cmd)
     try
-        if IsBufOpen("Quickfix List")
+        if IsBufOpen('Quickfix List')
             exec('c'.a:cmd)
         else
             exec('l'.a:cmd)
         endif
     catch /E553/
-        echohl ErrorMsg | echo "No more items" | echohl None
+        echohl ErrorMsg | echo 'No more items' | echohl None
     catch /E42/
-        echohl ErrorMsg | echo "No Errors" | echohl None
+        echohl ErrorMsg | echo 'No Errors' | echohl None
     catch /E776/
-        echohl ErrorMsg | echo "No location list" | echohl None
+        echohl ErrorMsg | echo 'No location list' | echohl None
     endtry
 endfunction
 
@@ -63,51 +63,6 @@ function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
-
-function! CheckLastTrans() 
-  if (winnr("$") == 1 && exists("g:trans_buf"))
-    q!
-  endif
-endfunction
-
-augroup translate
-  autocmd!
-  autocmd bufenter * call CheckLastTrans()
-augroup END
-
-function! Translate(source_traget) range
-  " remove previously created buffer
-  call TranslateClear()
-
-  " let n = @n
-  " silent! normal gv"ny
-  silent! %y
-  botright 8new
-  let g:trans_buf = bufnr('%')
-  " silent! normal "nP
-  silent! put!
-  " let @n = n
-
-  let l:cmd = '%!trans '
-        \ . '-no-ansi '
-        \ . '-no-auto '
-        \ . '-no-warn '
-        \ . '-brief '
-        \ . a:source_traget 
-  echomsg l:cmd
-  exe l:cmd
-  execute('resize ' . line('$'))
-  wincmd p
-endfunction
-
-function! TranslateClear() abort
-  if exists('g:trans_buf')
-    if bufexists(g:trans_buf)
-      sil! exe "bd! " . g:trans_buf
-    endif
-  endif
-endfunction
-
 function! ToggleGStatus()
   if buflisted(bufname('.git/index'))
     bd .git/index
@@ -125,3 +80,4 @@ function! ToggleGvdiff()
     wincmd p
   endif
 endfunction
+
