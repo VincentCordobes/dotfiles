@@ -49,16 +49,17 @@ endsnippet
 snippet it "it (js)"
 it('${1:description}', () => {
 	$0
-});
+})
 endsnippet
 
 
 snippet ttodo 
-throw new Error('TODO: ${0}')
+// TODO: ${0}
+throw new Error('TODO: $0')
 endsnippet
 
 snippet cls 
-console.log('$1 = ', JSON.stringify(${1}, null, 5))
+console.log('${1} = ', JSON.stringify($1, null, 5))
 endsnippet
 
 
@@ -98,17 +99,17 @@ snippet <t
 </$1>
 endsnippet
 
+
+snippet re
+const ${1} = require('${2:$1}')
+endsnippet
+
 snippet im
 import ${1} from '${2:$1}'
 endsnippet
 
 snippet imm
 import { ${1} } from '${2}'
-endsnippet
-
-
-snippet re
-${1:const} ${2} = require('${3:module_name}');
 endsnippet
 
 

@@ -1,6 +1,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin declarations
 """"""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
 call plug#begin('~/.config/nvim/plugged')
 
 "" Common
@@ -8,7 +9,12 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
 " Plug 'vim-airline/vim-airline' " statusline
+
+"" Git
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
+Plug 'tpope/vim-rhubarb'
+Plug 'gregsexton/gitv'
+
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 Plug 'mileszs/ack.vim' " better grep
 Plug 'tomtom/tcomment_vim' " comment stuff out
@@ -26,6 +32,7 @@ Plug 'bronson/vim-visual-star-search'
 
 "" Utils
 Plug 'jaawerth/nrun.vim' " faster which for node
+Plug 'junegunn/vader.vim'
 
 "" Themes
 Plug 'albertorestifo/github.vim', {'commit': '5dd1be6' }
@@ -59,16 +66,20 @@ Plug 'lervag/vimtex' ,            { 'for': 'tex' }
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
 Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
 Plug 'junegunn/goyo.vim',        "{ 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
-Plug 'VincentCordobes/vim-translate', { 'branch': 'dev' }
+Plug 'VincentCordobes/vim-translate'
+Plug 'soywod/vim-phonetics'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 call plug#end()
 
+" }}}
 
 source ~/dotfiles/utils.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " General settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
 set clipboard+=unnamedplus
 set termguicolors
 
@@ -98,13 +109,16 @@ set guicursor=     " Tell neovim to not change the cursor type in insert mode
 set laststatus=2   " Always display the statusline
 set mouse=a
 
+set foldmethod=syntax
+set foldlevelstart=99
+
 let g:python_host_prog = '/Users/vincent/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = '/Users/vincent/.pyenv/versions/neovim3/bin/python'
 
 "" Scrolling
 if !has('gui_running')
-    map <ScrollWheelUp> <C-Y>
-    map <ScrollWheelDown> <C-E>
+  map <ScrollWheelUp> <C-Y>
+  map <ScrollWheelDown> <C-E>
 endif
 
 "" Turn off swap file
@@ -121,43 +135,56 @@ command! W w
 language en_US
 
 "" Leader keyyyyyy
+" vint: -ProhibitImplicitScopeVariable
 let mapleader = "\<space>"
 nnoremap <space> <Nop>
 
 "" Remove auto comment new line..
-au FileType * set fo-=c fo-=r fo-=o
-
-"" Define some extra filetype recognition
-autocmd BufNewFile,BufRead .babelrc set filetype=json
-autocmd BufNewFile,BufRead .eslintrc set filetype=json
-
-
-augroup qf
-    autocmd!
-
-    "" Always put quickfix to the bottom
-    autocmd FileType qf wincmd J
-
-    " we don't want to cycle through quickfix buffer!
-    autocmd FileType qf set nobuflisted
-    autocmd FileType qf call AdjustWindowHeight(3, 10)
+augroup remove_new_line_comment
+  autocmd!
+  au FileType * set fo-=c fo-=r fo-=o
 augroup END
 
-"" Open quickfix after grep
-autocmd QuickFixCmdPost *grep* cwindow
+"" Define some extra filetype recognition
+augroup filetypes
+  autocmd!
+  autocmd BufNewFile,BufRead .babelrc set filetype=json
+  autocmd BufNewFile,BufRead .eslintrc set filetype=json
+augroup END
 
+augroup customfold
+  autocmd FileType vim setlocal foldmethod=marker
+  autocmd FileType vader setlocal foldmethod=marker
+augroup END
+
+augroup qf
+  autocmd!
+
+  "" Always put quickfix to the bottom
+  autocmd FileType qf wincmd J
+
+  " we don't want to cycle through quickfix buffer!
+  autocmd FileType qf set nobuflisted
+  autocmd FileType qf call AdjustWindowHeight(3, 10)
+
+  "" Open quickfix after grep
+  autocmd QuickFixCmdPost *grep* cwindow
+augroup END
+
+" }}}
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Themes
 """"""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
 syntax on
 
 if has('gui_running')
-    let g:hybrid_reduced_contrast = 1
-    set guifont=FiraCode-Regular:h15
+  let g:hybrid_reduced_contrast = 1
+  set guifont=FiraCode-Regular:h15
 else
-    let g:hybrid_custom_term_colors = 1
+  let g:hybrid_custom_term_colors = 1
 endif
 
 " set background=dark
@@ -181,13 +208,16 @@ hi Visual guibg=#eeeeff
 hi SignColumn guibg=#e0e0e0
 hi NeomakeWarningSignDefault guifg=#a71d5d guibg=#e0e0e0
 
-hi Folded guifg=#464a4d guibg=LightGrey
+hi Folded guifg=#464a4d guibg=#f3f3f3
 hi FoldColumn guifg=#464a4d guibg=#e0e0e0
+
+" }}}
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
 
 "" Moving up and down work as you would expect
 noremap <Up> gk
@@ -234,11 +264,11 @@ noremap <silent> <leader>f :NERDTreeFind<CR>
 
 "" Git (fugitive)
 " nnoremap <leader>gs :Gstatus<CR>
-nnoremap <silent><leader>gc :Gcommit<CR>
-nnoremap <silent><leader>gd :call ToggleGvdiff()<CR>
-nnoremap <silent><leader>gb :Gblame<CR>
-nnoremap <silent><leader>gs :call ToggleGStatus()<CR>
-nnoremap <silent><leader>gf :GFiles?<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gd :call ToggleGvdiff()<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gs :call ToggleGStatus()<CR>
+nnoremap <silent> <leader>gf :GFiles?<CR>
 
 "" Dont go to the next occurence when we search *
 nnoremap * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
@@ -256,26 +286,30 @@ nnoremap <leader>c :History:<CR>
 xnoremap Q :'<,'>:normal @q<CR>
 
 " Language client
-nnoremap <leader>v :call LanguageClient_textDocument_hover()<CR>
-nnoremap gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <leader>r :call LanguageClient_textDocument_rename()<CR>
-nnoremap <leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
+augroup language_client
+  autocmd!
+  autocmd FileType javascript.jsx nnoremap <silent> <leader>v :call LanguageClient_textDocument_hover()<CR>
+  autocmd FileType javascript.jsx nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+  autocmd FileType javascript.jsx nnoremap <silent><leader>r :call LanguageClient_textDocument_rename()<CR>
+  autocmd FileType javascript.jsx nnoremap <silent><leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
+augroup END
+
+" translate
+nnoremap <silent> <leader>tt :Translate<CR>
+vnoremap <silent> <leader>tt :TranslateVisual<CR>
+vnoremap <silent> <leader>tr :TranslateReplace<CR>
+nnoremap <silent> <leader>tc :TranslateReplace<CR>
+
+" }}}
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
 command! DisableOpenQF execute "let g:neomake_open_qflist = 0"
 command! EnableOpenQF execute "let g:neomake_open_qflist = 1"
 command! Datef execute ":pu=strftime('%F')"
-
-command! TFrEn Translate 'fr:en'
-command! TEnFr Translate 'en:fr'
-command! TClear TranslateClear
-
-nnoremap <silent><leader>t :Translate 'en:fr'<CR>
-nnoremap <silent><leader>e :TranslateClear<CR>
-
 
 command! Refs call LanguageClient_textDocument_references()
 
@@ -285,10 +319,13 @@ command! Pre Neoformat | Neomake
 
 command! CpFilePath :let @+ = expand("%")
 
+"}}}
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
 
 " Airline
 """""""""
@@ -308,6 +345,8 @@ let g:airline_right_alt_sep = '|'
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeWinSize = 60
+
 
 "" close vim if the only window left open is a NERDTree
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -321,15 +360,15 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 " Neomake
 """""""""
 function! HandleNeomakeJobFinished()
-  let winnr = winnr()
-  cwindow
+  let l:winnr = winnr()
+  let l:qfopen = IsBufOpen('Quickfix List')
   lwindow 
-  if winnr() != winnr
+  if winnr() != l:winnr
     wincmd p
   endif
 endfunction
 
-augroup neomake
+augroup neomakee
   autocmd!
   autocmd User NeomakeFinished :call HandleNeomakeJobFinished()
   autocmd BufWritePost * :Neomake
@@ -348,7 +387,7 @@ let g:neomake_javascript_enabled_makers = []
 
 """ Eslint
 let g:eslint_path = nrun#Which('eslint')
-if g:eslint_path != 'eslint not found'
+if g:eslint_path !=# 'eslint not found'
   let g:neomake_javascript_eslint_exe = g:eslint_path
   let g:neomake_jsx_enabled_makers = ['eslint']
   let g:neomake_javascript_enabled_makers = ['eslint']
@@ -406,8 +445,13 @@ let g:deoplete#file#enable_buffer_path = 1 " buffer relative file path
 
 " augroup fmt
 "   autocmd!
-"   autocmd BufWritePre * undojoin | Neoformat
+"   au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
 " augroup END
+
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * Neoformat
+augroup END
 
 
 " ELM
@@ -455,8 +499,8 @@ endif
 let g:languagetool_jar='/usr/local/Cellar/languagetool/4.1/libexec/languagetool-commandline.jar'
 
 " ultisnips 
-let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "my-snippets"]
+let g:UltiSnipsExpandTrigger='<C-j>'
+let g:UltiSnipsSnippetDirectories=['UltiSnips', 'my-snippets']
 
 "vimwiki
 " FIXME: I don't know how to do this for now..
@@ -469,46 +513,55 @@ command! VimwikiIndex3
 command! VimwikiMakeDiaryNote3
       \ call vimwiki#diary#make_note(v:count3)
 
-let wiki_perso = {}
-let wiki_perso.path = '~/Dropbox/wiki/'
-let wiki_perso.syntax = 'markdown'
-let wiki_perso.ext= '.md'
-let wiki_perso.auto_tags = 1 
-let wiki_perso.nested_syntaxes = {'python': 'python', 'markdown': 'markdown', 'sh': 'sh', 'sql': 'sql'}
+let s:wiki_perso = {}
+let s:wiki_perso.path = '~/Dropbox/wiki/'
+let s:wiki_perso.syntax = 'markdown'
+let s:wiki_perso.ext= '.md'
+let s:wiki_perso.auto_tags = 1 
+let s:wiki_perso.nested_syntaxes = {'python': 'python', 'markdown': 'markdown', 'sh': 'sh', 'sql': 'sql'}
 
 "fluo wiki
-let wiki_fluo = {}
-let wiki_fluo.path = '~/Dropbox/job/fluo/wiki/'
-let wiki_fluo.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql'}
-let wiki_fluo.auto_tags = 1 
+let s:wiki_fluo = {}
+let s:wiki_fluo.path = '~/Dropbox/job/fluo/wiki/'
+let s:wiki_fluo.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql'}
+let s:wiki_fluo.auto_tags = 1 
 
 "payfit wiki
-let wiki_payfit = {}
-let wiki_payfit.path = '~/Dropbox/job/payfit/wiki/'
-let wiki_payfit.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql'}
-let wiki_payfit.auto_tags = 1 
-let g:vimwiki_list = [wiki_perso, wiki_fluo, wiki_payfit]
+let s:wiki_payfit = {}
+let s:wiki_payfit.path = '~/Dropbox/job/payfit/wiki/'
+let s:wiki_payfit.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql'}
+let s:wiki_payfit.auto_tags = 1 
+let g:vimwiki_list = [s:wiki_perso, s:wiki_fluo, s:wiki_payfit]
 
 function! VimwikiLinkHandler(link)
   " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
   "   1) [[vfile:~/Code/PythonProject/abc123.py]]
   "   2) [[vfile:./|Wiki Home]]
-  let link = a:link
-  if link =~# '^vfile:'
-    let link = link[1:]
+  let l:link = a:link
+  if l:link =~# '^vfile:'
+    let l:link = l:link[1:]
   else
     return 0
   endif
-  let link_infos = vimwiki#base#resolve_link(link)
-  if link_infos.filename == ''
+  let l:link_infos = vimwiki#base#resolve_link(l:link)
+  if l:link_infos.filename ==# ''
     echomsg 'Vimwiki Error: Unable to resolve link!'
     return 0
   else
-    exe 'edit ' . fnameescape(link_infos.filename)
+    exe 'edit ' . fnameescape(l:link_infos.filename)
     return 1
   endif
 endfunction
 
 
 "" Goyo
+" vint: -ProhibitAutocmdWithNoGroup
 autocmd! User GoyoLeave nested call s:configureTheme()
+
+"" translate
+let g:translate#default_languages = {
+      \ 'fr': 'en',
+      \ 'en': 'fr'
+      \ }
+
+" }}}
