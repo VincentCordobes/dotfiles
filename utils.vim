@@ -21,9 +21,9 @@ function! ToggleList(bufname, pfx)
     exec(a:pfx.'close')
     return
   endif
-  let winnr = winnr()
+  let l:winnr = winnr()
   exec(a:pfx.'window')
-  if winnr() == winnr
+  if winnr() == l:winnr
     echohl ErrorMsg | echo a:bufname.' is Empty' | echohl None
   else
     wincmd p
@@ -31,9 +31,9 @@ function! ToggleList(bufname, pfx)
 endfunction
 
 function! IsBufOpen(bufname)
-  let buflist = GetBufferList()
-  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
-    if bufwinnr(bufnum) != -1
+  let l:buflist = GetBufferList()
+  for l:bufnum in map(filter(split(l:buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(l:bufnum) != -1
       return 1
     endif
   endfor
@@ -41,29 +41,33 @@ function! IsBufOpen(bufname)
 endfunction
 
 function! GetBufferList()
-  redir =>buflist
+  redir =>l:buflist
   silent! ls!
   redir END
-  return buflist
+  return l:buflist
 endfunction
 
 
 " https://gist.github.com/juanpabloaj/5845848
 function! AdjustWindowHeight(minheight, maxheight)
-  let l = 1
-  let n_lines = 0
-  let w_width = winwidth(0)
-  while l <= line('$')
+  let l:l = 1
+  let l:n_lines = 0
+  let l:w_width = winwidth(0)
+  while l:l <= line('$')
     " number to float for division
-    let l_len = strlen(getline(l)) + 0.0
-    let line_width = l_len/w_width
-    let n_lines += float2nr(ceil(line_width))
-    let l += 1
+    let l:l_len = strlen(getline(l:l)) + 0.0
+    let l:line_width = l:l_len/l:w_width
+    let l:n_lines += float2nr(ceil(l:line_width))
+    let l:l += 1
   endw
-  exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
+  exe max([min([l:n_lines, a:maxheight]), a:minheight]) . 'wincmd _'
 endfunction
 
 function! ToggleGStatus()
+  " close the diff anyway
+  let l:gitBuf = bufname('.git//0/')
+  if buflisted(l:gitBuf) | exe 'bd ' . l:gitBuf | endif
+
   if buflisted(bufname('.git/index'))
     bd .git/index
   else
