@@ -5,7 +5,7 @@
     "javascript.validate.enable": true,
     "vim.disableAnnoyingNeovimMessage": true,
     "workbenchjj.iconTheme": "vscode-icons",
-    // "editor.fontSize": 14,
+    "editor.fontSize": 13,
     "vim.leader": " ",
     "vim.useSystemClipboard": true,
     "workbench.iconTheme": "material-icon-theme",
@@ -68,5 +68,6 @@
     },
     "window.zoomLevel": 1,
     "editor.formatOnSave": true,
-    "vim.visualstar": true
+    "vim.visualstar": true,
+    "editor.fontFamily": "SF Mono, Monaco, 'Courier New', monospace"
 }

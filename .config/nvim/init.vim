@@ -194,6 +194,7 @@ function! s:configureTheme()
 endfunction
 call s:configureTheme()
 
+hi Normal guibg=fcfcfc
 
 hi DiffAdd guibg=#eff7d7
 hi DiffChange guibg=#eff7d7
@@ -312,7 +313,8 @@ command! EnableOpenQF execute "let g:neomake_open_qflist = 1"
 command! Datef execute ":pu=strftime('%F')"
 
 command! Refs call LanguageClient_textDocument_references()
-
+command! Grep Ack!
+command! -nargs=? -bar Gshow call setqflist(map(systemlist("git show --pretty='' --name-only <args>"), '{"filename": v:val, "lnum": 1}')) | copen
 
 " temp stuff
 command! Pre Neoformat | Neomake
