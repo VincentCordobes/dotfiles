@@ -194,7 +194,7 @@ function! s:configureTheme()
 endfunction
 call s:configureTheme()
 
-hi Normal guibg=fcfcfc
+hi Normal guifg=NONE guibg=fafafa
 
 hi DiffAdd guibg=#eff7d7
 hi DiffChange guibg=#eff7d7
@@ -258,6 +258,14 @@ nnoremap <silent><c-j> :call ListNavigate('next')<CR>
 "" Buffer navigation
 nnoremap <C-h> :bprevious<CR>
 nnoremap <C-l> :bnext<CR>
+
+
+"" window switch
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-l> <C-w>l
+" nnoremap <C-k> <C-w>k
+
 
 "" NERDTree
 noremap <silent> <leader>n :NERDTreeToggle<CR>
@@ -350,13 +358,6 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreeWinSize = 60
 
 
-"" close vim if the only window left open is a NERDTree
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-"" open NERDTree automatically when vim starts up on opening a directory
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-
 
 
 " Neomake
@@ -395,17 +396,9 @@ if g:eslint_path !=# 'eslint not found'
   let g:neomake_javascript_enabled_makers = ['eslint']
 endif
 
-" "" Python
-" let g:neomake_python_enabled_makers = ['pep8', 'pylint', 'flake8']
-"
-"" ELM
-" let g:neomake_elm_enabled_makers = ['elmMake']
-
 
 " LanguageClient
 """"""""""""""""
-" let g:LanguageClient_autoStart = 1
-" let g:LanguageClient_diagnosticsEnable=0
 let g:LanguageClient_selectionUI = 'fzf'
 let g:LanguageClient_diagnosticsList='Disabled'
 let g:LanguageClient_serverCommands = {
@@ -423,49 +416,14 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#file#enable_buffer_path = 1 " buffer relative file path
 
-" autocmd CompleteDone * pclose! 
-
-" if !exists('g:deoplete#omni#input_patterns')
-"     let g:deoplete#omni#input_patterns = {}
-" endif
-" if exists('g:vimtex#re#deoplete')
-"   let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
-" endif
 
 "" Neoformat
 """"""""""""
-"" javascript (prettier)
-" let g:neoformat_javascript_prettier = {
-"             \ 'exe': 'prettier',
-"             \ 'stdin': 1,
-"             \ }
-" let g:neoformat_enabled_javascript = ['prettier']
-" \ 'args': ['--stdin', '--single-quote', '--trailing-comma', 'es5', '--parser', 'babylon'],
-
-" Use formatprg when available
-" let g:neoformat_try_formatprg = 1
-
-" augroup fmt
-"   autocmd!
-"   au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
-" augroup END
-
 augroup fmt
   autocmd!
-  autocmd BufWritePre * Neoformat
+  autocmd FileType javascript.jsx 
+        \ autocmd! BufWritePre * Neoformat
 augroup END
-
-
-" ELM
-"""""
-" let g:elm_format_autosave = 1
-" let g:deoplete#omni#functions = {}
-" let g:deoplete#omni#functions.elm = ['elm#Complete']
-" let g:deoplete#omni#input_patterns = {}
-" let g:deoplete#omni#input_patterns.elm = '[^ \t]+'
-" let g:deoplete#sources = {}
-" let g:deoplete#sources.elm = ['omni', 'file', 'ultisnips']
-
 
 
 " Misc plugin related config

@@ -47,7 +47,7 @@ alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # export FZF_DEFAULT_OPTS='--color=light,hl+:14,bg+:255,hl:14'
-export FZF_DEFAULT_OPTS='--color=light,bg+:255,hl:#00897B,hl+:#00897B'
+export FZF_DEFAULT_OPTS='--color=light,bg+:#fafafa,hl:#00897B,hl+:#00897B'
 
 # # pyenv
 # export PATH="/Users/vincent/.pyenv/bin:$PATH"
