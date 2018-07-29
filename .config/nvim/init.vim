@@ -493,6 +493,8 @@ let s:wiki_payfit.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql
 let s:wiki_payfit.auto_tags = 1 
 let g:vimwiki_list = [s:wiki_perso, s:wiki_fluo, s:wiki_payfit]
 
+let g:vimwiki_listsyms = ' .oOx'
+
 function! VimwikiLinkHandler(link)
   " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
   "   1) [[vfile:~/Code/PythonProject/abc123.py]]
