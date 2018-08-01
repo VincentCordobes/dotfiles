@@ -59,6 +59,7 @@ Plug 'ruanyl/vim-fixmyjs',      { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx',             { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'moll/vim-node',           { 'for': ['javascript', 'javascript.jsx'] } " node support
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'leafgarland/typescript-vim'
 
 "" Writing
 Plug 'vimwiki/vimwiki'
@@ -74,7 +75,7 @@ call plug#end()
 
 " }}}
 
-source ~/dotfiles/utils.vim
+source ~/dotfiles/vim/utils.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " General settings
@@ -297,10 +298,10 @@ xnoremap Q :'<,'>:normal @q<CR>
 " Language client
 augroup language_client
   autocmd!
-  autocmd FileType javascript.jsx nnoremap <silent> <leader>v :call LanguageClient_textDocument_hover()<CR>
-  autocmd FileType javascript.jsx nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-  autocmd FileType javascript.jsx nnoremap <silent><leader>r :call LanguageClient_textDocument_rename()<CR>
-  autocmd FileType javascript.jsx nnoremap <silent><leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
+  autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent> <leader>v :call LanguageClient_textDocument_hover()<CR>
+  autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+  autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent><leader>r :call LanguageClient_textDocument_rename()<CR>
+  autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent><leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
 augroup END
 
 " translate
@@ -308,6 +309,7 @@ nnoremap <silent> <leader>tt :Translate<CR>
 vnoremap <silent> <leader>tt :TranslateVisual<CR>
 vnoremap <silent> <leader>tr :TranslateReplace<CR>
 nnoremap <silent> <leader>tc :TranslateReplace<CR>
+
 
 " }}}
 
@@ -355,7 +357,7 @@ let g:airline_right_alt_sep = '|'
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
-let g:NERDTreeWinSize = 60
+" let g:NERDTreeWinSize = 60
 
 
 
@@ -405,6 +407,7 @@ let g:LanguageClient_serverCommands = {
   \ 'javascript': ['javascript-typescript-stdio'],
   \ 'javascript.jsx': ['javascript-typescript-stdio'],
   \ 'typescript': ['javascript-typescript-stdio'],
+  \ 'ocaml': ['ocaml-language-server', '--stdio'],
   \ }
 
   " \ 'javascript': ['flow-language-server', '--stdio'],
@@ -416,12 +419,14 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#file#enable_buffer_path = 1 " buffer relative file path
 
+inoremap <silent><expr><C-space> deoplete#mappings#manual_complete()
+
 
 "" Neoformat
 """"""""""""
 augroup fmt
   autocmd!
-  autocmd FileType javascript.jsx 
+  autocmd FileType javascript.jsx
         \ autocmd! BufWritePre * Neoformat
 augroup END
 

@@ -16,3 +16,5 @@ neofetch
 pandoc
 gnuplot --with-qt
 htop
+tree
+diff-so-fancy

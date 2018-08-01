@@ -2,7 +2,6 @@
 {
     "workbench.colorTheme": "RealGithub",
     "flow.useNPMPackagedFlow": true,
-    "javascript.validate.enable": true,
     "vim.disableAnnoyingNeovimMessage": true,
     "workbenchjj.iconTheme": "vscode-icons",
     "editor.fontSize": 13,
@@ -67,7 +66,8 @@
         "suppressShowKeyBindingsNotice": true
     },
     "window.zoomLevel": 1,
-    "editor.formatOnSave": true,
     "vim.visualstar": true,
-    "editor.fontFamily": "SF Mono, Monaco, 'Courier New', monospace"
+    "editor.fontFamily": "SF Mono, Monaco, 'Courier New', monospace",
+    "tslint.jsEnable": true,
+    "reason.codelens.enabled": true
 }

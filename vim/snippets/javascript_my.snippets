@@ -63,7 +63,7 @@ console.log(${0})
 endsnippet
 
 snippet cls 
-console.log('${0} = ', JSON.stringify($0, null, 5))
+console.log('${1} = ', JSON.stringify($1, null, 5))
 endsnippet
 
 
@@ -103,12 +103,30 @@ snippet re
 const ${1} = require('${2:$1}')
 endsnippet
 
+snippet dob
+const { ${2} } = ${1}
+endsnippet
+
+snippet dar
+const [${2}] = ${1}
+endsnippet
+
 snippet im
 import ${1} from '${2:$1}'
 endsnippet
 
 snippet imm
-import { ${1} } from '${2}'
+import { ${2} } from '${1}'
+endsnippet
+
+snippet sst
+this.setState({
+	${1}: ${2}
+})
+endsnippet
+
+snippet ssf
+this.setState(state => ${1})
 endsnippet
 
 
