@@ -1,73 +1,148 @@
 // Place your settings in this file to overwrite the default settings
 {
-    "workbench.colorTheme": "RealGithub",
-    "flow.useNPMPackagedFlow": true,
-    "vim.disableAnnoyingNeovimMessage": true,
-    "workbenchjj.iconTheme": "vscode-icons",
-    "editor.fontSize": 13,
-    "vim.leader": " ",
-    "vim.useSystemClipboard": true,
-    "workbench.iconTheme": "material-icon-theme",
-    "vim.otherModesKeyBindingsNonRecursive": [
-        {
-            "before": [
-                "leader",
-                "space"
-            ],
-            "after": [],
-            "commands": [
-                {
-                    "command": ":nohl",
-                    "args": []
-                }
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "n"
-            ],
-            "after": [],
-            "commands": [
-                {
-                    "command": "workbench.action.toggleSidebarVisibility",
-                    "args": []
-                },
-                {
-                    "command": "workbench.action.focusFirstEditorGroup",
-                    "args": []
-                }
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "d",
-            ],
-            "after": [],
-            "commands": [
-                {
-                    "command": "workbench.action.git.globalOpenChange",
-                    "args": []
-                },
-            ]
-        }
-    ],
-    "editor.tabSize": 2,
-    "editor.minimap.enabled": false,
-    "gitlens.advanced.messages": {
-        "suppressCommitHasNoPreviousCommitWarning": false,
-        "suppressCommitNotFoundWarning": false,
-        "suppressFileNotUnderSourceControlWarning": false,
-        "suppressGitVersionWarning": false,
-        "suppressLineUncommittedWarning": false,
-        "suppressNoRepositoryWarning": false,
-        "suppressResultsExplorerNotice": false,
-        "suppressShowKeyBindingsNotice": true
+  "workbench.colorTheme": "RealGithub",
+  "editor.fontSize": 13,
+  "vim.leader": " ",
+  "vim.useSystemClipboard": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
     },
-    "window.zoomLevel": 1,
-    "vim.visualstar": true,
-    "editor.fontFamily": "SF Mono, Monaco, 'Courier New', monospace",
-    "tslint.jsEnable": true,
-    "reason.codelens.enabled": true
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["leader", "space"],
+      "after": [],
+      "commands": [
+        {
+          "command": ":nohl",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": ["leader", "n"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.toggleSidebarVisibility",
+          "args": []
+        },
+        {
+          "command": "workbench.action.focusActiveEditorGroup",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": ["leader", "f"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.files.action.focusFilesExplorer",
+          "args": []
+        },
+        {
+          "command": "workbench.action.focusActiveEditorGroup",
+          "args": []
+        }
+      ]
+    },
+
+    {
+      "before": ["leader", "q"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.togglePanel",
+          "args": []
+        },
+        {
+          "command": "workbench.action.focusActiveEditorGroup",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": ["leader", "g", "f"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.git.globalOpenChange",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": ["leader", "b"],
+      "after": [],
+      "commands": [
+        {
+          "command": "gitlens.toggleFileBlame",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": ["leader", "g", "d"],
+      "after": [],
+      "commands": [
+        {
+          "command": "git.openChange",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": ["<C-j>"],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.marker.nextInFiles",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": ["<C-k>"],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.marker.prev",
+          "args": []
+        }
+      ]
+    }
+  ],
+  "editor.tabSize": 2,
+  "editor.minimap.enabled": false,
+  "gitlens.advanced.messages": {
+    "suppressCommitHasNoPreviousCommitWarning": false,
+    "suppressCommitNotFoundWarning": false,
+    "suppressFileNotUnderSourceControlWarning": false,
+    "suppressGitVersionWarning": false,
+    "suppressLineUncommittedWarning": false,
+    "suppressNoRepositoryWarning": false,
+    "suppressResultsExplorerNotice": false,
+    "suppressShowKeyBindingsNotice": true
+  },
+  "window.zoomLevel": 1,
+  "vim.visualstar": true,
+  "editor.fontFamily": "SF Mono, Monaco, 'Courier New', monospace",
+  "tslint.jsEnable": true,
+  "reason.codelens.enabled": true,
+  "editor.cursorBlinking": "solid",
+  "typescript.updateImportsOnFileMove.enabled": "never",
+  "breadcrumbs.enabled": true,
+  "editor.formatOnSave": true,
+  "workbench.sideBar.location": "right",
+  "workbench.activityBar.visible": true,
+  "searchRipgrep.enable": true,
+  "javascript.updateImportsOnFileMove.enabled": "never"
 }

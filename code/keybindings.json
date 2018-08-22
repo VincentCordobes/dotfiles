@@ -1,20 +1,54 @@
 // Place your key bindings in this file to overwrite the defaults
 [
-    {
-        "key": "ctrl+p",
-        "command": "workbench.action.quickOpen",
-        "when": "!inQuickOpen && !suggestWidgetVisible"
-    },
-    {
-        "key": "cmd+p",
-        "command": "-workbench.action.quickOpen"
-    },
-    {
-        "key": "ctrl+l",
-        "command": "workbench.action.nextEditor"
-    },
-    {
-        "key": "ctrl+h",
-        "command": "workbench.action.previousEditor"
-    }
+  {
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpen",
+    "when": "!inQuickOpen && !suggestWidgetVisible"
+  },
+  {
+    "key": "cmd+p",
+    "command": "-workbench.action.quickOpen"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.nextEditor"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.previousEditor"
+  },
+  {
+    "key": "cmd+enter",
+    "command": "renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "enter",
+    "command": "-renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "-workbench.action.switchWindow"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "insertSnippet",
+    "when": "editorTextFocus && hasSnippetCompletions && !editorTabMovesFocus && !inSnippetMode"
+  },
+  {
+    "key": "tab",
+    "command": "-insertSnippet",
+    "when": "editorTextFocus && hasSnippetCompletions && !editorTabMovesFocus && !inSnippetMode"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "-extension.vim_ctrl+j",
+    "when": "editorTextFocus && vim.active && vim.use<C-j> && !inDebugRepl"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "-editor.action.joinLines",
+    "when": "editorTextFocus && !editorReadonly"
+  }
 ]
