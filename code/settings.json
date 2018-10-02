@@ -54,7 +54,6 @@
         }
       ]
     },
-
     {
       "before": ["leader", "q"],
       "after": [],
@@ -140,9 +139,15 @@
   "editor.cursorBlinking": "solid",
   "typescript.updateImportsOnFileMove.enabled": "never",
   "breadcrumbs.enabled": true,
-  "editor.formatOnSave": true,
-  "workbench.sideBar.location": "right",
   "workbench.activityBar.visible": true,
   "searchRipgrep.enable": true,
-  "javascript.updateImportsOnFileMove.enabled": "never"
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "editor.snippetSuggestions": "bottom",
+  "editor.tabCompletion": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "python.pythonPath": "/usr/local/bin/python3",
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true,
+  "workbench.statusBar.feedback.visible": false
 }

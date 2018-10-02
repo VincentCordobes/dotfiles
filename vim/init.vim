@@ -43,6 +43,7 @@ Plug 'benekastah/neomake' " using neovim's job control functonality
 
 "" Autocomplete
 Plug 'Shougo/deoplete.nvim' ", { 'for': ['javascript', 'javascript.jsx', 'python', 'tex'] }
+Plug 'Shougo/echodoc.vim'
 
 "" Misc syntax support
 Plug 'othree/html5.vim',       { 'for': 'html' }
@@ -63,6 +64,7 @@ Plug 'leafgarland/typescript-vim'
 
 "" Writing
 Plug 'vimwiki/vimwiki'
+" Plug 'lervag/wiki.vim'
 Plug 'lervag/vimtex' ,            { 'for': 'tex' }
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
 Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
@@ -139,6 +141,8 @@ language en_US
 " vint: -ProhibitImplicitScopeVariable
 let mapleader = "\<space>"
 nnoremap <space> <Nop>
+
+autocmd filetype crontab setlocal nobackup nowritebackup
 
 "" Remove auto comment new line..
 augroup remove_new_line_comment
@@ -390,6 +394,7 @@ hi NeomakeErrorSign guifg=#ff0000 ctermfg=196
 let g:neomake_jsx_enabled_makers = []
 let g:neomake_javascript_enabled_makers = []
 
+
 """ Eslint
 let g:eslint_path = nrun#Which('eslint')
 if g:eslint_path !=# 'eslint not found'
@@ -402,7 +407,8 @@ endif
 " LanguageClient
 """"""""""""""""
 let g:LanguageClient_selectionUI = 'fzf'
-let g:LanguageClient_diagnosticsList='Disabled'
+" let g:LanguageClient_diagnosticsList='Disabled'
+let g:LanguageClient_diagnosticsList='Location'
 let g:LanguageClient_serverCommands = {
   \ 'javascript': ['javascript-typescript-stdio'],
   \ 'javascript.jsx': ['javascript-typescript-stdio'],
@@ -426,7 +432,7 @@ inoremap <silent><expr><C-space> deoplete#mappings#manual_complete()
 """"""""""""
 augroup fmt
   autocmd!
-  autocmd FileType javascript.jsx
+  autocmd FileType javascript.jsx,typescript
         \ autocmd! BufWritePre * Neoformat
 augroup END
 
@@ -437,9 +443,6 @@ augroup END
 
 "" fzf
 let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-"" vim-javascript
-let g:javascript_plugin_flow = 1 
 
 "" vim-jsx
 let g:jsx_ext_required = 0 " set filetype=javascript.jsx even on .js
@@ -494,7 +497,7 @@ let s:wiki_fluo.auto_tags = 1
 "payfit wiki
 let s:wiki_payfit = {}
 let s:wiki_payfit.path = '~/Dropbox/job/payfit/wiki/'
-let s:wiki_payfit.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql'}
+let s:wiki_payfit.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql', 'js': 'javascript'}
 let s:wiki_payfit.auto_tags = 1 
 let g:vimwiki_list = [s:wiki_perso, s:wiki_fluo, s:wiki_payfit]
 
