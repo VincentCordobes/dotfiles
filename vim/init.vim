@@ -4,6 +4,7 @@
 " {{{
 call plug#begin('~/.config/nvim/plugged')
 
+
 "" Common
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -24,10 +25,20 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets' " { 'for': 'python' } This slow down...
 Plug 'sbdchd/neoformat' " autoformat according to various engine
 Plug 'moll/vim-bbye'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+Plug 'ncm2/ncm2'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'ncm2/ncm2-vim-lsp'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'ncm2/ncm2-cssomni', { 'for': 'css' }
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ryanolsonx/vim-lsp-python', { 'for': 'python' }
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
 Plug 'bronson/vim-visual-star-search'
 
 "" Utils
@@ -42,8 +53,8 @@ Plug 'benekastah/neomake' " using neovim's job control functonality
 
 
 "" Autocomplete
-Plug 'Shougo/deoplete.nvim' ", { 'for': ['javascript', 'javascript.jsx', 'python', 'tex'] }
-Plug 'Shougo/echodoc.vim'
+" Plug 'Shougo/deoplete.nvim' ", { 'for': ['javascript', 'javascript.jsx', 'python', 'tex'] }
+" Plug 'Shougo/echodoc.vim'
 
 "" Misc syntax support
 Plug 'othree/html5.vim',       { 'for': 'html' }
@@ -59,8 +70,8 @@ Plug 'elzr/vim-json',          { 'for': 'json' }
 Plug 'ruanyl/vim-fixmyjs',      { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx',             { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'moll/vim-node',           { 'for': ['javascript', 'javascript.jsx'] } " node support
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'leafgarland/typescript-vim'
+" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'soywod/typescript.vim'
 
 "" Writing
 Plug 'vimwiki/vimwiki'
@@ -78,6 +89,7 @@ call plug#end()
 " }}}
 
 source ~/dotfiles/vim/utils.vim
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " General settings
@@ -114,6 +126,8 @@ set mouse=a
 
 set foldmethod=syntax
 set foldlevelstart=99
+
+set previewheight=5 " preview window height
 
 let g:python_host_prog = '/Users/vincent/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = '/Users/vincent/.pyenv/versions/neovim3/bin/python'
@@ -300,13 +314,43 @@ nnoremap <leader>c :History:<CR>
 xnoremap Q :'<,'>:normal @q<CR>
 
 " Language client
-augroup language_client
+set completeopt=noinsert,menuone,noselect
+set shortmess+=c
+augroup ncm2
   autocmd!
-  autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent> <leader>v :call LanguageClient_textDocument_hover()<CR>
-  autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-  autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent><leader>r :call LanguageClient_textDocument_rename()<CR>
-  autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent><leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+
+  if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'typescript-language-server',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+          \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+          \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
+          \ })
+  endif
+
+  if executable('ocaml-language-server')
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'ocaml-language-server',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'ocaml-language-server --stdio']},
+          \ 'whitelist': ['reason', 'ocaml'],
+          \ })
+  endif
 augroup END
+
+
+" augroup language_client
+"   autocmd!
+"   autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent> <leader>v :call LanguageClient_textDocument_hover()<CR>
+"   autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+"   autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent><leader>r :call LanguageClient_textDocument_rename()<CR>
+"   autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent><leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
+" augroup END
+
+nnoremap <silent> gd :LspDefinition<CR>
+nnoremap <silent> <leader>v :LspHover<CR>
+nnoremap <silent><leader>r :LspRename<CR>
+
 
 " translate
 nnoremap <silent> <leader>tt :Translate<CR>
@@ -326,7 +370,7 @@ command! DisableOpenQF execute "let g:neomake_open_qflist = 0"
 command! EnableOpenQF execute "let g:neomake_open_qflist = 1"
 command! Datef execute ":pu=strftime('%F')"
 
-command! Refs call LanguageClient_textDocument_references()
+command! Refs :LspReferences
 command! Grep Ack!
 command! -nargs=? -bar Gshow call setqflist(map(systemlist("git show --pretty='' --name-only <args>"), '{"filename": v:val, "lnum": 1}')) | copen
 
@@ -406,16 +450,16 @@ endif
 
 " LanguageClient
 """"""""""""""""
-let g:LanguageClient_selectionUI = 'fzf'
-" let g:LanguageClient_diagnosticsList='Disabled'
-let g:LanguageClient_diagnosticsList='Location'
-let g:LanguageClient_serverCommands = {
-  \ 'javascript': ['javascript-typescript-stdio'],
-  \ 'javascript.jsx': ['javascript-typescript-stdio'],
-  \ 'typescript': ['javascript-typescript-stdio'],
-  \ 'ocaml': ['ocaml-language-server', '--stdio'],
-  \ }
-
+" let g:LanguageClient_selectionUI = 'fzf'
+" " let g:LanguageClient_diagnosticsList='Disabled'
+" let g:LanguageClient_diagnosticsList='Location'
+" let g:LanguageClient_serverCommands = {
+"   \ 'javascript': ['javascript-typescript-stdio'],
+"   \ 'javascript.jsx': ['javascript-typescript-stdio'],
+"   \ 'typescript': ['javascript-typescript-stdio'],
+"   \ 'ocaml': ['ocaml-language-server', '--stdio'],
+"   \ }
+"
   " \ 'javascript': ['flow-language-server', '--stdio'],
   " \ 'javascript.jsx': ['flow-language-server', '--stdio'],
 
@@ -425,8 +469,8 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#file#enable_buffer_path = 1 " buffer relative file path
 
-inoremap <silent><expr><C-space> deoplete#mappings#manual_complete()
-
+imap <C-Space> <Plug>(ncm2_manual_trigger)
+" imap <C-Space> <Plug>(cm_force_refresh)
 
 "" Neoformat
 """"""""""""
