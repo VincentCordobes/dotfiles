@@ -36,7 +36,7 @@ alias vimdiff='nvim -d'
 alias l='ls -lFh'
 alias la='ls -lAFh'
 alias gs='git status'
-alias ctop='ctop -i'
+# alias ctop='ctop -i'
 alias gprunel="git branch -vv | grep 'origin/.*: gone]' | awk '{print $1}' | xargs git branch -D"
 
 # nvm stuff
@@ -48,7 +48,7 @@ alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # export FZF_DEFAULT_OPTS='--color=light,hl+:14,bg+:255,hl:14'
-export FZF_DEFAULT_OPTS='--color=light,bg+:#fafafa,hl:#00897B,hl+:#00897B'
+# export FZF_DEFAULT_OPTS='--color=light,bg+:#fafafa,hl:#00897B,hl+:#00897B'
 
 # # pyenv
 # export PATH="/Users/vincent/.pyenv/bin:$PATH"
@@ -105,6 +105,9 @@ incworkout() {
     echo $now >> $WORKOUT_FILE
   fi
 }
+
+
+source ~/dotfiles/zsh/base16-hopscotch.config
 
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
