@@ -244,6 +244,7 @@ nnoremap <silent><leader><space> :noh<CR>
 
 "" Grep
 nnoremap <leader>a :Ack!
+nnoremap <leader>s :Ack <C-r><C-w>
 let g:ack_apply_qmappings=0
 
 "" EasyAlign
