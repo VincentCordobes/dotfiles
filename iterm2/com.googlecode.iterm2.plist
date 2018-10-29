@@ -752,9 +752,13 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>/Applications</string>
+	<string>~/dotfiles/iterm2</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{720, 448}</string>
+	<key>NSNavPanelExpandedSizeForSaveMode</key>
+	<string>{990, 448}</string>
+	<key>NSNavPanelExpandedStateForSaveMode</key>
+	<true/>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -789,15 +793,15 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>559 120 831 191 0 0 1440 900 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>349 342 606 469 0 0 1440 900 </string>
+	<string>622 445 609 401 0 0 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>85 398 796 473 0 0 1440 900 </string>
+	<string>261 312 1018 447 0 0 1440 900 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>84 294 730 583 0 0 1440 900 </string>
+	<string>52 183 730 577 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>355 136 730 583 0 0 1440 900 </string>
+	<string>201 1194 730 583 -348 900 2048 1152 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>75 154 730 583 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -5017,6 +5021,8 @@
 	</array>
 	<key>NoSyncHaveUsedCopyMode</key>
 	<true/>
+	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
+	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
@@ -5077,8 +5083,10 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-10-12T20:07:04Z</date>
+	<date>2018-10-23T09:15:02Z</date>
 	<key>SUSendProfileInfo</key>
+	<false/>
+	<key>ShowMetalFPSmeter</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.13043619791666666</real>
@@ -5089,7 +5097,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.2.20180403-nightly</string>
+	<string>3.2.3</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>1</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

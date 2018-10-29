@@ -9,7 +9,7 @@ hi SpellCap guibg=#ffcdd2
 hi SpellBad guibg=#ffcdd2
 hi SpellRare guibg=#ffcdd2
 hi SpellLocal guibg=#ffcdd2
-hi Visual guibg=#eeeeff
+hi Visual guibg=#e5f1f9 "#eeeeff
 hi SignColumn guibg=#e0e0e0
 hi NeomakeWarningSignDefault guifg=#a71d5d guibg=#e0e0e0
 

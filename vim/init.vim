@@ -68,11 +68,12 @@ Plug 'elzr/vim-json',          { 'for': 'json' }
 " Plug 'zchee/deoplete-jedi',          { 'for': 'python' }
 
 "" Javascript
-Plug 'ruanyl/vim-fixmyjs',      { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx',             { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'moll/vim-node',           { 'for': ['javascript', 'javascript.jsx'] } " node support
-" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'soywod/typescript.vim'
+" Plug 'ruanyl/vim-fixmyjs',      { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'mxw/vim-jsx',             { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'moll/vim-node',           { 'for': ['javascript', 'javascript.jsx'] } " node support
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.jsx'] }
+" Plug 'soywod/typescript.vim'
 
 "" Writing
 Plug 'vimwiki/vimwiki'
@@ -97,7 +98,7 @@ source ~/dotfiles/vim/utils.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 set clipboard+=unnamedplus
-set termguicolors
+set termguicolors " true colors
 
 set pastetoggle=<f6> " Currently needed for neovim paste issue
 set nopaste " FIXME: don't remember why it's needed
@@ -127,6 +128,7 @@ set mouse=a
 
 set foldmethod=syntax
 set foldlevelstart=99
+
 
 " set previewheight=5 " preview window height
 
@@ -208,18 +210,20 @@ else
 endif
 
 
-
 " set background=dark
 function! s:configureTheme()
   " set background=light
   " colorscheme github 
+  " source ~/dotfiles/vim/custom_light.vim
+
   set background=dark
   colorscheme base16-hopscotch
+
 endfunction
+
 
 call s:configureTheme()
 
-" source ~/dotfiles/vim/custom_light.vim
 
 " }}}
 
@@ -270,6 +274,11 @@ nnoremap <C-h> :bprevious<CR>
 nnoremap <C-l> :bnext<CR>
 
 
+"" Language tool check
+nnoremap <leader>zn ]s
+nnoremap <leader>zp [s
+
+
 "" window switch
 " nnoremap <C-h> <C-w>h
 " nnoremap <C-j> <C-w>j
@@ -307,15 +316,29 @@ xnoremap Q :'<,'>:normal @q<CR>
 " Language client
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
+
+
+" ncm2
+let g:ncm2_look_use_spell = 1
 augroup ncm2
   autocmd!
   autocmd BufEnter * call ncm2#enable_for_buffer()
+  autocmd filetype markdown let b:ncm2_look_enabled = 1
+
+  " if executable('typescript-language-server')
+  "   au User lsp_setup call lsp#register_server({
+  "         \ 'name': 'typescript-language-server',
+  "         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+  "         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+  "         \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
+  "         \ })
+  " endif
 
   if executable('typescript-language-server')
     au User lsp_setup call lsp#register_server({
           \ 'name': 'typescript-language-server',
-          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-          \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+          \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+          \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
           \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
           \ })
   endif
@@ -464,7 +487,7 @@ imap <C-Space> <Plug>(ncm2_manual_trigger)
 """"""""""""
 augroup fmt
   autocmd!
-  autocmd FileType javascript.jsx,typescript
+  autocmd FileType javascript,javascript.jsx,typescript
         \ autocmd! BufWritePre * Neoformat
 augroup END
 

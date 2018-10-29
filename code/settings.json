@@ -150,7 +150,7 @@
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
   "workbench.statusBar.feedback.visible": false,
-  "files.insertFinalNewline": true,
+  "python.linting.mypyEnabled": true,
   "editor.formatOnSave": true,
-  "python.linting.mypyEnabled": true
+  "files.insertFinalNewline": true
 }
