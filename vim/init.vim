@@ -50,7 +50,8 @@ Plug 'chriskempson/base16-vim'
 Plug 'albertorestifo/github.vim', {'commit': '5dd1be6' }
 
 """ Make & Linting
-Plug 'benekastah/neomake' " using neovim's job control functonality
+" Plug 'benekastah/neomake' " using neovim's job control functonality
+Plug 'w0rp/ale'
 
 
 "" Autocomplete
@@ -69,7 +70,7 @@ Plug 'elzr/vim-json',          { 'for': 'json' }
 
 "" Javascript
 " Plug 'ruanyl/vim-fixmyjs',      { 'for': ['javascript', 'javascript.jsx'] }
-" Plug 'mxw/vim-jsx',             { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'mxw/vim-jsx',             { 'for': ['javascript', 'javascript.jsx'] }
 " Plug 'moll/vim-node',           { 'for': ['javascript', 'javascript.jsx'] } " node support
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.jsx'] }
@@ -435,15 +436,23 @@ function! HandleNeomakeJobFinished()
   endif
 endfunction
 
-augroup neomakee
-  autocmd!
-  autocmd User NeomakeFinished :call HandleNeomakeJobFinished()
-  autocmd BufWritePost * :Neomake
-augroup END
+" augroup neomakee
+"   autocmd!
+"   autocmd User NeomakeFinished :call HandleNeomakeJobFinished()
+"   autocmd BufWritePost * :Neomake
+" augroup END
 
 let g:neomake_list_height = 10
 " let g:neomake_open_list = 2 " auto open list if error
 
+
+" Ale
+"""""""""
+" Write this in your vimrc file
+let g:ale_lint_on_text_changed = 'never'
+" You can disable this option too
+" if you don't want linters to run on opening a file
+let g:ale_lint_on_enter = 0
 
 "" Javascript
 let g:neomake_jsx_enabled_makers = []

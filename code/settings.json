@@ -152,5 +152,13 @@
   "workbench.statusBar.feedback.visible": false,
   "python.linting.mypyEnabled": true,
   "editor.formatOnSave": true,
-  "files.insertFinalNewline": true
+  "files.insertFinalNewline": true,
+  "editor.fontLigatures": true,
+  "githubPullRequests.hosts": [
+    {
+      "host": "https://github.com",
+      "username": "oauth",
+      "token": "system"
+    }
+  ]
 }
