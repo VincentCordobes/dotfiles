@@ -17,7 +17,7 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# ~/scripts/today_word.py
+~/scripts/today_word.py
 export PATH="/Users/vincent/scripts:$PATH"
 
 # Preferred editor for local and remote sessions
@@ -48,7 +48,7 @@ alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob \!.git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 source ~/dotfiles/zsh/base16-hopscotch.config
 # export FZF_DEFAULT_OPTS='--color=light,bg+:#fafafa,hl:#00897B,hl+:#00897B'
@@ -61,7 +61,7 @@ source ~/dotfiles/zsh/base16-hopscotch.config
 # prompt
 autoload -U promptinit; promptinit
 prompt pure
-PURE_PROMPT_SYMBOL='$'
+# PURE_PROMPT_SYMBOL='$'
 
 # Specific Payfit
 if [[ -e $HOME/payfit/stack/.zshrc ]]; then

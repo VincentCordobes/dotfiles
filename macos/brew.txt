@@ -4,6 +4,7 @@ thefuck
 autojump
 youtube-dl
 the_silver_searcher
+ripgrep
 neovim
 ctop
 languagetool

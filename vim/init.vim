@@ -6,10 +6,11 @@ call plug#begin('~/.config/nvim/plugged')
 
 
 "" Common
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
+" Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
 " Plug 'vim-airline/vim-airline' " statusline
+Plug 'tpope/vim-vinegar'
 
 "" Git
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
@@ -288,7 +289,9 @@ nnoremap <leader>zp [s
 
 
 "" NERDTree
-noremap <silent> <leader>n :NERDTreeToggle<CR>
+" noremap <silent> <leader>n :NERDTreeToggle<CR>
+noremap <silent> <leader>n :Explore<CR>
+" let g:netrw_localrmdir='rm -r'
 noremap <silent> <leader>f :NERDTreeFind<CR>
 
 "" Git (fugitive)
