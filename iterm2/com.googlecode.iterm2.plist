@@ -791,17 +791,21 @@
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>559 120 831 191 0 0 1440 900 </string>
+	<string>559 85 831 318 0 0 1440 877 </string>
+	<key>NSWindow Frame SUStatusFrame</key>
+	<string>520 574 400 129 0 0 1440 877 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>410 381 620 392 0 0 1440 900 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>622 445 609 401 0 0 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>261 312 1018 447 0 0 1440 900 </string>
+	<string>560 437 918 423 0 0 1440 877 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>52 183 730 577 0 0 1440 900 </string>
+	<string>52 57 937 820 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>201 1194 730 583 -348 900 2048 1152 </string>
+	<string>-75 916 1459 1105 -348 900 2048 1129 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>75 154 730 583 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -1483,6 +1487,8 @@
 			<integer>0</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
+			<key>Unicode Version</key>
+			<integer>9</integer>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
@@ -5019,6 +5025,8 @@
 			<string>/Users/vincent</string>
 		</dict>
 	</array>
+	<key>NoSyncHaveRequestedFullDiskAccess</key>
+	<true/>
 	<key>NoSyncHaveUsedCopyMode</key>
 	<true/>
 	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
@@ -5083,7 +5091,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-10-23T09:15:02Z</date>
+	<date>2018-12-25T00:42:12Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowMetalFPSmeter</key>
@@ -5097,7 +5105,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.2.3</string>
+	<string>3.2.6</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>1</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

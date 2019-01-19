@@ -51,8 +51,8 @@ Plug 'chriskempson/base16-vim'
 Plug 'albertorestifo/github.vim', {'commit': '5dd1be6' }
 
 """ Make & Linting
-" Plug 'benekastah/neomake' " using neovim's job control functonality
-Plug 'w0rp/ale'
+Plug 'benekastah/neomake' " using neovim's job control functonality
+" Plug 'w0rp/ale'
 
 
 "" Autocomplete
@@ -492,6 +492,7 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#file#enable_buffer_path = 1 " buffer relative file path
 
+let g:ncm2#manual_complete_length=0
 imap <C-Space> <Plug>(ncm2_manual_trigger)
 " imap <C-Space> <Plug>(cm_force_refresh)
 
