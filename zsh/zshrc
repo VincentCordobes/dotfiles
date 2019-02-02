@@ -17,7 +17,7 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-~/scripts/today_word.py
+# ~/scripts/today_word.py
 export PATH="/Users/vincent/scripts:$PATH"
 
 # Preferred editor for local and remote sessions
@@ -39,8 +39,8 @@ alias vimdiff='nvim -d'
 alias l='ls -lFh'
 alias la='ls -lAFh'
 alias gs='git status'
-# alias ctop='ctop -i'
-alias gprunel="git branch -vv | grep 'origin/.*: gone]' | awk '{print $1}' | xargs git branch -D"
+alias ctop='ctop -i'
+alias git-remove-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -D'
 
 # nvm stuff
 export NVM_DIR="$HOME/.nvm"
@@ -50,8 +50,10 @@ alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob \!.git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-source ~/dotfiles/zsh/base16-hopscotch.config
-# export FZF_DEFAULT_OPTS='--color=light,bg+:#fafafa,hl:#00897B,hl+:#00897B'
+# source ~/dotfiles/zsh/base16-hopscotch.config
+# source ~/dotfiles/zsh/base16-ocean.config
+
+export FZF_DEFAULT_OPTS='--color=light,bg+:#fafafa,hl:#00897B,hl+:#00897B'
 
 # # pyenv
 # export PATH="/Users/vincent/.pyenv/bin:$PATH"
@@ -79,6 +81,10 @@ ptag() {
 
 vw() {
   (cd /Users/vincent/Dropbox/wiki; vim -c VimwikiIndex; clear)
+}
+
+vmail() {
+  (cd /Users/vincent/Dropbox/wiki/mails; vim $(date +%Y-%m-%d).md)
 }
 
 todo() {
