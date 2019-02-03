@@ -84,7 +84,7 @@ vw() {
 }
 
 vmail() {
-  (cd /Users/vincent/Dropbox/wiki/mails; vim $(date +%Y-%m-%d).md)
+  (cd /Users/vincent/Dropbox/wiki/mails; vim $(date +%Y-%m-%d).md -c Goyo)
 }
 
 todo() {

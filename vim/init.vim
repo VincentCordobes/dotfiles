@@ -74,7 +74,7 @@ Plug 'elzr/vim-json',          { 'for': 'json' }
 Plug 'mxw/vim-jsx',             { 'for': ['javascript', 'javascript.jsx'] }
 " Plug 'moll/vim-node',           { 'for': ['javascript', 'javascript.jsx'] } " node support
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.jsx'] }
+" Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.jsx'] }
 " Plug 'soywod/typescript.vim'
 
 "" Writing
@@ -214,12 +214,13 @@ endif
 
 " set background=dark
 function! s:configureTheme()
-  " set background=light
-  " colorscheme github 
-  " source ~/dotfiles/vim/custom_light.vim
+  set background=light
+  colorscheme github 
+  source ~/dotfiles/vim/custom_light.vim
 
-  set background=dark
-  colorscheme base16-hopscotch
+  " set background=dark
+  " " colorscheme base16-hopscotch
+  " colorscheme base16-ocean
 
 endfunction
 

@@ -53,8 +53,8 @@ endsnippet
 
 
 snippet ttodo "Throw todo"
-// TODO: ${0}
-throw new Error('TODO: $0')
+// TODO: ${1}
+throw new Error('TODO: $1')$0
 endsnippet
 
 snippet cl "Console log"
@@ -171,5 +171,84 @@ render() {
 		${1:<div />}
 	)
 }
+endsnippet
+
+
+snippet expectequal
+expect(${1}).toEqual(${0})
+endsnippet
+
+snippet periodo
+{ from: ${1}, to: ${2} }
+endsnippet
+
+
+snippet givenperiod "period"
+// Given
+const period = { from: ${1}, to: ${2} }
+// when
+const periods = splitPeriod(period)
+// then
+expect(periods).toEqual([${3}])
+endsnippet
+
+
+snippet test1
+test('should not split when the period is 1-12', () => {
+	${0}
+})
+
+endsnippet
+
+snippet test2
+test('should not split when the period is between 1-12', () => {
+	${0}
+})
+
+endsnippet
+
+snippet test3
+test('should not split when the period is between 13-24', () => {
+	${0}
+})
+
+endsnippet
+
+snippet test4
+test('should split in 2 when the period is 6-13', () => {
+	// 1          12        24       absMonth
+	// |----------|----------|-----
+	//      |------|                 initial period
+	//      6      13
+	${0}
+})
+
+endsnippet
+
+snippet test5
+test('should split in 2 when the period is 12-13', () => {
+	${0}
+})
+
+endsnippet
+
+snippet test6
+test('should split in 3 when the period is 6-25', () => {
+	//  1          12        24       absMonth
+	//  |----------|----------|-----
+	//       |-----------------|      initial period
+	//       6                25
+
+	const period = { from: 6, to: 25 }
+	// when
+	const periods = splitPeriod(period, 'annually')
+	// then
+	expect(periods).toEqual([
+		{ from: 6, to: 12 },
+		{ from: 13, to: 24 },
+		{ from: 25, to: 25 },
+	])
+})
+
 endsnippet
 
