@@ -74,7 +74,7 @@ Plug 'elzr/vim-json',          { 'for': 'json' }
 Plug 'mxw/vim-jsx',             { 'for': ['javascript', 'javascript.jsx'] }
 " Plug 'moll/vim-node',           { 'for': ['javascript', 'javascript.jsx'] } " node support
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-" Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.jsx'] }
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.jsx'] }
 " Plug 'soywod/typescript.vim'
 
 "" Writing
@@ -341,7 +341,7 @@ augroup ncm2
 
   if executable('typescript-language-server')
     au User lsp_setup call lsp#register_server({
-          \ 'name': 'typescript-language-server',
+          \ 'name': 'ts',
           \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
           \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
           \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
@@ -350,7 +350,7 @@ augroup ncm2
 
   if executable('ocaml-language-server')
     au User lsp_setup call lsp#register_server({
-          \ 'name': 'ocaml-language-server',
+          \ 'name': 'merlin',
           \ 'cmd': {server_info->[&shell, &shellcmdflag, 'ocaml-language-server --stdio']},
           \ 'whitelist': ['reason', 'ocaml'],
           \ })
@@ -397,6 +397,14 @@ command! -nargs=? -bar Gshow call setqflist(map(systemlist("git show --pretty=''
 command! Pre Neoformat | Neomake
 
 command! CpFilePath :let @+ = expand("%")
+
+command! ShowTag :vimgrep "<!--.*-->" % | wincmd H | vertical resize 110
+
+command! Focus  call s:print_focus()
+function! s:print_focus() abort
+  let @a = system('~/workspace/week-focus/_build/default/week_focus.exe')
+  silent! put! a
+endfunction
 
 "}}}
 
@@ -533,11 +541,17 @@ if executable('ag')
 endif
 
 " languagetool
-let g:languagetool_jar='/usr/local/Cellar/languagetool/4.1/libexec/languagetool-commandline.jar'
+let g:languagetool_jar='/usr/local/Cellar/languagetool/4.4/libexec/languagetool-commandline.jar'
 
 " ultisnips 
 let g:UltiSnipsExpandTrigger='<C-j>'
 let g:UltiSnipsSnippetDirectories=['UltiSnips', 'my-snippets']
+
+
+" Wiki
+" let g:wiki_filetypes=['md']
+" let g:wiki_journal="diary"
+
 
 "vimwiki
 " FIXME: I don't know how to do this for now..
@@ -550,6 +564,7 @@ command! VimwikiIndex3
 command! VimwikiMakeDiaryNote3
       \ call vimwiki#diary#make_note(v:count3)
 
+let g:vimwiki_global_ext=0
 let s:wiki_perso = {}
 let s:wiki_perso.path = '~/Dropbox/wiki/'
 let s:wiki_perso.syntax = 'markdown'

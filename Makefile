@@ -1,6 +1,6 @@
-all: vim zsh
+all: vim zsh code
 
-.PHONY: vim zsh init
+.PHONY: vim zsh code init
 
 init:
 	mkdir -p ~/tmp
@@ -10,3 +10,6 @@ vim:
 
 zsh:
 	./zsh/install.sh
+
+code:
+	./code/install.sh

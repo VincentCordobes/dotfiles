@@ -7,6 +7,7 @@ git config --global core.editor nvim
 git config --global pull.rebase true
 git config --global merge.tool vimdiff
 git config --global push.followTags true
+git config --global rebase.autoStash true
 
 if diff-so-fancy --colors &>/dev/null; then
   git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"

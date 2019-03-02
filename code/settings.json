@@ -134,7 +134,6 @@
   "window.zoomLevel": 1,
   "vim.visualstar": true,
   "editor.fontFamily": "SF Mono, Monaco, 'Courier New', monospace",
-  "tslint.jsEnable": true,
   "reason.codelens.enabled": true,
   "editor.cursorBlinking": "solid",
   "breadcrumbs.enabled": true,
