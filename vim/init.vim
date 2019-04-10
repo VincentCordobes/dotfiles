@@ -131,6 +131,8 @@ set mouse=a
 set foldmethod=syntax
 set foldlevelstart=99
 
+set pumheight=12 " 12 is enough, no need to hide my entire screen :p 
+
 
 " set previewheight=5 " preview window height
 
@@ -273,8 +275,8 @@ nnoremap <silent><c-k> :call ListNavigate('previous')<CR>
 nnoremap <silent><c-j> :call ListNavigate('next')<CR>
 
 "" Buffer navigation
-nnoremap <C-h> :bprevious<CR>
-nnoremap <C-l> :bnext<CR>
+" nnoremap <C-h> :bprevious<CR>
+" nnoremap <C-l> :bnext<CR>
 
 
 "" Language tool check
@@ -367,15 +369,17 @@ augroup END
 " augroup END
 
 nnoremap <silent> gd :LspDefinition<CR>
+nnoremap <silent> <leader>dd :call Diagnostics()<CR>
 nnoremap <silent> <leader>v :LspHover<CR>
 nnoremap <silent><leader>r :LspRename<CR>
+nnoremap <silent><leader>i :LspCodeAction<CR>
 
 
 " translate
 nnoremap <silent> <leader>tt :Translate<CR>
 vnoremap <silent> <leader>tt :TranslateVisual<CR>
 vnoremap <silent> <leader>tr :TranslateReplace<CR>
-nnoremap <silent> <leader>tc :TranslateReplace<CR>
+nnoremap <silent> <leader>tw viw :TranslateVisual<CR>
 
 
 " }}}
@@ -399,12 +403,6 @@ command! Pre Neoformat | Neomake
 command! CpFilePath :let @+ = expand("%")
 
 command! ShowTag :vimgrep "<!--.*-->" % | wincmd H | vertical resize 110
-
-command! Focus  call s:print_focus()
-function! s:print_focus() abort
-  let @a = system('~/workspace/week-focus/_build/default/week_focus.exe')
-  silent! put! a
-endfunction
 
 "}}}
 
@@ -495,6 +493,9 @@ endif
   " \ 'javascript': ['flow-language-server', '--stdio'],
   " \ 'javascript.jsx': ['flow-language-server', '--stdio'],
 
+let g:lsp_virtual_text_enabled = 0
+let g:lsp_highlights_enabled = 0
+
 " Deoplete
 """"""""""
 let g:deoplete#enable_at_startup = 1
@@ -502,8 +503,7 @@ let g:deoplete#enable_smart_case = 1
 let g:deoplete#file#enable_buffer_path = 1 " buffer relative file path
 
 let g:ncm2#manual_complete_length=0
-imap <C-Space> <Plug>(ncm2_manual_trigger)
-" imap <C-Space> <Plug>(cm_force_refresh)
+inoremap <silent><C-Space> <c-r>=ncm2#manual_trigger('ts', 'merlin')<cr>
 
 "" Neoformat
 """"""""""""

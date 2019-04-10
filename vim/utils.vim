@@ -16,6 +16,15 @@ function! ListNavigate(cmd)
     endtry
 endfunction
 
+
+function! Diagnostics()
+  let l:winnr = winnr()
+  LspDocumentDiagnostics
+  if (l:winnr != winnr())
+    wincmd p
+  endif
+endfunction
+
 function! ToggleList(bufname, pfx)
   if IsBufOpen(a:bufname)
     exec(a:pfx.'close')

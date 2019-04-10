@@ -149,5 +149,8 @@
   "python.linting.mypyEnabled": true,
   "editor.formatOnSave": true,
   "files.insertFinalNewline": true,
-  "editor.fontLigatures": true
+  "editor.fontLigatures": true,
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "liveshare.featureSet": "insiders"
 }

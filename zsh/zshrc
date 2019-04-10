@@ -1,3 +1,6 @@
+# zmodload zsh/zprof
+~/scripts/today_word.py
+
 ###########################################
 # Oh My Zsh configuration                 #
 ###########################################
@@ -6,7 +9,7 @@ export ZSH=/Users/vincent/.oh-my-zsh
 
 ZSH_THEME=""
 DISABLE_AUTO_TITLE="true"
-plugins=(git zsh-syntax-highlighting yarn)
+plugins=(git yarn)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -14,10 +17,13 @@ source $ZSH/oh-my-zsh.sh
 # User configuration                      #
 ###########################################
 
+# prompt
+autoload -U promptinit; promptinit
+prompt pure
+
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-~/scripts/today_word.py
 export PATH="/Users/vincent/scripts:$PATH"
 
 # Preferred editor for local and remote sessions
@@ -64,12 +70,8 @@ export FZF_DEFAULT_OPTS='--color=light,bg+:#fafafa,hl:#00897B,hl+:#00897B'
 # eval "$(pyenv init -)"
 # eval "$(pyenv virtualenv-init -)"
 
-# prompt
-autoload -U promptinit; promptinit
-prompt pure
-# PURE_PROMPT_SYMBOL='$'
 
-# Specific Payfit
+# # Specific Payfit
 if [[ -e $HOME/payfit/stack/.zshrc ]]; then
   source $HOME/payfit/stack/.zshrc
 fi
