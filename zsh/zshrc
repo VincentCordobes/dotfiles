@@ -52,6 +52,14 @@ gimp() {
  open $@ -a GIMP-2.10.app
 }
 
+darktable() {
+ open $@ -a darktable.app
+}
+
+web() {
+ open $@ -a "Google Chrome.app"
+}
+
 # nvm stuff
 export NVM_DIR="$HOME/.nvm"
 alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
@@ -63,38 +71,34 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # source ~/dotfiles/zsh/base16-hopscotch.config
 # source ~/dotfiles/zsh/base16-ocean.config
 
-export FZF_DEFAULT_OPTS='--color=light,bg+:#fafafa,hl:#00897B,hl+:#00897B'
+# export FZF_DEFAULT_OPTS='--color=light,bg+:#fafafa,hl:#00897B,hl+:#00897B'
 
-# # pyenv
-# export PATH="/Users/vincent/.pyenv/bin:$PATH"
-# eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)"
-
-
-# # Specific Payfit
-if [[ -e $HOME/payfit/stack/.zshrc ]]; then
-  source $HOME/payfit/stack/.zshrc
-fi
-
-export PATH="$PATH:./node_modules/.bin:../node_modules/.bin:./node_modules/eslint-config-payfit/node_modules/.bin"
-
-# ---
+# pyenv
+loadPyenv() {
+  export PATH="/Users/vincent/.pyenv/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+}
 
 
 ptag() {
-git log --oneline | grep "\[.*\]" | awk '{count[$2]++} END {for (tag in count) print tag, count[tag]}'  | fzf
+  git log --oneline | grep "\[.*\]" | awk '{count[$2]++} END {for (tag in count) print tag, count[tag]}'  | fzf
 }
 
 vw() {
   (cd /Users/vincent/Dropbox/wiki; vim index.md)
 }
 
-vmail() {
-  (cd /Users/vincent/Dropbox/wiki/mails; vim $(date +%Y-%m-%d).md -c Goyo)
+draft() {
+  (cd /Users/vincent/Dropbox/wiki/drafts; vim $(date +%Y-%m-%d).md -c "set spelllang=${1:-en_us}|set spell")
 }
 
 todo() {
   (cd /Users/vincent/Dropbox/wiki; vim ./todo.md; clear)
+}
+
+bookmarks() {
+  (cd /Users/vincent/Dropbox/wiki; vim ./bookmarks.md)
 }
 	
 pwiki() {

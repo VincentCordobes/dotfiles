@@ -26,16 +26,18 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets' " { 'for': 'python' } This slow down...
 Plug 'sbdchd/neoformat' " autoformat according to various engine
 Plug 'moll/vim-bbye'
-Plug 'ncm2/ncm2'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'ncm2/ncm2-vim-lsp'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'ncm2/ncm2-cssomni', { 'for': 'css' }
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'ryanolsonx/vim-lsp-python', { 'for': 'python' }
+Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+" Plug 'ncm2/ncm2'
+" Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'ncm2/ncm2-vim-lsp'
+" Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2-ultisnips'
+" Plug 'ncm2/ncm2-cssomni', { 'for': 'css' }
+" Plug 'ncm2/ncm2-bufword'
+" Plug 'ncm2/ncm2-path'
+" Plug 'ryanolsonx/vim-lsp-python', { 'for': 'python' }
+
 " Plug 'autozimu/LanguageClient-neovim', {
 "     \ 'branch': 'next',
 "     \ 'do': 'bash install.sh',
@@ -45,10 +47,12 @@ Plug 'bronson/vim-visual-star-search'
 "" Utils
 Plug 'jaawerth/nrun.vim' " faster which for node
 Plug 'junegunn/vader.vim'
+Plug 'soywod/autosess.vim'
 
 "" Themes
 Plug 'chriskempson/base16-vim'
 Plug 'albertorestifo/github.vim', {'commit': '5dd1be6' }
+Plug 'arcticicestudio/nord-vim'
 
 """ Make & Linting
 Plug 'benekastah/neomake' " using neovim's job control functonality
@@ -71,10 +75,11 @@ Plug 'elzr/vim-json',          { 'for': 'json' }
 
 "" Javascript
 " Plug 'ruanyl/vim-fixmyjs',      { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx',             { 'for': ['javascript', 'javascript.jsx'] }
 " Plug 'moll/vim-node',           { 'for': ['javascript', 'javascript.jsx'] } " node support
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.jsx'] }
+Plug 'pangloss/vim-javascript',    { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'ivangeorgiew/vim-jsx',       { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
+Plug 'ianks/vim-tsx',              { 'for': ['typescript', 'typescript.tsx'] }
 " Plug 'soywod/typescript.vim'
 
 "" Writing
@@ -200,6 +205,11 @@ augroup END
 " }}}
 
 
+" statusline
+set statusline=%<%f\ %h%m%r\ \ \ %{coc#status()}\ %=%y\ \ \ %-10.(%l,%v%)\ %P
+
+" %{coc#status()} 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Themes
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -216,18 +226,28 @@ endif
 
 " set background=dark
 function! s:configureTheme()
-  set background=light
-  colorscheme github 
-  source ~/dotfiles/vim/custom_light.vim
+  " set background=light
+  " colorscheme github 
+  " source ~/dotfiles/vim/custom_light.vim
 
   " set background=dark
   " " colorscheme base16-hopscotch
   " colorscheme base16-ocean
+  colorscheme nord
 
 endfunction
 
 
 call s:configureTheme()
+
+hi CocErrorFloat ctermfg=1 guifg=#BF616A
+hi CocErrorSign ctermfg=1 guifg=#BF616A
+hi link CocHighlightText CursorColumn
+hi link CocWarningSign SpecialChar
+hi link CocInfoSign SpecialChar
+
+
+
 
 
 " }}}
@@ -323,41 +343,115 @@ xnoremap Q :'<,'>:normal @q<CR>
 " Language client
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
+set signcolumn=yes
 
 
-" ncm2
-let g:ncm2_look_use_spell = 1
-augroup ncm2
+
+" coconfig
+set updatetime=300
+
+let g:coc_status_error_sign="✘ "
+let g:coc_status_warning_sign="⚠︎ "
+
+" Use <c-space> to trigger completion.
+
+inoremap <silent><expr> <c-space> coc#refresh()
+
+inoremap <expr> <c-j> pumvisible() ? "\<C-y>" : "\<C-g>u\<c-j>"
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+augroup coc
   autocmd!
-  autocmd BufEnter * call ncm2#enable_for_buffer()
-  autocmd filetype markdown let b:ncm2_look_enabled = 1
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 
-  " if executable('typescript-language-server')
-  "   au User lsp_setup call lsp#register_server({
-  "         \ 'name': 'typescript-language-server',
-  "         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-  "         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-  "         \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
-  "         \ })
-  " endif
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-  if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-          \ 'name': 'ts',
-          \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-          \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-          \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
-          \ })
-  endif
+" Remap for do codeAction of current line
+nmap <leader>i  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
 
-  if executable('ocaml-language-server')
-    au User lsp_setup call lsp#register_server({
-          \ 'name': 'merlin',
-          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'ocaml-language-server --stdio']},
-          \ 'whitelist': ['reason', 'ocaml'],
-          \ })
-  endif
-augroup END
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Using CocList
+" Show all diagnostics
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" " ncm2
+" let g:ncm2_look_use_spell = 1
+" augroup ncm2
+"   autocmd!
+"   autocmd BufEnter * call ncm2#enable_for_buffer()
+"   autocmd filetype markdown let b:ncm2_look_enabled = 1
+"
+"   " if executable('typescript-language-server')
+"   "   au User lsp_setup call lsp#register_server({
+"   "         \ 'name': 'typescript-language-server',
+"   "         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+"   "         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+"   "         \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
+"   "         \ })
+"   " endif
+"
+"   if executable('typescript-language-server')
+"     au User lsp_setup call lsp#register_server({
+"           \ 'name': 'ts',
+"           \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+"           \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+"           \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
+"           \ })
+"   endif
+"
+"   if executable('ocamlmerlin-lsp')
+"     au User lsp_setup call lsp#register_server({
+"           \ 'name': 'merlin',
+"           \ 'cmd': {server_info->[&shell, &shellcmdflag, 'ocamlmerlin-lsp']},
+"           \ 'whitelist': ['ocaml'],
+"           \ })
+"   endif
+" augroup END
 
 
 " augroup language_client
@@ -368,11 +462,11 @@ augroup END
 "   autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent><leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
 " augroup END
 
-nnoremap <silent> gd :LspDefinition<CR>
-nnoremap <silent> <leader>dd :call Diagnostics()<CR>
-nnoremap <silent> <leader>v :LspHover<CR>
-nnoremap <silent><leader>r :LspRename<CR>
-nnoremap <silent><leader>i :LspCodeAction<CR>
+" nnoremap <silent> gd :LspDefinition<CR>
+" nnoremap <silent> <leader>dd :call Diagnostics()<CR>
+" nnoremap <silent> <leader>v :LspHover<CR>
+" nnoremap <silent><leader>r :LspRename<CR>
+" nnoremap <silent><leader>i :LspCodeAction<CR>
 
 
 " translate
@@ -468,6 +562,8 @@ let g:ale_lint_on_enter = 0
 let g:neomake_jsx_enabled_makers = []
 let g:neomake_javascript_enabled_makers = []
 
+let g:neomake_ocaml_enabled_makers = ['merlin']
+
 
 """ Eslint
 let g:eslint_path = nrun#Which('eslint')
@@ -502,8 +598,8 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#file#enable_buffer_path = 1 " buffer relative file path
 
-let g:ncm2#manual_complete_length=0
-inoremap <silent><C-Space> <c-r>=ncm2#manual_trigger('ts', 'merlin')<cr>
+" let g:ncm2#manual_complete_length=0
+" inoremap <silent><C-Space> <c-r>=ncm2#manual_trigger('ts', 'merlin')<cr>
 
 "" Neoformat
 """"""""""""
@@ -541,7 +637,7 @@ if executable('ag')
 endif
 
 " languagetool
-let g:languagetool_jar='/usr/local/Cellar/languagetool/4.4/libexec/languagetool-commandline.jar'
+let g:languagetool_jar='/usr/local/Cellar/languagetool/4.5/libexec/languagetool-commandline.jar'
 
 " ultisnips 
 let g:UltiSnipsExpandTrigger='<C-j>'

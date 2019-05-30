@@ -1,6 +1,6 @@
 // Place your settings in this file to overwrite the default settings
 {
-  "workbench.colorTheme": "RealGithub",
+  "workbench.colorTheme": "Nord",
   "editor.fontSize": 13,
   "vim.leader": " ",
   "vim.useSystemClipboard": true,
