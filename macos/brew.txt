@@ -19,3 +19,6 @@ gnuplot --with-qt
 htop
 tree
 diff-so-fancy
+pyenv
+pyenv-virtualenv
+pdf2svg
