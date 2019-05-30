@@ -1,4 +1,4 @@
-all: vim zsh code
+all: init vim zsh code node
 
 .PHONY: vim zsh code init
 
@@ -13,3 +13,6 @@ zsh:
 
 code:
 	./code/install.sh
+
+node:
+	./node/install.sh
