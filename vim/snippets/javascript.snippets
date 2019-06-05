@@ -16,11 +16,17 @@ const ${1:name} = (${2:params}) => {
 }
 endsnippet
 
+snippet => "lambda" i
+(${1}) => {
+	${0:${VISUAL}}
+}
+endsnippet
+
 
 snippet jsdoc "Doc comment"
 /**
- * ${0:description}
- */
+	* ${0:description}
+	*/
 endsnippet
 
 snippet ed "Export default"
@@ -252,3 +258,71 @@ test('should split in 3 when the period is 6-25', () => {
 
 endsnippet
 
+
+
+
+
+
+snippet addfun
+function add(a, b) {
+	return a + b;
+}
+endsnippet
+
+# for loop
+
+snippet for "For loop"
+for (let ${1:i} = 0; $1 < ${2:array}.length; $1++) {
+	const ${3:item} = $2[$1];
+	${0:${VISUAL}}
+}
+endsnippet
+
+
+snippet foreach "For-Each Loop"
+${1:array}.forEach(${2:item} => {
+	${0:${VISUAL}}
+});
+endsnippet
+
+snippet forof "For-Of Loop"
+for (const ${1:element} of ${2:iterable}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet if "If Statement"
+if (${1:condition}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet ifelse "If-Else Statement"
+if (${1:condition}) {
+	${2:${VISUAL}}
+} else {
+	$0
+}
+endsnippet
+
+
+# Coding challenges stuff
+# Maybe move it somewhere else
+
+snippet distinctfun
+function distinct(array) {
+	return [...new Set(array)];
+}
+endsnippet
+
+snippet rangefun
+function range(sizeOrStart, end) {
+	if (end === undefined) {
+		const size = sizeOrStart;
+		return [...Array(size).keys()];
+	} else {
+		const start = sizeOrStart;
+		return [...Array(end - start).keys()].map(i => i + start);
+	}
+}
+endsnippet

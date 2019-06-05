@@ -1,0 +1,71 @@
+snippet #!
+#!/usr/bin/env python3
+endsnippet
+
+snippet if "If" b
+if ${1:condition}:
+	${0:${VISUAL:pass}}
+endsnippet
+
+snippet ifelse "If / Else" b
+if ${1:condition}:
+	${2:${VISUAL:pass}}
+else:
+	${0:pass}
+endsnippet
+
+
+snippet for "For loop" b
+for ${1:item} in ${2:iterable}:
+	${0:${VISUAL:pass}}
+endsnippet
+
+
+snippet ifmain "if __main__" b
+if __name__ == "__main__":
+	${0:main()}
+endsnippet
+
+
+##########################
+# Try / Except / Finally #
+##########################
+snippet try "Try / Except" b
+try:
+	${1:${VISUAL:pass}}
+except ${2:Exception} as ${3:e}:
+	${4:raise $3}
+endsnippet
+
+
+snippet tryf "Try / Except / Finally" b
+try:
+	${1:${VISUAL:pass}}
+except ${2:Exception} as ${3:e}:
+	${4:raise $3}
+finally:
+	${0:pass}
+endsnippet
+
+
+snippet with "with" b
+with ${1:expr}`!p snip.rv = " as " if t[2] else ""`${2:var}:
+	${0:${VISUAL:pass}}
+endsnippet
+
+snippet def "Function"
+def ${1:fname}($2):
+	${0:${VISUAL:pass}}
+endsnippet
+
+
+snippet class "Class definition"
+class ${1:classname}(${2:object}):
+
+	def __init__(self$3):
+		${0:pass}
+endsnippet
+
+snippet lambda "lambda" i
+lambda ${1:params}: ${0:expression}
+endsnippet

@@ -1,0 +1,36 @@
+snippet #! "#!/bin/bash"
+#!/bin/bash
+endsnippet
+
+
+snippet sbash "#!/usr/bin/env (!env)"
+#!/usr/bin/env bash
+endsnippet
+
+
+snippet if "if ... then (if)"
+if [[ ${1:condition} ]]; then
+	${0:${VISUAL}}
+fi
+endsnippet
+
+snippet elif "elif .. (elif)"
+elif [[ ${1:condition} ]]; then
+	${0:${VISUAL}}
+endsnippet
+
+snippet while "while ... (done)"
+while ${2:[[ ${1:condition} ]]}; do
+	${0:#statements}
+done
+endsnippet
+
+snippet for "for ... done (for)"
+for (( ${2:i} = 0; $2 < ${1:count}; $2++ )); do
+	${0:${VISUAL}}
+done
+endsnippet
+
+snippet dirnamedef "current dir"
+DIRNAME="$(cd "$(dirname "$0")";pwd -P)"
+endsnippet
