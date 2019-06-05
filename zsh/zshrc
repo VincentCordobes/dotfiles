@@ -73,6 +73,19 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # export FZF_DEFAULT_OPTS='--color=light,bg+:#fafafa,hl:#00897B,hl+:#00897B'
 
+# fshow - git commit browser
+fshow() {
+  git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
+}
+
+
 # pyenv
 loadPyenv() {
   export PATH="/Users/vincent/.pyenv/bin:$PATH"
@@ -128,10 +141,9 @@ incworkout() {
 
 
 
-
+# eval "$(fnm env --multi)"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # OPAM configuration
 . /Users/vincent/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
 

@@ -152,5 +152,6 @@
   "editor.fontLigatures": true,
   "editor.suggestSelection": "first",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "liveshare.featureSet": "insiders"
+  "liveshare.featureSet": "insiders",
+  "python.formatting.provider": "black"
 }

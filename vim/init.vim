@@ -23,7 +23,7 @@ Plug 'tomtom/tcomment_vim' " comment stuff out
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips' 
-Plug 'honza/vim-snippets' " { 'for': 'python' } This slow down...
+" Plug 'honza/vim-snippets' " { 'for': 'python' } This slow down...
 Plug 'sbdchd/neoformat' " autoformat according to various engine
 Plug 'moll/vim-bbye'
 Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
@@ -47,7 +47,6 @@ Plug 'bronson/vim-visual-star-search'
 "" Utils
 Plug 'jaawerth/nrun.vim' " faster which for node
 Plug 'junegunn/vader.vim'
-Plug 'soywod/autosess.vim'
 
 "" Themes
 Plug 'chriskempson/base16-vim'
@@ -67,6 +66,7 @@ Plug 'benekastah/neomake' " using neovim's job control functonality
 Plug 'othree/html5.vim',       { 'for': 'html' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'elzr/vim-json',          { 'for': 'json' }
+Plug 'neoclide/jsonc.vim',
 
 "" Python
 " Plug 'hdima/python-syntax',          { 'for': 'python' }
@@ -77,7 +77,7 @@ Plug 'elzr/vim-json',          { 'for': 'json' }
 " Plug 'ruanyl/vim-fixmyjs',      { 'for': ['javascript', 'javascript.jsx'] }
 " Plug 'moll/vim-node',           { 'for': ['javascript', 'javascript.jsx'] } " node support
 Plug 'pangloss/vim-javascript',    { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'ivangeorgiew/vim-jsx',       { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'ivangeorgiew/vim-jsx',       { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
 Plug 'ianks/vim-tsx',              { 'for': ['typescript', 'typescript.tsx'] }
 " Plug 'soywod/typescript.vim'
@@ -88,9 +88,10 @@ Plug 'vimwiki/vimwiki'
 Plug 'lervag/vimtex' ,            { 'for': 'tex' }
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
 Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
+Plug 'ron89/thesaurus_query.vim', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
 Plug 'junegunn/goyo.vim',        "{ 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
 Plug 'VincentCordobes/vim-translate'
-Plug 'soywod/vim-phonetics'
+Plug 'soywod/vim-phonetics', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 call plug#end()
@@ -181,6 +182,9 @@ augroup filetypes
   autocmd!
   autocmd BufNewFile,BufRead .babelrc set filetype=json
   autocmd BufNewFile,BufRead .eslintrc set filetype=json
+  autocmd BufNewFile,BufRead .prettierrc set filetype=json
+  autocmd BufNewFile,BufRead tsconfig.json set filetype=jsonc
+  autocmd BufNewFile,BufRead .gitignore set filetype=config
 augroup END
 
 augroup customfold
@@ -387,6 +391,7 @@ augroup coc
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
@@ -396,7 +401,7 @@ augroup end
 " Remap for do codeAction of current line
 nmap <leader>i  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+" nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
@@ -605,7 +610,7 @@ let g:deoplete#file#enable_buffer_path = 1 " buffer relative file path
 """"""""""""
 augroup fmt
   autocmd!
-  autocmd FileType javascript,javascript.jsx,typescript
+  autocmd FileType javascript,javascript.jsx,typescript,python
         \ autocmd! BufWritePre * Neoformat
 augroup END
 
@@ -636,12 +641,18 @@ if executable('ag')
 " set grepformat=%f:%l:%c:%m
 endif
 
+
+
+"" Prose
 " languagetool
 let g:languagetool_jar='/usr/local/Cellar/languagetool/4.5/libexec/languagetool-commandline.jar'
+hi link LanguageToolGrammarError CocErrorHighlight
+let g:tq_mthesaur_file="~/.config/nvim/thesaurus/mthesaur.txt"
+let g:tq_openoffice_en_file="~/.config/nvim/thesaurus/th_en_US_new"
 
 " ultisnips 
 let g:UltiSnipsExpandTrigger='<C-j>'
-let g:UltiSnipsSnippetDirectories=['UltiSnips', 'my-snippets']
+let g:UltiSnipsSnippetDirectories=['my-snippets']
 
 
 " Wiki
