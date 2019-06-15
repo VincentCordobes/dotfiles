@@ -77,13 +77,16 @@ Plug 'neoclide/jsonc.vim',
 " Plug 'ruanyl/vim-fixmyjs',      { 'for': ['javascript', 'javascript.jsx'] }
 " Plug 'moll/vim-node',           { 'for': ['javascript', 'javascript.jsx'] } " node support
 Plug 'pangloss/vim-javascript',    { 'for': ['javascript', 'javascript.jsx'] }
-" Plug 'ivangeorgiew/vim-jsx',       { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
-Plug 'ianks/vim-tsx',              { 'for': ['typescript', 'typescript.tsx'] }
-" Plug 'soywod/typescript.vim'
+Plug 'maxmellon/vim-jsx-pretty',   { 'for': ['javascript', 'javascript.jsx','typescript', 'typescript.tsx'] }
+
+" Plug 'ivangeorgiew/vim-jsx',       { 'for': ['javascript.jsx'] }
+" Plug 'ianks/vim-tsx',              { 'for': ['typescript', 'typescript.tsx'] }
 
 "" Writing
 Plug 'vimwiki/vimwiki'
+Plug 'soywod/kronos.vim'
+Plug 'voldikss/vim-search-me'
 " Plug 'lervag/wiki.vim'
 Plug 'lervag/vimtex' ,            { 'for': 'tex' }
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
@@ -185,6 +188,7 @@ augroup filetypes
   autocmd BufNewFile,BufRead .prettierrc set filetype=json
   autocmd BufNewFile,BufRead tsconfig.json set filetype=jsonc
   autocmd BufNewFile,BufRead .gitignore set filetype=config
+  autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 augroup END
 
 augroup customfold
@@ -347,6 +351,7 @@ xnoremap Q :'<,'>:normal @q<CR>
 " Language client
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
+" set cmdheight=2
 set signcolumn=yes
 
 
@@ -479,6 +484,7 @@ nnoremap <silent> <leader>tt :Translate<CR>
 vnoremap <silent> <leader>tt :TranslateVisual<CR>
 vnoremap <silent> <leader>tr :TranslateReplace<CR>
 nnoremap <silent> <leader>tw viw :TranslateVisual<CR>
+nnoremap <silent> <leader>ts :ThesaurusQueryReplaceCurrentWord<CR>
 
 
 " }}}
@@ -612,6 +618,7 @@ augroup fmt
   autocmd!
   autocmd FileType javascript,javascript.jsx,typescript,python
         \ autocmd! BufWritePre * Neoformat
+
 augroup END
 
 
@@ -624,6 +631,8 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 "" vim-jsx
 let g:jsx_ext_required = 0 " set filetype=javascript.jsx even on .js
+
+" let g:vim_jsx_pretty_colorful_config = 1
 
 
 "" vim-json
@@ -649,6 +658,7 @@ let g:languagetool_jar='/usr/local/Cellar/languagetool/4.5/libexec/languagetool-
 hi link LanguageToolGrammarError CocErrorHighlight
 let g:tq_mthesaur_file="~/.config/nvim/thesaurus/mthesaur.txt"
 let g:tq_openoffice_en_file="~/.config/nvim/thesaurus/th_en_US_new"
+
 
 " ultisnips 
 let g:UltiSnipsExpandTrigger='<C-j>'
@@ -677,7 +687,7 @@ let s:wiki_perso.path = '~/Dropbox/wiki/'
 let s:wiki_perso.syntax = 'markdown'
 let s:wiki_perso.ext= '.md'
 let s:wiki_perso.auto_tags = 1 
-let s:wiki_perso.nested_syntaxes = {'python': 'python', 'markdown': 'markdown', 'sh': 'sh', 'sql': 'sql'}
+let s:wiki_perso.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql'}
 
 "fluo wiki
 let s:wiki_fluo = {}

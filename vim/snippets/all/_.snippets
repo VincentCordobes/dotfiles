@@ -10,7 +10,7 @@ endsnippet
 
 snippet { "brackets" i
 {
-	$0
+	${0:${VISUAL}}
 }
 endsnippet
 
@@ -61,6 +61,31 @@ snippet focus
 endsnippet
 
 
-snippet shebang
+snippet #! "#!/usr/bin/env"
 #!/usr/bin/env ${0}
+endsnippet
+
+
+#########
+# DATES #
+#########
+
+snippet date "YYYY-MM-DD" w
+`!v strftime("%Y-%m-%d")`
+endsnippet
+
+snippet ddate "Month DD, YYYY" w
+`!v strftime("%b %d, %Y")`
+endsnippet
+
+snippet diso "ISO format datetime" w
+`!v strftime("%Y-%m-%d %H:%M:%S%z")`
+endsnippet
+
+snippet time "hh:mm" w
+`!v strftime("%H:%M")`
+endsnippet
+
+snippet datetime "YYYY-MM-DD hh:mm" w
+`!v strftime("%Y-%m-%d %H:%M")`
 endsnippet

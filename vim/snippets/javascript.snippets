@@ -1,3 +1,7 @@
+#################################
+# Common
+#################################
+
 snippet fun "function"
 function ${1:name}(${2:params}) {
 	${0:${VISUAL}}
@@ -10,7 +14,7 @@ async function ${1:name}(${2:params}) {
 }
 endsnippet
 
-snippet c=> "Arrow function"
+snippet constf "Arrow function"
 const ${1:name} = (${2:params}) => {
 	${0:${VISUAL}}
 }
@@ -22,41 +26,46 @@ snippet => "lambda" i
 }
 endsnippet
 
-
 snippet jsdoc "Doc comment"
 /**
 	* ${0:description}
 	*/
 endsnippet
 
-snippet ed "Export default"
-export default ${0}
+
+
+snippet for "For loop"
+for (let ${1:i} = 0; $1 < ${2:array}.length; $1++) {
+	const ${3:item} = $2[$1];
+	${0:${VISUAL}}
+}
 endsnippet
 
-
-snippet desc "Describe test"
-describe('${1}', () => {
-	test('${2}', () => {
-		${3}
-	})
-})
+snippet foreach "For-Each Loop"
+${1:array}.forEach(${2:item} => {
+	${0:${VISUAL}}
+});
 endsnippet
 
-snippet givenwhen "Given When Then"
-// given
-${1}
-// when
-${2}
-// then
-${0}
+snippet forof "For-Of Loop"
+for (const ${1:element} of ${2:iterable}) {
+	${0:${VISUAL}}
+}
 endsnippet
 
-snippet test "Test case"
-test('${1:description}', () => {
+snippet if "If Statement"
+if (${1:condition}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet ifelse "If-Else Statement"
+if (${1:condition}) {
+	${2:${VISUAL}}
+} else {
 	$0
-})
+}
 endsnippet
-
 
 snippet ttodo "Throw todo"
 // TODO: ${1}
@@ -64,13 +73,20 @@ throw new Error('TODO: $1')$0
 endsnippet
 
 snippet cl "Console log"
-console.log(${0})
+console.log(${0:${VISUAL}})
+endsnippet
+
+snippet cln "Console log"
+console.log("$1", ${1:${VISUAL}})
 endsnippet
 
 snippet cls "Console stringifiy"
-console.log('${1} = ', JSON.stringify($1, null, 5))
+console.log('${1:${VISUAL}} = ', JSON.stringify($1, null, 5))
 endsnippet
 
+snippet jsonstr "JSON.stringify" i
+JSON.stringify(${1:${VISUAL}})
+endsnippet
 
 snippet logi "Log info"
 logger.info(`${1}`)
@@ -98,13 +114,11 @@ snippet eslintnl "eslint-disable-next-line"
 // eslint-disable-next-line $0
 endsnippet
 
-
 snippet < "XML tag"
 <${1:tag}>
 	${0:${VISUAL}}
 </$1>
 endsnippet
-
 
 snippet consto "Destructure object"
 const { ${2} } = ${1}
@@ -112,6 +126,34 @@ endsnippet
 
 snippet consta "Destructure array"
 const [${2}] = ${1}
+endsnippet
+
+
+#################################
+# Testing
+#################################
+
+snippet desc "Describe test"
+describe('${1}', () => {
+	test('${2}', () => {
+		${3}
+	})
+})
+endsnippet
+
+snippet givenwhen "Given When Then"
+// given
+${1}
+// when
+${2}
+// then
+${0}
+endsnippet
+
+snippet test "Test case"
+test('${1:description}', () => {
+	$0
+})
 endsnippet
 
 
@@ -133,6 +175,10 @@ endsnippet
 
 snippet dre "Destructure require"
 const { $0 } = require('${1}')
+endsnippet
+
+snippet ed "Export default"
+export default ${0}
 endsnippet
 
 
@@ -160,7 +206,6 @@ constructor(props) {
 }
 endsnippet
 
-
 snippet rcc "React class component"
 class ${1:ClassName} extends React.Component {
 	render() {
@@ -179,6 +224,47 @@ render() {
 }
 endsnippet
 
+snippet rcustomctx "Use context"
+const context = React.useContext(${1:context})
+if (context === undefined) {
+	throw new Error('${2:custom hook name} must be used within a $1 provider')
+}
+endsnippet
+
+
+#################################
+# Coding challenges stuff
+#################################
+# Maybe move it somewhere else
+
+snippet distinctfun
+function distinct(array) {
+	return [...new Set(array)];
+}
+endsnippet
+
+snippet rangefun
+function range(sizeOrStart, end) {
+	if (end === undefined) {
+		const size = sizeOrStart;
+		return [...Array(size).keys()];
+	} else {
+		const start = sizeOrStart;
+		return [...Array(end - start).keys()].map(i => i + start);
+	}
+}
+endsnippet
+
+snippet addfun
+function add(a, b) {
+	return a + b;
+}
+endsnippet
+
+
+#################################
+# Talk snippets
+#################################
 
 snippet expectequal
 expect(${1}).toEqual(${0})
@@ -188,7 +274,6 @@ snippet periodo
 { from: ${1}, to: ${2} }
 endsnippet
 
-
 snippet givenperiod "period"
 // Given
 const period = { from: ${1}, to: ${2} }
@@ -197,7 +282,6 @@ const periods = splitPeriod(period)
 // then
 expect(periods).toEqual([${3}])
 endsnippet
-
 
 snippet test1
 test('should not split when the period is 1-12', () => {
@@ -259,70 +343,3 @@ test('should split in 3 when the period is 6-25', () => {
 endsnippet
 
 
-
-
-
-
-snippet addfun
-function add(a, b) {
-	return a + b;
-}
-endsnippet
-
-# for loop
-
-snippet for "For loop"
-for (let ${1:i} = 0; $1 < ${2:array}.length; $1++) {
-	const ${3:item} = $2[$1];
-	${0:${VISUAL}}
-}
-endsnippet
-
-
-snippet foreach "For-Each Loop"
-${1:array}.forEach(${2:item} => {
-	${0:${VISUAL}}
-});
-endsnippet
-
-snippet forof "For-Of Loop"
-for (const ${1:element} of ${2:iterable}) {
-	${0:${VISUAL}}
-}
-endsnippet
-
-snippet if "If Statement"
-if (${1:condition}) {
-	${0:${VISUAL}}
-}
-endsnippet
-
-snippet ifelse "If-Else Statement"
-if (${1:condition}) {
-	${2:${VISUAL}}
-} else {
-	$0
-}
-endsnippet
-
-
-# Coding challenges stuff
-# Maybe move it somewhere else
-
-snippet distinctfun
-function distinct(array) {
-	return [...new Set(array)];
-}
-endsnippet
-
-snippet rangefun
-function range(sizeOrStart, end) {
-	if (end === undefined) {
-		const size = sizeOrStart;
-		return [...Array(size).keys()];
-	} else {
-		const start = sizeOrStart;
-		return [...Array(end - start).keys()].map(i => i + start);
-	}
-}
-endsnippet

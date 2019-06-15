@@ -1,19 +1,23 @@
 " execute either cprevious/cnext or lprevious/lnext 
 " QuickFix has higher priority than LocList if both are open
 function! ListNavigate(cmd)
-    try
-        if IsBufOpen('Quickfix List')
-            exec('c'.a:cmd)
-        else
-            exec('l'.a:cmd)
-        endif
-    catch /E553/
-        echohl ErrorMsg | echo 'No more items' | echohl None
-    catch /E42/
-        echohl ErrorMsg | echo 'No Errors' | echohl None
-    catch /E776/
-        echohl ErrorMsg | echo 'No location list' | echohl None
-    endtry
+  try
+    if IsBufOpen('Quickfix List')
+      exec('c'.a:cmd)
+    else
+      exec('l'.a:cmd)
+    endif
+  catch /E553/
+    if IsBufOpen('Quickfix List')
+      cc
+    else
+      ll
+    endif
+  catch /E42/
+    echohl ErrorMsg | echo 'No Errors' | echohl None
+  catch /E776/
+    echohl ErrorMsg | echo 'No location list' | echohl None
+  endtry
 endfunction
 
 
