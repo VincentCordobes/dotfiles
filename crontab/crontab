@@ -1,7 +1,5 @@
-PATH=/usr/local/bin:/bin:/usr/bin
+PATH=/Users/vincent/scripts:/usr/local/bin:/bin:/usr/bin
 LOGFILE=/usr/local/var/log/cron.log
 
-0 20 * * * if drum-instagram &>/dev/null ; then echo "$(date '+\%Y-\%m-\%d \%H:\%M') OK" >> $LOGFILE; else echo "$(date '+\%Y-\%m-\%d \%H:\%M') KO" >> $LOGFILE; fi
-
-0 20 * * * if drum-youtube &>/dev/null ; then echo "$(date '+\%Y-\%m-\%d \%H:\%M') OK" >> $LOGFILE; else echo "$(date '+\%Y-\%m-\%d \%H:\%M') KO" >> $LOGFILE; fi
-
+0 1 * * * log.sh drum-instagram $LOGFILE
+0 1 * * * log.sh drum-youtube $LOGFILE
