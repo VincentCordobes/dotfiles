@@ -632,7 +632,7 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 "" vim-jsx
 let g:jsx_ext_required = 0 " set filetype=javascript.jsx even on .js
 
-" let g:vim_jsx_pretty_colorful_config = 1
+let g:vim_jsx_pretty_colorful_config = 1
 
 
 "" vim-json
