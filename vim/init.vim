@@ -189,6 +189,7 @@ augroup filetypes
   autocmd BufNewFile,BufRead tsconfig.json set filetype=jsonc
   autocmd BufNewFile,BufRead .gitignore set filetype=config
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+  autocmd BufNewFile,BufRead zprofile set filetype=zsh
 augroup END
 
 augroup customfold
