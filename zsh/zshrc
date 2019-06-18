@@ -1,5 +1,5 @@
 # zmodload zsh/zprof
-~/scripts/today_word.py
+# ~/scripts/today_word.py
 
 ###########################################
 # Oh My Zsh configuration                 #
@@ -44,6 +44,7 @@ alias l='ls -lFh'
 alias la='ls -lAFh'
 alias gs='git status'
 alias ctop='ctop -i'
+alias w=watson
 alias git-remove-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -D'
 
 gimp() {
@@ -138,10 +139,9 @@ incworkout() {
 }
 
 
-
+# fnm
 # eval "$(fnm env --multi)"
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-# OPAM configuration
-# . /Users/vincent/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# opam configuration
+test -r /Users/Vincent/.opam/opam-init/init.zsh && . /Users/Vincent/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 

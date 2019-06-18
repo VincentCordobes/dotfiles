@@ -2,15 +2,18 @@
 
 DIRNAME="$(cd "$(dirname "$0")";pwd -P)"
 
+echo "Configuring npm"
+ mkdir -p ~/.npm-global
+ npm config set prefix '~/.npm-global'
+
 echo "Installing npm packages"
 
-sudo npm i -g \
+npm i -g \
   bash-language-server \
   eslint \
   convert-snippets \
-  typescript
-
-sudo npm install --global pure-prompt --allow-root --unsafe-perm=true
+  typescript \
+  pure-prompt
 
 
 echo -e "\n"

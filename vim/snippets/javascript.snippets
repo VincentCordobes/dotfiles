@@ -262,6 +262,18 @@ function add(a, b) {
 endsnippet
 
 
+snippet groupByfun
+function groupBy(f, list) {
+	return list.reduce((acc, x) => {
+		const s = f(x)
+		acc[s] = (acc[s] || [])
+		acc[s].push(x)
+		return acc
+	}, {})
+}
+endsnippet
+
+
 #################################
 # Talk snippets
 #################################

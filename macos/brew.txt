@@ -22,3 +22,4 @@ diff-so-fancy
 pyenv
 pyenv-virtualenv
 pdf2svg
+opam
