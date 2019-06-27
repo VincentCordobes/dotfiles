@@ -186,41 +186,14 @@ endsnippet
 # React
 #################################
 
-snippet sst "setState"
-this.setState({
-	${1}: ${2}
-})
-endsnippet
 
-snippet ssf "setState functional"
-this.setState(state => ${1})
-endsnippet
 
-snippet rcon "React constructor"
-constructor(props) {
-	super(props)
-
-	this.state = {
-		${1}: ${0},
-	}
+snippet rconst "React component"
+type Props = {
+	$2
 }
-endsnippet
-
-snippet rcc "React class component"
-class ${1:ClassName} extends React.Component {
-	render() {
-		return (
-			${0:<div />}
-		)
-	}
-}
-endsnippet
-
-snippet rren "React render"
-render() {
-	return (
-		${1:<div />}
-	)
+export const ${1:Name}: FC<Props> = props => {
+	return ${0:${VISUAL}}
 }
 endsnippet
 
@@ -229,6 +202,15 @@ const context = React.useContext(${1:context})
 if (context === undefined) {
 	throw new Error('${2:custom hook name} must be used within a $1 provider')
 }
+endsnippet
+
+
+snippet usestate "useState"
+const [$1, set${1/.+/\u$0/}] = useState(${2:initialState})
+endsnippet
+
+snippet usereducer "useReducer"
+const [state, dispatch] = useReducer(${1:reducer}, ${2:initialState})
 endsnippet
 
 
@@ -271,6 +253,14 @@ function groupBy(f, list) {
 		return acc
 	}, {})
 }
+endsnippet
+
+
+snippet defaultdictfun
+const defaultDict = (d = {}) =>
+	new Proxy(d, {
+		get: (obj, prop) => (prop in obj ? obj[prop] : 0)
+	});
 endsnippet
 
 

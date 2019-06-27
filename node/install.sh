@@ -13,6 +13,7 @@ npm i -g \
   eslint \
   convert-snippets \
   typescript \
+  prettier \
   pure-prompt
 
 

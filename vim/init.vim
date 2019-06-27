@@ -88,8 +88,8 @@ Plug 'vimwiki/vimwiki'
 Plug 'soywod/kronos.vim'
 Plug 'voldikss/vim-search-me'
 " Plug 'lervag/wiki.vim'
-Plug 'lervag/vimtex' ,            { 'for': 'tex' }
-Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
+" Plug 'lervag/vimtex' ,            { 'for': 'tex' }
+" Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
 Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
 Plug 'ron89/thesaurus_query.vim', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
 Plug 'junegunn/goyo.vim',        "{ 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
@@ -282,7 +282,7 @@ nnoremap <silent><leader><space> :noh<CR>
 
 "" Grep
 nnoremap <leader>a :Ack!
-nnoremap <leader>s :Ack <C-r><C-w>
+" nnoremap <leader>s :Ack <C-r><C-w>
 let g:ack_apply_qmappings=0
 
 "" EasyAlign
@@ -416,19 +416,19 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " Show all diagnostics
 " nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
-" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " " ncm2
 " let g:ncm2_look_use_spell = 1
@@ -617,7 +617,7 @@ let g:deoplete#file#enable_buffer_path = 1 " buffer relative file path
 """"""""""""
 augroup fmt
   autocmd!
-  autocmd FileType javascript,javascript.jsx,typescript,python
+  autocmd FileType javascript,javascript.jsx,typescript,python,json
         \ autocmd! BufWritePre * Neoformat
 
 augroup END
@@ -735,5 +735,8 @@ let g:translate#default_languages = {
       \ 'fr': 'en',
       \ 'en': 'fr'
       \ }
+
+" vim-search-me
+let g:vsm_default_mappings = 0
 
 " }}}
