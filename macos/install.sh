@@ -20,3 +20,24 @@ ln -sf $PWD/../code/* ~/Library/Application\ Support/Code/User/
 
 echo "Installing some user settings"
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+echo "Installing some fonts"
+tmp_dir=$(mktemp -d)
+cd $tmp_dir
+echo $tmp_dir
+
+curl -fLo $tmp_dir/IndieFlower.zip https://fonts.google.com/download\?family\=Indie%20Flower
+unzip $tmp_dir/IndieFlower.zip
+# open $tmp_dir/*.ttf
+
+curl -fLo $tmp_dir/computer-modern.zip https://www.fontsquirrel.com/fonts/download/computer-modern
+unzip $tmp_dir/computer-modern.zip
+# open $tmp_dir/*.ttf
+
+curl -fLo $tmp_dir/Ubuntu.zip https://fonts.google.com/download?family=Ubuntu
+unzip $tmp_dir/Ubuntu.zip
+# open $tmp_dir/*.ttf
+
+echo "Fonts are temporarily stored in $tmp_dir"
+open $tmp_dir
+
