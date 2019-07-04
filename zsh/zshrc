@@ -1,5 +1,5 @@
 # zmodload zsh/zprof
-# ~/scripts/today_word.py
+~/scripts/today_word.py
 
 ###########################################
 # Oh My Zsh configuration                 #
@@ -103,7 +103,7 @@ vw() {
 }
 
 draft() {
-  (cd /Users/vincent/Dropbox/wiki/drafts; vim $(date +%Y-%m-%d).md -c "set spelllang=${1:-en_us}|set spell")
+  (cd /Users/vincent/Dropbox/wiki; vim "drafts/$(date +%Y-%m-%d)_$@.md" -c "set spelllang=${1:-en_us}|set spell")
 }
 
 todo() {

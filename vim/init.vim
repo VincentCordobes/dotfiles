@@ -54,7 +54,7 @@ Plug 'albertorestifo/github.vim', {'commit': '5dd1be6' }
 Plug 'arcticicestudio/nord-vim'
 
 """ Make & Linting
-Plug 'benekastah/neomake' " using neovim's job control functonality
+" Plug 'benekastah/neomake' " using neovim's job control functonality
 " Plug 'w0rp/ale'
 
 
@@ -370,7 +370,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <c-j> pumvisible() ? "\<C-y>" : "\<C-g>u\<c-j>"
 
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
@@ -414,7 +414,7 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Using CocList
 " Show all diagnostics
-" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>k  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 " nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
@@ -622,6 +622,8 @@ augroup fmt
 
 augroup END
 
+let g:neoformat_enabled_json = ['prettier']
+
 
 " Misc plugin related config
 " (usually small config)
@@ -634,6 +636,8 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:jsx_ext_required = 0 " set filetype=javascript.jsx even on .js
 
 let g:vim_jsx_pretty_colorful_config = 1
+
+
 
 
 "" vim-json
@@ -672,6 +676,7 @@ let g:UltiSnipsSnippetDirectories=['my-snippets']
 
 
 "vimwiki
+let g:vimwiki_key_mappings=0
 " FIXME: I don't know how to do this for now..
 command! VimwikiIndex2
       \ call vimwiki#base#goto_index(2)
