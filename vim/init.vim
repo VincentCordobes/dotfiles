@@ -79,6 +79,7 @@ Plug 'neoclide/jsonc.vim',
 Plug 'pangloss/vim-javascript',    { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
 Plug 'maxmellon/vim-jsx-pretty',   { 'for': ['javascript', 'javascript.jsx','typescript', 'typescript.tsx'] }
+" Plug 'statico/vim-javascript-sql', { 'for': ['typescript']}
 
 " Plug 'ivangeorgiew/vim-jsx',       { 'for': ['javascript.jsx'] }
 " Plug 'ianks/vim-tsx',              { 'for': ['typescript', 'typescript.tsx'] }
@@ -617,7 +618,7 @@ let g:deoplete#file#enable_buffer_path = 1 " buffer relative file path
 """"""""""""
 augroup fmt
   autocmd!
-  autocmd FileType javascript,javascript.jsx,typescript,python,json
+  autocmd FileType javascript,javascript.jsx,typescript,python
         \ autocmd! BufWritePre * Neoformat
 
 augroup END
