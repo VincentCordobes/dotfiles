@@ -54,7 +54,7 @@ Plug 'albertorestifo/github.vim', {'commit': '5dd1be6' }
 Plug 'arcticicestudio/nord-vim'
 
 """ Make & Linting
-" Plug 'benekastah/neomake' " using neovim's job control functonality
+Plug 'benekastah/neomake' " using neovim's job control functonality
 " Plug 'w0rp/ale'
 
 
