@@ -14,7 +14,9 @@ npm i -g \
   convert-snippets \
   typescript \
   prettier \
-  pure-prompt
+  pure-prompt \
+  npm-check \
+  madge
 
 
 echo -e "\n"
