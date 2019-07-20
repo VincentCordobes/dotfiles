@@ -8,8 +8,6 @@ call plug#begin('~/.config/nvim/plugged')
 "" Common
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-" Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
-" Plug 'vim-airline/vim-airline' " statusline
 Plug 'tpope/vim-vinegar'
 
 "" Git
@@ -27,21 +25,6 @@ Plug 'SirVer/ultisnips'
 Plug 'sbdchd/neoformat' " autoformat according to various engine
 Plug 'moll/vim-bbye'
 Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
-" Plug 'ncm2/ncm2'
-" Plug 'prabirshrestha/async.vim'
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'ncm2/ncm2-vim-lsp'
-" Plug 'roxma/nvim-yarp'
-" Plug 'ncm2/ncm2-ultisnips'
-" Plug 'ncm2/ncm2-cssomni', { 'for': 'css' }
-" Plug 'ncm2/ncm2-bufword'
-" Plug 'ncm2/ncm2-path'
-" Plug 'ryanolsonx/vim-lsp-python', { 'for': 'python' }
-
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'do': 'bash install.sh',
-"     \ }
 Plug 'bronson/vim-visual-star-search'
 
 "" Utils
@@ -55,12 +38,6 @@ Plug 'arcticicestudio/nord-vim'
 
 """ Make & Linting
 Plug 'benekastah/neomake' " using neovim's job control functonality
-" Plug 'w0rp/ale'
-
-
-"" Autocomplete
-" Plug 'Shougo/deoplete.nvim' ", { 'for': ['javascript', 'javascript.jsx', 'python', 'tex'] }
-" Plug 'Shougo/echodoc.vim'
 
 "" Misc syntax support
 Plug 'othree/html5.vim',       { 'for': 'html' }
@@ -74,15 +51,10 @@ Plug 'neoclide/jsonc.vim',
 " Plug 'zchee/deoplete-jedi',          { 'for': 'python' }
 
 "" Javascript
-" Plug 'ruanyl/vim-fixmyjs',      { 'for': ['javascript', 'javascript.jsx'] }
-" Plug 'moll/vim-node',           { 'for': ['javascript', 'javascript.jsx'] } " node support
 Plug 'pangloss/vim-javascript',    { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
 Plug 'maxmellon/vim-jsx-pretty',   { 'for': ['javascript', 'javascript.jsx','typescript', 'typescript.tsx'] }
 " Plug 'statico/vim-javascript-sql', { 'for': ['typescript']}
-
-" Plug 'ivangeorgiew/vim-jsx',       { 'for': ['javascript.jsx'] }
-" Plug 'ianks/vim-tsx',              { 'for': ['typescript', 'typescript.tsx'] }
 
 "" Writing
 Plug 'vimwiki/vimwiki'
@@ -218,7 +190,6 @@ augroup END
 " statusline
 set statusline=%<%f\ %h%m%r\ \ \ %{coc#status()}\ %=%y\ \ \ %-10.(%l,%v%)\ %P
 
-" %{coc#status()} 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Themes
@@ -240,9 +211,6 @@ function! s:configureTheme()
   " colorscheme github 
   " source ~/dotfiles/vim/custom_light.vim
 
-  " set background=dark
-  " " colorscheme base16-hopscotch
-  " colorscheme base16-ocean
   colorscheme nord
 
 endfunction
@@ -314,21 +282,7 @@ nnoremap <leader>zn ]s
 nnoremap <leader>zp [s
 
 
-"" window switch
-" nnoremap <C-h> <C-w>h
-" nnoremap <C-j> <C-w>j
-" nnoremap <C-l> <C-w>l
-" nnoremap <C-k> <C-w>k
-
-
-"" NERDTree
-" noremap <silent> <leader>n :NERDTreeToggle<CR>
-noremap <silent> <leader>n :Explore<CR>
-" let g:netrw_localrmdir='rm -r'
-noremap <silent> <leader>f :NERDTreeFind<CR>
-
 "" Git (fugitive)
-" nnoremap <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gd :call ToggleGvdiff()<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
@@ -365,7 +319,6 @@ let g:coc_status_error_sign="✘ "
 let g:coc_status_warning_sign="⚠︎ "
 
 " Use <c-space> to trigger completion.
-
 inoremap <silent><expr> <c-space> coc#refresh()
 
 inoremap <expr> <c-j> pumvisible() ? "\<C-y>" : "\<C-g>u\<c-j>"
@@ -431,55 +384,6 @@ nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list
 " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-" " ncm2
-" let g:ncm2_look_use_spell = 1
-" augroup ncm2
-"   autocmd!
-"   autocmd BufEnter * call ncm2#enable_for_buffer()
-"   autocmd filetype markdown let b:ncm2_look_enabled = 1
-"
-"   " if executable('typescript-language-server')
-"   "   au User lsp_setup call lsp#register_server({
-"   "         \ 'name': 'typescript-language-server',
-"   "         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-"   "         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-"   "         \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
-"   "         \ })
-"   " endif
-"
-"   if executable('typescript-language-server')
-"     au User lsp_setup call lsp#register_server({
-"           \ 'name': 'ts',
-"           \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-"           \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-"           \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
-"           \ })
-"   endif
-"
-"   if executable('ocamlmerlin-lsp')
-"     au User lsp_setup call lsp#register_server({
-"           \ 'name': 'merlin',
-"           \ 'cmd': {server_info->[&shell, &shellcmdflag, 'ocamlmerlin-lsp']},
-"           \ 'whitelist': ['ocaml'],
-"           \ })
-"   endif
-" augroup END
-
-
-" augroup language_client
-"   autocmd!
-"   autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent> <leader>v :call LanguageClient_textDocument_hover()<CR>
-"   autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-"   autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent><leader>r :call LanguageClient_textDocument_rename()<CR>
-"   autocmd FileType javascript.jsx,typescript,ocaml nnoremap <silent><leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
-" augroup END
-
-" nnoremap <silent> gd :LspDefinition<CR>
-" nnoremap <silent> <leader>dd :call Diagnostics()<CR>
-" nnoremap <silent> <leader>v :LspHover<CR>
-" nnoremap <silent><leader>r :LspRename<CR>
-" nnoremap <silent><leader>i :LspCodeAction<CR>
-
 
 " translate
 nnoremap <silent> <leader>tt :Translate<CR>
@@ -519,28 +423,6 @@ command! ShowTag :vimgrep "<!--.*-->" % | wincmd H | vertical resize 110
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-" Airline
-"""""""""
-let g:airline_powerline_fonts = 1
-let g:airline_theme='github'
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = '|'
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = '|'
-
-" NERDTree
-""""""""""
-
-"" NERDTress File highlighting
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-" let g:NERDTreeWinSize = 60
-
-
-
 
 " Neomake
 """""""""
@@ -563,14 +445,6 @@ let g:neomake_list_height = 10
 " let g:neomake_open_list = 2 " auto open list if error
 
 
-" Ale
-"""""""""
-" Write this in your vimrc file
-let g:ale_lint_on_text_changed = 'never'
-" You can disable this option too
-" if you don't want linters to run on opening a file
-let g:ale_lint_on_enter = 0
-
 "" Javascript
 let g:neomake_jsx_enabled_makers = []
 let g:neomake_javascript_enabled_makers = []
@@ -586,33 +460,6 @@ if g:eslint_path !=# 'eslint not found'
   let g:neomake_javascript_enabled_makers = ['eslint']
 endif
 
-
-" LanguageClient
-""""""""""""""""
-" let g:LanguageClient_selectionUI = 'fzf'
-" " let g:LanguageClient_diagnosticsList='Disabled'
-" let g:LanguageClient_diagnosticsList='Location'
-" let g:LanguageClient_serverCommands = {
-"   \ 'javascript': ['javascript-typescript-stdio'],
-"   \ 'javascript.jsx': ['javascript-typescript-stdio'],
-"   \ 'typescript': ['javascript-typescript-stdio'],
-"   \ 'ocaml': ['ocaml-language-server', '--stdio'],
-"   \ }
-"
-  " \ 'javascript': ['flow-language-server', '--stdio'],
-  " \ 'javascript.jsx': ['flow-language-server', '--stdio'],
-
-let g:lsp_virtual_text_enabled = 0
-let g:lsp_highlights_enabled = 0
-
-" Deoplete
-""""""""""
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#file#enable_buffer_path = 1 " buffer relative file path
-
-" let g:ncm2#manual_complete_length=0
-" inoremap <silent><C-Space> <c-r>=ncm2#manual_trigger('ts', 'merlin')<cr>
 
 "" Neoformat
 """"""""""""
@@ -637,8 +484,6 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:jsx_ext_required = 0 " set filetype=javascript.jsx even on .js
 
 let g:vim_jsx_pretty_colorful_config = 1
-
-
 
 
 "" vim-json
