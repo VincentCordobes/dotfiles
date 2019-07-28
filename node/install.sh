@@ -16,6 +16,7 @@ npm i -g \
   prettier \
   pure-prompt \
   npm-check \
+  install instant-markdown-d \
   madge
 
 
