@@ -1,7 +1,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin declarations
+" Plugin declarations {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-" {{{
 call plug#begin('~/.config/nvim/plugged')
 
 
@@ -16,7 +15,6 @@ Plug 'tpope/vim-rhubarb'
 Plug 'gregsexton/gitv'
 
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
-Plug 'mileszs/ack.vim' " better grep
 Plug 'tomtom/tcomment_vim' " comment stuff out
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
@@ -62,7 +60,7 @@ Plug 'soywod/kronos.vim'
 Plug 'voldikss/vim-search-me'
 " Plug 'lervag/wiki.vim'
 " Plug 'lervag/vimtex' ,            { 'for': 'tex' }
-" Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
+Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
 Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
 Plug 'ron89/thesaurus_query.vim', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
 Plug 'junegunn/goyo.vim',        "{ 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
@@ -78,9 +76,8 @@ source ~/dotfiles/vim/utils.vim
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-" General settings
+" General settings {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-" {{{
 set clipboard+=unnamedplus
 set termguicolors " true colors
 
@@ -181,7 +178,7 @@ augroup qf
   autocmd FileType qf call AdjustWindowHeight(3, 10)
 
   "" Open quickfix after grep
-  autocmd QuickFixCmdPost *grep* cwindow
+  " autocmd QuickFixCmdPost *grep* cwindow
 augroup END
 
 " }}}
@@ -191,10 +188,43 @@ augroup END
 set statusline=%<%f\ %h%m%r\ \ \ %{coc#status()}\ %=%y\ \ \ %-10.(%l,%v%)\ %P
 
 
+"" grep
+set grepprg=rg\ --vimgrep\ --smart-case
+set grepformat=%f:%l:%c:%m,%f:%l:%m
+
+nnoremap <leader>a :Grep<space>
+vnoremap <leader>a "ay :Grep -F <c-r>=EscapeSearch(@a)<cr>
+command! -nargs=* -complete=file -range Grep silent grep! <args> | copen
+" TODO: maybe highlight the result
+
+fun! EscapeSearch(text) 
+
+  fun! s:trim(str)
+    return substitute(a:str, '\n', '', 'g')
+  endfun
+
+  if a:text !~# '"'
+    let l:escaped = '"' . s:trim(a:text) . '"'
+  elseif a:text !~# "'"
+    let l:escaped = "'" . s:trim(a:text) . "'"
+  else
+    let l:escaped = '"' . s:trim(escape(a:text, '"')) . '"'
+  endif
+
+  if a:text =~# '^-'
+    let l:sep = '-- '
+  else
+    let l:sep = ''
+  endif
+
+  return l:sep . l:escaped
+endfun
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-" Themes
+" Themes {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-" {{{
+
 syntax on
 
 if has('gui_running')
@@ -232,9 +262,8 @@ hi link CocInfoSign SpecialChar
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-" Mappings
+" Mappings {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-" {{{
 
 "" Moving up and down work as you would expect
 noremap <Up> gk
@@ -249,10 +278,6 @@ vnoremap < <gv
 "" Un-highlight search matches
 nnoremap <silent><leader><space> :noh<CR>
 
-"" Grep
-nnoremap <leader>a :Ack!
-" nnoremap <leader>s :Ack <C-r><C-w>
-let g:ack_apply_qmappings=0
 
 "" EasyAlign
 "" Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -397,15 +422,13 @@ nnoremap <silent> <leader>ts :ThesaurusQueryReplaceCurrentWord<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-" Commands
+" Commands {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-" {{{
 command! DisableOpenQF execute "let g:neomake_open_qflist = 0"
 command! EnableOpenQF execute "let g:neomake_open_qflist = 1"
 command! Datef execute ":pu=strftime('%F')"
 
 command! Refs :LspReferences
-command! Grep Ack!
 command! -nargs=? -bar Gshow call setqflist(map(systemlist("git show --pretty='' --name-only <args>"), '{"filename": v:val, "lnum": 1}')) | copen
 
 " temp stuff
@@ -419,9 +442,8 @@ command! ShowTag :vimgrep "<!--.*-->" % | wincmd H | vertical resize 110
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugins configuration
+" Plugins configuration {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-" {{{
 
 
 " Neomake
@@ -492,14 +514,6 @@ let g:vim_json_syntax_conceal = 0
 "" vim-instant-markdown
 let g:instant_markdown_slow = 1
 let g:instant_markdown_autostart = 0
-
-"" ack
-"" Use ag to grep through files
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-" set grepprg=ag\ --vimgrep\ $*
-" set grepformat=%f:%l:%c:%m
-endif
 
 
 
