@@ -1,0 +1,30 @@
+{
+  "python.linting.flake8Enabled": true,
+  "python.jediEnabled": false,
+  "python.linting.mypyEnabled": true,
+  "eslint.autoFix": true,
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    /* "prose": { */
+    /*   "command": "prose-language-server", */
+    /*   "args": ["--stdio"], */
+    /*   "filetypes": ["markdown"] */
+    /* }, */
+    "ocaml": {
+      "command": "ocamlmerlin-lsp",
+      "args": ["--stdio"],
+      "filetypes": ["ocaml", "reason"]
+    }
+  }
+}
