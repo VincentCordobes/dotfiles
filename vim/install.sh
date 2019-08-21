@@ -7,6 +7,7 @@ echo "Installing vim..."
 mkdir -p ~/.config/nvim
 ln -sf $DIRNAME/init.vim ~/.config/nvim/init.vim
 ln -sf $DIRNAME/coc-settings.json ~/.config/nvim/coc-settings.json
+ln -sf $DIRNAME/coc-package.json ~/.config/coc/extensions/package.json
 ln -sfn $DIRNAME/snippets ~/.config/nvim/my-snippets
 ln -sfn $DIRNAME/spell ~/.config/nvim/spell
 

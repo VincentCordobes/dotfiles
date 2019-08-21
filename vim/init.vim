@@ -22,7 +22,8 @@ Plug 'SirVer/ultisnips'
 " Plug 'honza/vim-snippets' " { 'for': 'python' } This slow down...
 Plug 'sbdchd/neoformat' " autoformat according to various engine
 Plug 'moll/vim-bbye'
-Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 Plug 'bronson/vim-visual-star-search'
 
 "" Utils
@@ -59,7 +60,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'soywod/kronos.vim'
 Plug 'voldikss/vim-search-me'
 " Plug 'lervag/wiki.vim'
-" Plug 'lervag/vimtex' ,            { 'for': 'tex' }
+Plug 'lervag/vimtex' ,            { 'for': 'tex' }
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
 Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
 Plug 'ron89/thesaurus_query.vim', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
@@ -159,6 +160,7 @@ augroup filetypes
   autocmd BufNewFile,BufRead tsconfig.json set filetype=jsonc
   autocmd BufNewFile,BufRead .gitignore set filetype=config
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+  autocmd BufNewFile,BufRead *.css set filetype=scss
   autocmd BufNewFile,BufRead zprofile set filetype=zsh
 augroup END
 
@@ -178,7 +180,7 @@ augroup qf
   autocmd FileType qf call AdjustWindowHeight(3, 10)
 
   "" Open quickfix after grep
-  " autocmd QuickFixCmdPost *grep* cwindow
+  autocmd QuickFixCmdPost *grep* cwindow
 augroup END
 
 " }}}
@@ -194,7 +196,7 @@ set grepformat=%f:%l:%c:%m,%f:%l:%m
 
 nnoremap <leader>a :Grep<space>
 vnoremap <leader>a "ay :Grep -F <c-r>=EscapeSearch(@a)<cr>
-command! -nargs=* -complete=file -range Grep silent grep! <args> | copen
+command! -nargs=* -complete=file -range Grep silent grep! <args>
 " TODO: maybe highlight the result
 
 fun! EscapeSearch(text) 
@@ -493,6 +495,8 @@ augroup fmt
 augroup END
 
 let g:neoformat_enabled_json = ['prettier']
+let g:neoformat_enabled_javascript = ['prettier']
+let g:neoformat_enabled_typescript = ['prettier']
 
 
 " Misc plugin related config
@@ -557,16 +561,18 @@ let s:wiki_perso.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql'
 
 "fluo wiki
 let s:wiki_fluo = {}
-let s:wiki_fluo.path = '~/Dropbox/job/fluo/wiki/'
+let s:wiki_fluo.path = '~/Dropbox/jobs/fluo/wiki/'
 let s:wiki_fluo.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql'}
 let s:wiki_fluo.auto_tags = 1 
 
-"payfit wiki
-let s:wiki_payfit = {}
-let s:wiki_payfit.path = '~/Dropbox/job/payfit/wiki/'
-let s:wiki_payfit.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql', 'js': 'javascript'}
-let s:wiki_payfit.auto_tags = 1 
-let g:vimwiki_list = [s:wiki_perso, s:wiki_fluo, s:wiki_payfit]
+"foncia wiki
+let s:wiki_foncia = {}
+let s:wiki_foncia.path = '~/Dropbox/jobs/foncia/wiki/'
+let s:wiki_foncia.syntax = 'markdown'
+let s:wiki_foncia.ext= '.md'
+let s:wiki_foncia.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql', 'js': 'javascript'}
+let s:wiki_foncia.auto_tags = 1 
+let g:vimwiki_list = [s:wiki_perso, s:wiki_fluo, s:wiki_foncia]
 
 let g:vimwiki_listsyms = ' .oOx'
 
@@ -594,6 +600,7 @@ endfunction
 "" Goyo
 " vint: -ProhibitAutocmdWithNoGroup
 autocmd! User GoyoLeave nested call s:configureTheme()
+let g:goyo_width = 80
 
 "" translate
 let g:translate#default_languages = {
@@ -605,3 +612,4 @@ let g:translate#default_languages = {
 let g:vsm_default_mappings = 0
 
 " }}}
+

@@ -3,6 +3,7 @@
   "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
   "eslint.autoFix": true,
+  "eslint.autoFixOnSave": true,
   "eslint.filetypes": [
     "javascript",
     "javascriptreact",
