@@ -21,5 +21,6 @@ npm i -g \
 
 
 echo -e "\n"
-echo "Installing default eslint config"
+echo "Installing default configs"
 ln -sf $DIRNAME/.eslintrc ~/.eslintrc
+ln -sf $DIRNAME/prettierrc ~/.prettierrc
