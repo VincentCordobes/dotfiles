@@ -2,8 +2,9 @@
   "python.linting.flake8Enabled": true,
   "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
-  "eslint.autoFix": true,
+  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "typescript"],
   "eslint.autoFixOnSave": true,
+  "eslint.autoFix": true,
   "eslint.filetypes": [
     "javascript",
     "javascriptreact",
