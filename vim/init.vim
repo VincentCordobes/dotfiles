@@ -55,6 +55,9 @@ Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
 Plug 'maxmellon/vim-jsx-pretty',   { 'for': ['javascript', 'javascript.jsx','typescript', 'typescript.tsx'] }
 " Plug 'statico/vim-javascript-sql', { 'for': ['typescript']}
 
+"" rust
+Plug 'cespare/vim-toml'
+
 "" Writing
 Plug 'vimwiki/vimwiki'
 Plug 'soywod/kronos.vim'
@@ -66,6 +69,7 @@ Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plain
 Plug 'ron89/thesaurus_query.vim', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
 Plug 'junegunn/goyo.vim',        "{ 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
 Plug 'VincentCordobes/vim-translate'
+" Plug '~/code/vim-translate'
 Plug 'soywod/vim-phonetics', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
@@ -183,7 +187,6 @@ augroup qf
   autocmd QuickFixCmdPost *grep* cwindow
 augroup END
 
-" }}}
 
 
 " statusline
@@ -222,6 +225,7 @@ fun! EscapeSearch(text)
   return l:sep . l:escaped
 endfun
 
+" }}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Themes {{{
@@ -417,7 +421,10 @@ nnoremap <silent> <leader>tt :Translate<CR>
 vnoremap <silent> <leader>tt :TranslateVisual<CR>
 vnoremap <silent> <leader>tr :TranslateReplace<CR>
 nnoremap <silent> <leader>tw viw :TranslateVisual<CR>
-nnoremap <silent> <leader>ts :ThesaurusQueryReplaceCurrentWord<CR>
+nnoremap <silent> <leader>tes :ThesaurusQueryReplaceCurrentWord<CR>
+
+nmap <leader>ts <Plug>Translate
+nmap <leader>tr <Plug>TranslateReplace
 
 
 " }}}
@@ -439,6 +446,9 @@ command! Pre Neoformat | Neomake
 command! CpFilePath :let @+ = expand("%")
 
 command! ShowTag :vimgrep "<!--.*-->" % | wincmd H | vertical resize 110
+
+command! EslintFix CocCommand eslint.executeAutofix
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 "}}}
 
@@ -489,8 +499,8 @@ endif
 """"""""""""
 augroup fmt
   autocmd!
-  autocmd FileType javascript,javascript.jsx,typescript,python
-        \ autocmd! BufWritePre * Neoformat
+  " autocmd FileType javascript,javascript.jsx,typescript,python
+  "       \ autocmd! BufWritePre * Neoformat
 
 augroup END
 
@@ -523,10 +533,12 @@ let g:instant_markdown_autostart = 0
 
 "" Prose
 " languagetool
-let g:languagetool_jar='/usr/local/Cellar/languagetool/4.5/libexec/languagetool-commandline.jar'
+let g:languagetool_jar='/usr/local/Cellar/languagetool/4.6/libexec/languagetool-commandline.jar'
 hi link LanguageToolGrammarError CocErrorHighlight
 let g:tq_mthesaur_file="~/.config/nvim/thesaurus/mthesaur.txt"
 let g:tq_openoffice_en_file="~/.config/nvim/thesaurus/th_en_US_new"
+" let g:tq_language=['en', 'fr']
+" let g:tq_enabled_backends=["openoffice_en", "mthesaur_txt", "synonymo_fr"]
 
 
 " ultisnips 
@@ -537,7 +549,6 @@ let g:UltiSnipsSnippetDirectories=['my-snippets']
 " Wiki
 " let g:wiki_filetypes=['md']
 " let g:wiki_journal="diary"
-
 
 "vimwiki
 let g:vimwiki_key_mappings=0
