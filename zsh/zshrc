@@ -1,5 +1,5 @@
 # zmodload zsh/zprof
-# ~/scripts/today_word.py
+~/scripts/today_word.py
 
 ###########################################
 # Oh My Zsh configuration                 #
@@ -43,7 +43,7 @@ alias vimdiff='nvim -d'
 alias l='ls -lFh'
 alias la='ls -lAFh'
 alias gs='git status'
-alias ctop='ctop -i'
+# alias ctop='ctop -i'
 alias w=watson
 alias git-remove-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -D'
 
@@ -114,8 +114,8 @@ bookmarks() {
   (cd /Users/vincent/Dropbox/wiki; vim ./bookmarks.md)
 }
 	
-pwiki() {
-  (cd /Users/vincent/Dropbox/job/payfit/wiki; vim -c VimwikiIndex3; clear)
+fwiki() {
+  (cd /Users/vincent/Dropbox/jobs/foncia/wiki; vim -c VimwikiIndex3)
 }
 
 pdiary() {
@@ -131,11 +131,19 @@ incworkout() {
   now=$(date +%Y-%m-%d)
   last_line=$(tail -n 1 $WORKOUT_FILE)
   echo "last: $last_line"
-  echo "now: $now"
-  if [ "$now" = "$last_line" ]; then
+
+  if [ -n "$1" ]; then
+    line="$now $1"
+  else
+    line="$now"
+  fi;
+
+  echo "now: $line"
+
+  if [ "$line" = "$last_line" ]; then
     echo "Already marked => ignore"
   else
-    echo $now >> $WORKOUT_FILE
+    echo "$line" >> $WORKOUT_FILE
   fi
 }
 
@@ -146,3 +154,15 @@ incworkout() {
 # opam configuration
 test -r /Users/Vincent/.opam/opam-init/init.zsh && . /Users/Vincent/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
+
+
+# nvm
+nvmLoadShit() {
+  npm config delete prefix
+  loadnvm
+}
+
+nvmUnLoadShit() {
+  nvm unload
+  npm config set prefix '~/.npm-global'
+}
