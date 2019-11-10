@@ -36,7 +36,7 @@ function! ToggleList(bufname, pfx)
     return
   endif
   let l:winnr = winnr()
-  exec(a:pfx.'window')
+  try | exec(a:pfx.'window') | catch /E776/ | endtry
   if winnr() == l:winnr
     echohl ErrorMsg | echo a:bufname.' is Empty' | echohl None
   else
