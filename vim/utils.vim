@@ -1,18 +1,19 @@
 " execute either cprevious/cnext or lprevious/lnext 
 " QuickFix has higher priority than LocList if both are open
 function! ListNavigate(cmd)
+  let l:nearby_cmd = {
+        \ 'next': 'below',
+        \ 'previous': 'above'
+        \ }
   try
-    if IsBufOpen('Quickfix List')
+    if s:isbufopen('Quickfix List')
       exec('c'.a:cmd)
-    else
+    elseif s:isbufopen('Location List')
       exec('l'.a:cmd)
+    else
+      exec('l'.nearby_cmd[a:cmd])
     endif
   catch /E553/
-    if IsBufOpen('Quickfix List')
-      cc
-    else
-      ll
-    endif
   catch /E42/
     echohl ErrorMsg | echo 'No Errors' | echohl None
   catch /E776/
@@ -30,7 +31,7 @@ function! Diagnostics()
 endfunction
 
 function! ToggleList(bufname, pfx)
-  if IsBufOpen(a:bufname)
+  if s:isbufopen(a:bufname)
     exec(a:pfx.'close')
     return
   endif
@@ -43,8 +44,8 @@ function! ToggleList(bufname, pfx)
   endif
 endfunction
 
-function! IsBufOpen(bufname)
-  let l:buflist = GetBufferList()
+function! s:isbufopen(bufname)
+  let l:buflist = s:getbuflist()
   for l:bufnum in map(filter(split(l:buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
     if bufwinnr(l:bufnum) != -1
       return 1
@@ -53,7 +54,7 @@ function! IsBufOpen(bufname)
   return 0
 endfunction
 
-function! GetBufferList()
+function! s:getbuflist()
   redir =>l:buflist
   silent! ls!
   redir END

@@ -427,6 +427,12 @@ nmap <leader>ts <Plug>Translate
 nmap <leader>tr <Plug>TranslateReplace
 
 
+" vim.wiki
+nnoremap <C-space> :WikiListToggle<CR>
+nnoremap <C-Up> <plug>(wiki-journal-previous)
+nnoremap <C-Down> <plug>(wiki-journal-next)
+
+
 " }}}
 
 
@@ -450,6 +456,8 @@ command! ShowTag :vimgrep "<!--.*-->" % | wincmd H | vertical resize 110
 command! EslintFix CocCommand eslint.executeAutofix
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
+command! TitleFileName put! =expand('%:t:r')
+
 "}}}
 
 
@@ -462,7 +470,7 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 """""""""
 function! HandleNeomakeJobFinished()
   let l:winnr = winnr()
-  let l:qfopen = IsBufOpen('Quickfix List')
+  let l:qfopen = s:isbufopen('Quickfix List')
   lwindow 
   if winnr() != l:winnr
     wincmd p
@@ -537,8 +545,8 @@ let g:languagetool_jar='/usr/local/Cellar/languagetool/4.6/libexec/languagetool-
 hi link LanguageToolGrammarError CocErrorHighlight
 let g:tq_mthesaur_file="~/.config/nvim/thesaurus/mthesaur.txt"
 let g:tq_openoffice_en_file="~/.config/nvim/thesaurus/th_en_US_new"
-" let g:tq_language=['en', 'fr']
-" let g:tq_enabled_backends=["openoffice_en", "mthesaur_txt", "synonymo_fr"]
+let g:tq_language=['en', 'fr']
+let g:tq_enabled_backends=["openoffice_en", "mthesaur_txt", "synonymo_fr"]
 
 
 " ultisnips 
@@ -547,6 +555,12 @@ let g:UltiSnipsSnippetDirectories=['my-snippets']
 
 
 " Wiki
+" vim.wiki
+let g:wiki_root = '~/Dropbox/wiki'
+
+let g:wiki_filetypes = ['md']
+
+" vimwiki
 " let g:wiki_filetypes=['md']
 " let g:wiki_journal="diary"
 
