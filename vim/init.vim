@@ -10,7 +10,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-vinegar'
 
 "" Git
-Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
+Plug 'tpope/vim-fugitive' 
 Plug 'tpope/vim-rhubarb'
 Plug 'gregsexton/gitv'
 
@@ -31,7 +31,6 @@ Plug 'jaawerth/nrun.vim' " faster which for node
 Plug 'junegunn/vader.vim'
 
 "" Themes
-Plug 'chriskempson/base16-vim'
 Plug 'albertorestifo/github.vim', {'commit': '5dd1be6' }
 Plug 'arcticicestudio/nord-vim'
 
@@ -60,7 +59,6 @@ Plug 'cespare/vim-toml'
 
 "" Writing
 Plug 'vimwiki/vimwiki'
-Plug 'soywod/kronos.vim'
 Plug 'voldikss/vim-search-me'
 " Plug 'lervag/wiki.vim'
 Plug 'lervag/vimtex' ,            { 'for': 'tex' }
@@ -70,7 +68,7 @@ Plug 'ron89/thesaurus_query.vim', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
 Plug 'junegunn/goyo.vim',        "{ 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
 Plug 'VincentCordobes/vim-translate'
 " Plug '~/code/vim-translate'
-Plug 'soywod/vim-phonetics', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
+" Plug 'soywod/vim-phonetics', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 call plug#end()
@@ -112,8 +110,8 @@ set guicursor=     " Tell neovim to not change the cursor type in insert mode
 set laststatus=2   " Always display the statusline
 set mouse=a
 
-set foldmethod=syntax
-set foldlevelstart=99
+" set foldmethod=syntax
+" set foldlevelstart=99
 
 set pumheight=12 " 12 is enough, no need to hide my entire screen :p 
 
@@ -168,10 +166,10 @@ augroup filetypes
   autocmd BufNewFile,BufRead zprofile set filetype=zsh
 augroup END
 
-augroup customfold
-  autocmd FileType vim setlocal foldmethod=marker
-  autocmd FileType vader setlocal foldmethod=marker
-augroup END
+" augroup customfold
+"   autocmd FileType vim setlocal foldmethod=marker
+"   autocmd FileType vader setlocal foldmethod=marker
+" augroup END
 
 augroup qf
   autocmd!
@@ -242,17 +240,20 @@ endif
 
 
 " set background=dark
-function! s:configureTheme()
-  " set background=light
-  " colorscheme github 
-  " source ~/dotfiles/vim/custom_light.vim
-
-  colorscheme nord
-
+function! s:configureTheme(color)
+  if $COLORSCHEME == 'light' || a:color == 'light'
+    set background=light
+    colorscheme github 
+    source ~/dotfiles/vim/custom_light.vim
+  else
+    colorscheme nord
+  endif
 endfunction
 
 
-call s:configureTheme()
+call s:configureTheme('dark')
+
+command! -nargs=? GoLight :call s:configureTheme('light')
 
 hi CocErrorFloat ctermfg=1 guifg=#BF616A
 hi CocErrorSign ctermfg=1 guifg=#BF616A
@@ -361,13 +362,10 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+vnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
     call CocAction('doHover')
-  endif
 endfunction
 
 " Highlight symbol under cursor on CursorHold
@@ -541,7 +539,7 @@ let g:instant_markdown_autostart = 0
 
 "" Prose
 " languagetool
-let g:languagetool_jar='/usr/local/Cellar/languagetool/4.6/libexec/languagetool-commandline.jar'
+let g:languagetool_jar='/usr/local/Cellar/languagetool/4.7/libexec/languagetool-commandline.jar'
 hi link LanguageToolGrammarError CocErrorHighlight
 let g:tq_mthesaur_file="~/.config/nvim/thesaurus/mthesaur.txt"
 let g:tq_openoffice_en_file="~/.config/nvim/thesaurus/th_en_US_new"
