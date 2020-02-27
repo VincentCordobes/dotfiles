@@ -220,6 +220,20 @@ snippet usereducer "useReducer"
 const [state, dispatch] = useReducer(${1:reducer}, ${2:initialState})
 endsnippet
 
+snippet logdebug "logdebug"
+console.log("============================")
+console.log("> Hi dude, what's up there $1")
+console.log("============================")
+endsnippet
+
+
+
+snippet mongoshell "mongo shell function"
+/* eslint-disable no-undef */
+function ${1:f}() {
+	$0	
+}
+endsnippet
 
 #################################
 # Coding challenges stuff
@@ -269,6 +283,7 @@ const defaultDict = (d = {}) =>
 		get: (obj, prop) => (prop in obj ? obj[prop] : 0)
 	});
 endsnippet
+
 
 
 #################################

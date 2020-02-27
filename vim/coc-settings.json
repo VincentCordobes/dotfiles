@@ -2,7 +2,7 @@
   "python.linting.flake8Enabled": true,
   "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
-  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "typescript"],
+  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "typescript", "python"],
   "eslint.autoFixOnSave": true,
   "eslint.autoFix": true,
   "eslint.filetypes": [
@@ -24,9 +24,8 @@
     /*   "filetypes": ["markdown"] */
     /* }, */
     "ocaml": {
-      "command": "ocamlmerlin-lsp",
-      "args": ["--stdio"],
-      "filetypes": ["ocaml", "reason"]
+      "command": "~/code/ocaml-lsp/_build/install/default/bin/ocaml-lsp-server",
+      "filetypes": ["ocaml"]
     }
   }
 }

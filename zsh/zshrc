@@ -1,5 +1,5 @@
 # zmodload zsh/zprof
-~/scripts/today_word.py
+# ~/scripts/today_word.py
 
 ###########################################
 # Oh My Zsh configuration                 #
@@ -35,6 +35,11 @@ fi
 export KEYTIMEOUT=1
 bindkey -v
 bindkey "^?" backward-delete-char
+
+# edit command in editor
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^F" edit-command-line
 
 # Aliases
 alias vim='nvim'
@@ -110,9 +115,10 @@ todo() {
   (cd /Users/vincent/Dropbox/wiki; vim ./todo.md; clear)
 }
 
-bookmarks() {
+bmarks() {
   (cd /Users/vincent/Dropbox/wiki; vim ./bookmarks.md)
 }
+
 	
 fwiki() {
   (cd /Users/vincent/Dropbox/jobs/foncia/wiki; vim -c VimwikiIndex3)
@@ -124,6 +130,12 @@ pdiary() {
 
 tmp() {
   (cd /Users/vincent/tmp; vim tmp.md; clear)
+}
+
+
+golight() {
+  ~/scripts/set_session_profile.py
+  export COLORSCHEME="light"
 }
 
 incworkout() {
@@ -163,6 +175,6 @@ nvmLoadShit() {
 }
 
 nvmUnLoadShit() {
-  nvm unload
   npm config set prefix '~/.npm-global'
+  nvm unload
 }

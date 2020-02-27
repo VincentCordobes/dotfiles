@@ -263,8 +263,6 @@ hi link CocInfoSign SpecialChar
 
 
 
-
-
 " }}}
 
 
