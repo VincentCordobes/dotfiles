@@ -12,7 +12,6 @@ Plug 'tpope/vim-vinegar'
 "" Git
 Plug 'tpope/vim-fugitive' 
 Plug 'tpope/vim-rhubarb'
-Plug 'gregsexton/gitv'
 
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 Plug 'tomtom/tcomment_vim' " comment stuff out
@@ -250,8 +249,10 @@ function! s:configureTheme(color)
   endif
 endfunction
 
+let g:nord_uniform_diff_background = 1
 
 call s:configureTheme('dark')
+
 
 command! -nargs=? GoLight :call s:configureTheme('light')
 
@@ -461,6 +462,7 @@ command! TitleFileName put! =expand('%:t:r')
 " Plugins configuration {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:vim_markdown_folding_disabled = 1
 
 " Neomake
 """""""""
@@ -537,7 +539,7 @@ let g:instant_markdown_autostart = 0
 
 "" Prose
 " languagetool
-let g:languagetool_jar='/usr/local/Cellar/languagetool/4.7/libexec/languagetool-commandline.jar'
+let g:languagetool_jar='/usr/local/Cellar/languagetool/4.8_1/libexec/languagetool-commandline.jar'
 hi link LanguageToolGrammarError CocErrorHighlight
 let g:tq_mthesaur_file="~/.config/nvim/thesaurus/mthesaur.txt"
 let g:tq_openoffice_en_file="~/.config/nvim/thesaurus/th_en_US_new"

@@ -2,7 +2,7 @@
   "python.linting.flake8Enabled": true,
   "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
-  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "typescript", "python"],
+  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "typescript", "typescriptreact", "python"],
   "eslint.autoFixOnSave": true,
   "eslint.autoFix": true,
   "eslint.filetypes": [
@@ -11,6 +11,7 @@
     "typescript",
     "typescriptreact"
   ],
+  "typescript.showUnused": false,
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
