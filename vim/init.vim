@@ -250,6 +250,8 @@ function! s:configureTheme(color)
 endfunction
 
 let g:nord_uniform_diff_background = 1
+let g:nord_italic = 1
+let g:nord_underline = 1
 
 call s:configureTheme('dark')
 
@@ -455,6 +457,23 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 command! TitleFileName put! =expand('%:t:r')
 
+
+command! -nargs=? Prose call s:enable_prose(<q-args>)
+command! NoProse call s:disable_prose()
+
+fun s:enable_prose(lang)
+  if &filetype == ''
+    set filetype=markdown
+  endif
+  let l:lang = a:lang != '' ? a:lang : "en_us"
+  let &spelllang = l:lang
+  set spell
+endfun
+
+fun s:disable_prose()
+  LanguageToolClear
+  set nospell
+endfun
 "}}}
 
 
@@ -622,7 +641,7 @@ endfunction
 
 "" Goyo
 " vint: -ProhibitAutocmdWithNoGroup
-autocmd! User GoyoLeave nested call s:configureTheme()
+autocmd! User GoyoLeave nested call s:configureTheme('dark')
 let g:goyo_width = 80
 
 "" translate
