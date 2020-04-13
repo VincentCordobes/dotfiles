@@ -178,3 +178,25 @@ nvmUnLoadShit() {
   npm config set prefix '~/.npm-global'
   nvm unload
 }
+
+fe() (
+  IFS=$'\n' files=($(fzf --height ${FZF_TMUX_HEIGHT:-10%} --query="$1" --multi --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+)
+
+
+sk() {
+  (cd ~/Dropbox/wiki && fe $@)
+}
+
+
+covstats() {
+  curl https://corona-stats.online\?top\=15\&source\=2
+}
+
+ledgerdit() {
+  vim "+ normal Gk" ~/Dropbox/wiki/ledger.dat
+}
+
+
+source ~/code/prep/scripts/complete.sh

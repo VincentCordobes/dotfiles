@@ -68,7 +68,9 @@ Plug 'junegunn/goyo.vim',        "{ 'for': ['markdown', 'tex', 'plaintex', 'asci
 Plug 'VincentCordobes/vim-translate'
 " Plug '~/code/vim-translate'
 " Plug 'soywod/vim-phonetics', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
+Plug '~/code/phonetics.vim' 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'ledger/vim-ledger', { 'for': 'ledger' }
 
 call plug#end()
 
@@ -197,7 +199,12 @@ set grepformat=%f:%l:%c:%m,%f:%l:%m
 nnoremap <leader>a :Grep<space>
 vnoremap <leader>a "ay :Grep -F <c-r>=EscapeSearch(@a)<cr>
 command! -nargs=* -complete=file -range Grep silent grep! <args>
+command! -nargs=1 -complete=customlist,FoldMethodComplete FoldMethod silent setlocal foldmethod=<args>
 " TODO: maybe highlight the result
+
+fun! FoldMethodComplete(ArgLead, CmdLine, CursorPos)
+  return ["indent",  "syntax"]
+endfun
 
 fun! EscapeSearch(text) 
 
@@ -461,6 +468,8 @@ command! TitleFileName put! =expand('%:t:r')
 command! -nargs=? Prose call s:enable_prose(<q-args>)
 command! NoProse call s:disable_prose()
 
+command! WhatIsThisHiGroup :let s = synID(line('.'), col('.'), 1) | echo synIDattr(s, 'name') . ' -> ' . synIDattr(synIDtrans(s), 'name')
+
 fun s:enable_prose(lang)
   if &filetype == ''
     set filetype=markdown
@@ -520,12 +529,20 @@ if g:eslint_path !=# 'eslint not found'
 endif
 
 
+fun s:ledger_align()
+  let save_pos = getpos(".")
+  %LedgerAlign
+  call setpos('.', save_pos)
+endfun
+
 "" Neoformat
 """"""""""""
 augroup fmt
   autocmd!
   " autocmd FileType javascript,javascript.jsx,typescript,python
   "       \ autocmd! BufWritePre * Neoformat
+
+  autocmd FileType ledger autocmd! BufWritePre * call s:ledger_align()
 
 augroup END
 
@@ -654,4 +671,13 @@ let g:translate#default_languages = {
 let g:vsm_default_mappings = 0
 
 " }}}
+
+" ledger
+
+augroup ledger_au
+  autocmd!
+  au FileType ledger inoremap <silent> <c-space> <C-r>=ledger#autocomplete_and_align()<CR>
+  au FileType ledger vnoremap <silent> <buffer> <Tab> :LedgerAlign<CR>
+augroup END
+let g:ledger_default_commodity = '€'
 

@@ -25,7 +25,7 @@
     /*   "filetypes": ["markdown"] */
     /* }, */
     "ocaml": {
-      "command": "~/code/ocaml-lsp/_build/install/default/bin/ocaml-lsp-server",
+      "command": "ocamllsp",
       "filetypes": ["ocaml"]
     }
   }

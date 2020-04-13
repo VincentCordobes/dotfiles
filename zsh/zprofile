@@ -9,3 +9,5 @@ export PATH="./node_modules/.bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 export GPG_TTY=$(tty)
+
+export NODE_ICU_DATA=/Users/Vincent/.npm-global/lib/node_modules/full-icu

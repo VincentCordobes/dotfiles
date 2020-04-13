@@ -85,7 +85,7 @@ function! ToggleGStatus()
   if buflisted(bufname('.git/index'))
     bd .git/index
   else
-    Gstatus
+    10Gstatus
   endif
 endfunction
 
