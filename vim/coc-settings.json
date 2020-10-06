@@ -2,7 +2,16 @@
   "python.linting.flake8Enabled": true,
   "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
-  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "typescript", "typescriptreact", "python"],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "python",
+    "rust",
+    "ocaml",
+    "haskell"
+  ],
   "eslint.autoFixOnSave": true,
   "eslint.autoFix": true,
   "eslint.filetypes": [
@@ -27,6 +36,20 @@
     "ocaml": {
       "command": "ocamllsp",
       "filetypes": ["ocaml"]
+    },
+    "haskell": {
+      "command": "haskell-language-server",
+      "args": ["--lsp"],
+      "rootPatterns": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml"
+      ],
+      "filetypes": ["haskell", "lhaskell"],
+      "initializationOptions": {
+        "languageServerHaskell": {}
+      }
     }
   }
 }
