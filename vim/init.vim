@@ -37,10 +37,11 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'benekastah/neomake' " using neovim's job control functonality
 
 "" Misc syntax support
-Plug 'othree/html5.vim',       { 'for': 'html' }
-Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-Plug 'elzr/vim-json',          { 'for': 'json' }
+Plug 'othree/html5.vim',          { 'for': 'html' }
+Plug 'hail2u/vim-css3-syntax',    { 'for': 'css' }
+Plug 'elzr/vim-json',             { 'for': 'json' }
 Plug 'neoclide/jsonc.vim',
+Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 
 "" Python
 " Plug 'hdima/python-syntax',          { 'for': 'python' }
@@ -327,7 +328,7 @@ nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gd :call ToggleGvdiff()<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gs :call ToggleGStatus()<CR>
-nnoremap <silent> <leader>gf :GFiles?<CR>
+nnoremap <silent> <leader>gf :call fzf#vim#gitfiles('?', {'options': ['--no-preview']})<CR>
 
 "" Dont go to the next occurence when we search *
 nnoremap * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
@@ -396,7 +397,7 @@ augroup end
 " nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
-nmap <leader>i  <Plug>(coc-codeaction)
+nmap <leader>i  <Plug>(coc-codeaction-line)
 " Fix autofix problem of current line
 " nmap <leader>qf  <Plug>(coc-fix-current)
 
@@ -445,6 +446,8 @@ nnoremap <C-Down> <plug>(wiki-journal-next)
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Commands {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""
+
+command! AbsolutePath execute "echo expand('%:p')"
 command! DisableOpenQF execute "let g:neomake_open_qflist = 0"
 command! EnableOpenQF execute "let g:neomake_open_qflist = 1"
 command! Datef execute ":pu=strftime('%F')"
@@ -464,6 +467,8 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 command! TitleFileName put! =expand('%:t:r')
 
+command! CreateCard execute '!prep add-file "' . expand('%') .'"'
+
 
 command! -nargs=? Prose call s:enable_prose(<q-args>)
 command! NoProse call s:disable_prose()
@@ -476,12 +481,22 @@ fun s:enable_prose(lang)
   endif
   let l:lang = a:lang != '' ? a:lang : "en_us"
   let &spelllang = l:lang
-  set spell
+  " set spell
+
+  CocEnable
+  call coc#config('languageserver', {
+        \ 'prose': {
+        \ 'command': 'prose-language-server',
+        \ 'args': ['--stdio'],
+        \ 'filetypes': ['markdown', 'vimwiki'],
+        \ }
+        \})
 endfun
 
 fun s:disable_prose()
   LanguageToolClear
   set nospell
+  CocDisable
 endfun
 "}}}
 
@@ -556,6 +571,7 @@ let g:neoformat_enabled_typescript = ['prettier']
 """"""""""""""""""""""""""""
 
 "" fzf
+let g:fzf_preview_window = ''
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 "" vim-jsx
@@ -599,7 +615,6 @@ let g:wiki_filetypes = ['md']
 " let g:wiki_journal="diary"
 
 "vimwiki
-let g:vimwiki_key_mappings=0
 " FIXME: I don't know how to do this for now..
 command! VimwikiIndex2
       \ call vimwiki#base#goto_index(2)
@@ -636,12 +651,12 @@ let g:vimwiki_list = [s:wiki_perso, s:wiki_fluo, s:wiki_foncia]
 let g:vimwiki_listsyms = ' .oOx'
 
 function! VimwikiLinkHandler(link)
-  " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
+  " Use Vim to open external files with the 'file:' scheme.  E.g.:
   "   1) [[vfile:~/Code/PythonProject/abc123.py]]
   "   2) [[vfile:./|Wiki Home]]
   let l:link = a:link
-  if l:link =~# '^vfile:'
-    let l:link = l:link[1:]
+  if l:link =~# '^file:'
+    let l:link = l:link
   else
     return 0
   endif
