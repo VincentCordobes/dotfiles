@@ -277,6 +277,13 @@ function groupBy(f, list) {
 endsnippet
 
 
+snippet keybyfun
+function keyBy(collection, fn) {
+	return collection.reduce((acc, value) => (acc[fn(value)] = value), {})
+}
+endsnippet
+
+
 snippet defaultdictfun
 const defaultDict = (d = {}) =>
 	new Proxy(d, {
@@ -367,3 +374,25 @@ test('should split in 3 when the period is 6-25', () => {
 endsnippet
 
 
+#################################
+# Foncia 
+#################################
+snippet db.aa
+db.accountingAccounts
+endsnippet
+
+snippet db.bt
+db.bankTransactions
+endsnippet
+
+snippet db.al
+db.accountingLines
+endsnippet
+
+snippet db.pm
+db.paymentsMediasBases
+endsnippet
+
+snippet db.la
+lessorAccounts
+endsnippet
