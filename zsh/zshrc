@@ -217,11 +217,63 @@ howmuchVAT() {
   start=`date  -v1d -v-1m +%Y-%m-%d`
   end=`date  -v1d -v-1d +%Y-%m-%d`
 
-  echo "Period: $start..$end\n"
+  echo "Period: \e[33m$start..$end\e[39m\n"
+
+  echo -e "Balance:"
+
+  ledger bal \
+    Liabilities:VAT Payable \
+    Assets:VAT Deductible \
+    -e $end
+
+  echo ""
+  echo "Details:"
 
   ledger reg \
+    Assets:VAT Deductible \
     Liabilities:VAT Payable \
     Income:Comet \
     -b $start -e $end
 
 }
+
+howmuchcotsoc() {
+  start=`date  -v1d -v-3m +%Y-%m-%d`
+  end=`date  -v1d -v-1d +%Y-%m-%d`
+
+  echo "Period: \e[33m$start..$end\e[39m\n"
+
+  echo -e "Balance:"
+
+  ledger bal \
+    Income:Comet \
+    -b $start -e $end
+
+  echo ""
+  echo "Details:"
+
+  ledger reg \
+    Income:Comet \
+    -b $start -e $end
+
+}
+
+jsontocsv() {
+  inputfile=$1
+  filename=$(basename "$inputfile")
+  filename="${filename%.*}"
+  outputfile=~/tmp/$filename.csv
+
+  cat "$inputfile" \
+    | jq -r '(map(keys) | add | unique) as $cols | map(. as $row | $cols | map($row[.])) as $rows | $cols, $rows[] | @csv' \
+    > "$outputfile"
+}
+
+
+alias preview="watch -n 5 --color prep review"
+[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
+
+
+
+# foncia
+export RABBITMQ__IS_ACTIVATED=true
