@@ -25,3 +25,5 @@ pdf2svg
 opam
 cloc
 graphviz
+fd
+hyperfine

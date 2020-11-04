@@ -139,9 +139,6 @@ command! W w
 "" use bash
 " set shell=/bin/sh
 
-"" We don't want neovim to be in french...
-language en_US
-
 "" Leader keyyyyyy
 " vint: -ProhibitImplicitScopeVariable
 let mapleader = "\<space>"

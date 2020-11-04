@@ -57,6 +57,8 @@ alias stocks="watch -n 60 -t -c ~/scripts/ticker.sh MSFT AMZN SHOP GOOG SAF.PA"
 
 alias scid="/Users/Vincent/Downloads/scid_macos/scid/scid"
 
+alias hardclear="printf '\033[2J\033[3J\033[1;1H'"
+
 gimp() {
  open $@ -a GIMP-2.10.app
 }

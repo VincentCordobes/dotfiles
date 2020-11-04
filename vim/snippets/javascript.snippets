@@ -291,6 +291,12 @@ const defaultDict = (d = {}) =>
 	});
 endsnippet
 
+snippet flatmapfun
+function flatMap(list, f) {
+	return list.reduce((acc, x) => acc.concat(f(x)), [])
+}
+endsnippet
+
 
 
 #################################
