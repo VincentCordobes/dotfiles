@@ -570,6 +570,7 @@ let g:neoformat_enabled_typescript = ['prettier']
 "" fzf
 let g:fzf_preview_window = ''
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+let g:fzf_layout = { 'down': '~40%' }
 
 "" vim-jsx
 let g:jsx_ext_required = 0 " set filetype=javascript.jsx even on .js

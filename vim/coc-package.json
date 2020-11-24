@@ -9,6 +9,7 @@
     "coc-texlab": ">=2.1.0",
     "coc-tsserver": ">=1.5.7",
     "coc-vimlsp": ">=0.10.1",
+    "coc-vimtex": ">=1.0.4",
     "coc-yaml": ">=1.0.4"
   }
 }
