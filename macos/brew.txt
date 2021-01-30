@@ -27,3 +27,4 @@ cloc
 graphviz
 fd
 hyperfine
+saulpw/vd/visidata

@@ -11,6 +11,9 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="./node_modules/.bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
+export NODE_PATH=/Users/Vincent/.npm-global/lib/node_modules
+
+
 export GPG_TTY=$(tty)
 
 export NODE_ICU_DATA=/Users/Vincent/.npm-global/lib/node_modules/full-icu

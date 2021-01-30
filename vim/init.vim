@@ -3,7 +3,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/plugged')
 
-
 "" Common
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -18,16 +17,14 @@ Plug 'tomtom/tcomment_vim' " comment stuff out
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips' 
-" Plug 'honza/vim-snippets' " { 'for': 'python' } This slow down...
-Plug 'sbdchd/neoformat' " autoformat according to various engine
+Plug 'sbdchd/neoformat'
 Plug 'moll/vim-bbye'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 Plug 'bronson/vim-visual-star-search'
 
 "" Utils
-Plug 'jaawerth/nrun.vim' " faster which for node
-Plug 'junegunn/vader.vim'
+" Plug 'jaawerth/nrun.vim' " faster which for node
+" Plug 'junegunn/vader.vim'
 
 "" Themes
 Plug 'albertorestifo/github.vim', {'commit': '5dd1be6' }
@@ -37,6 +34,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'benekastah/neomake' " using neovim's job control functonality
 
 "" Misc syntax support
+Plug 'ocaml/vim-ocaml'
 Plug 'othree/html5.vim',          { 'for': 'html' }
 Plug 'hail2u/vim-css3-syntax',    { 'for': 'css' }
 Plug 'elzr/vim-json',             { 'for': 'json' }
@@ -59,18 +57,19 @@ Plug 'cespare/vim-toml'
 
 "" Writing
 Plug 'vimwiki/vimwiki'
+Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
 Plug 'voldikss/vim-search-me'
-" Plug 'lervag/wiki.vim'
 Plug 'lervag/vimtex' ,            { 'for': 'tex' }
-Plug 'suan/vim-instant-markdown', { 'for': ['markdown', 'tex'] }
+" Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'PratikBhusal/vim-grip'
 Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
 Plug 'ron89/thesaurus_query.vim', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
-Plug 'junegunn/goyo.vim',        "{ 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
 Plug 'VincentCordobes/vim-translate'
 " Plug '~/code/vim-translate'
 " Plug 'soywod/vim-phonetics', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
 Plug '~/code/phonetics.vim' 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+
 Plug 'ledger/vim-ledger', { 'for': 'ledger' }
 
 call plug#end()
@@ -78,7 +77,6 @@ call plug#end()
 " }}}
 
 source ~/dotfiles/vim/utils.vim
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " General settings {{{
@@ -92,16 +90,13 @@ set nopaste " FIXME: don't remember why it's needed
 " filetype on " not required for neovim
 set noshowmode " display mode in messages (disable cuz we use vim airlin)
 set number " just because
-
 set tabstop=2 shiftwidth=2 expandtab
 " set tabstop=4    " Number of spaces that a <Tab> in the file counts for.
 " set shiftwidth=4 " number space on reindent << >>
 " set expandtab    " spaces instead of tab
-
 set encoding=utf8
 set conceallevel=2 " wether hide some char or not
 set scrolloff=3    " cursor padding when scrolling
-
 set showmatch      " show matching braces
 set hidden         " current buffer can be put into background
 set ttimeoutlen=50 " this is for the timeout on ecape press I hope..
@@ -111,14 +106,10 @@ set smartcase      " ... but not if it begins with upper case
 set guicursor=     " Tell neovim to not change the cursor type in insert mode
 set laststatus=2   " Always display the statusline
 set mouse=a
-
-" set foldmethod=syntax
-" set foldlevelstart=99
-
 set pumheight=12 " 12 is enough, no need to hide my entire screen :p 
-
-
-" set previewheight=5 " preview window height
+set completeopt=noinsert,menuone,noselect
+set shortmess+=c
+set signcolumn=yes
 
 let g:python_host_prog = '/Users/vincent/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = '/Users/vincent/.pyenv/versions/neovim3/bin/python'
@@ -135,9 +126,6 @@ set nobackup
 
 "" Because I often accidentally :W when I mean to :w.
 command! W w
-
-"" use bash
-" set shell=/bin/sh
 
 "" Leader keyyyyyy
 " vint: -ProhibitImplicitScopeVariable
@@ -165,11 +153,6 @@ augroup filetypes
   autocmd BufNewFile,BufRead zprofile set filetype=zsh
 augroup END
 
-" augroup customfold
-"   autocmd FileType vim setlocal foldmethod=marker
-"   autocmd FileType vader setlocal foldmethod=marker
-" augroup END
-
 augroup qf
   autocmd!
 
@@ -184,11 +167,8 @@ augroup qf
   autocmd QuickFixCmdPost *grep* cwindow
 augroup END
 
-
-
 " statusline
 set statusline=%<%f\ %h%m%r\ \ \ %{coc#status()}\ %=%y\ \ \ %-10.(%l,%v%)\ %P
-
 
 "" grep
 set grepprg=rg\ --vimgrep\ --smart-case
@@ -260,19 +240,9 @@ let g:nord_underline = 1
 
 call s:configureTheme('dark')
 
-
 command! -nargs=? GoLight :call s:configureTheme('light')
 
-hi CocErrorFloat ctermfg=1 guifg=#BF616A
-hi CocErrorSign ctermfg=1 guifg=#BF616A
-hi link CocHighlightText CursorColumn
-hi link CocWarningSign SpecialChar
-hi link CocInfoSign SpecialChar
-
-
-
 " }}}
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings {{{
@@ -291,14 +261,7 @@ vnoremap < <gv
 "" Un-highlight search matches
 nnoremap <silent><leader><space> :noh<CR>
 
-
-"" EasyAlign
-"" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-"" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-"" Cycle through completion with tab (no need supertab!!)
+"" Cycle through completion with tab
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
@@ -314,23 +277,115 @@ nnoremap <silent><c-j> :call ListNavigate('next')<CR>
 " nnoremap <C-h> :bprevious<CR>
 " nnoremap <C-l> :bnext<CR>
 
-
-"" Language tool check
-nnoremap <leader>zn ]s
-nnoremap <leader>zp [s
-
-
-"" Git (fugitive)
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gd :call ToggleGvdiff()<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gs :call ToggleGStatus()<CR>
-nnoremap <silent> <leader>gf :call fzf#vim#gitfiles('?', {'options': ['--no-preview']})<CR>
-
 "" Dont go to the next occurence when we search *
 nnoremap * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 
-"" FZF
+"" execute q macro on selected lines
+xnoremap Q :'<,'>:normal @q<CR>
+
+" }}}
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Commands {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+command! AbsolutePath execute "echo expand('%:p')"
+command! DisableOpenQF execute "let g:neomake_open_qflist = 0"
+command! EnableOpenQF execute "let g:neomake_open_qflist = 1"
+command! Datef execute ":pu=strftime('%F')"
+
+command! -nargs=? -bar Gshow call setqflist(map(systemlist("git show --pretty='' --name-only <args>"), '{"filename": v:val, "lnum": 1}')) | copen
+
+" temp stuff
+command! Pre Neoformat | Neomake
+command! CpFilePath :let @+ = expand("%")
+command! ShowTag :vimgrep "<!--.*-->" % | wincmd H | vertical resize 110
+
+command! TitleFileName put! =expand('%:t:r')
+
+command! CreateCard execute '!prep add-file "' . expand('%') .'"'
+
+command! -nargs=? Prose call s:enable_prose(<q-args>)
+command! NoProse call s:disable_prose()
+
+command! WhatIsThisHiGroup :let s = synID(line('.'), col('.'), 1) | echo synIDattr(s, 'name') . ' -> ' . synIDattr(synIDtrans(s), 'name')
+
+fun s:enable_prose(lang)
+  if &filetype == ''
+    set filetype=markdown
+  endif
+  let l:lang = a:lang != '' ? a:lang : "en_us"
+  let &spelllang = l:lang
+  " set spell
+
+  CocEnable
+  call coc#config('languageserver', {
+        \ 'prose': {
+        \ 'command': '~/code/prose-language-server/build/index.js',
+        \ 'args': ['--stdio'],
+        \ 'trace.server': 'verbose',
+        \ 'filetypes': ['markdown', 'vimwiki'],
+        \ }
+        \})
+endfun
+
+fun s:disable_prose()
+  LanguageToolClear
+  set nospell
+  CocDisable
+endfun
+"}}}
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins configuration {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" vim-markdown {{{
+let g:vim_markdown_folding_disabled = 1
+" }}}
+
+" Neomake {{{
+function! HandleNeomakeJobFinished()
+  let l:winnr = winnr()
+  let l:qfopen = s:isbufopen('Quickfix List')
+  lwindow 
+  if winnr() != l:winnr
+    wincmd p
+  endif
+endfunction
+
+
+" augroup neomakee
+"   autocmd!
+"   autocmd User NeomakeFinished :call HandleNeomakeJobFinished()
+"   autocmd BufWritePost * :Neomake
+" augroup END
+
+" let g:neomake_open_list = 2 " auto open list if error
+let g:neomake_list_height = 10
+let g:neomake_jsx_enabled_makers = []
+let g:neomake_javascript_enabled_makers = []
+let g:neomake_ocaml_enabled_makers = ['merlin']
+" }}}
+
+" Neoformat {{{
+augroup fmt
+  autocmd!
+  " autocmd FileType javascript,javascript.jsx,typescript,python
+  "       \ autocmd! BufWritePre * Neoformat
+
+augroup END
+
+let g:neoformat_enabled_json = ['prettier']
+let g:neoformat_enabled_javascript = ['prettier']
+let g:neoformat_enabled_typescript = ['prettier']
+" }}}
+
+" fzf {{{
+let g:fzf_preview_window = ''
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+let g:fzf_layout = { 'down': '~40%' }
+
 if !has('gui_running')
   nnoremap <silent> <C-p> :FZF<CR>
 endif
@@ -338,19 +393,85 @@ imap <c-x><c-f> <plug>(fzf-complete-file-ag)
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>h :History<CR>
 nnoremap <leader>c :History:<CR>
+" }}}
 
-"" execute q macro on selected lines
-xnoremap Q :'<,'>:normal @q<CR>
+" vim-jsx {{{
+let g:jsx_ext_required = 0 
+let g:vim_jsx_pretty_colorful_config = 1
+" }}}
 
-" Language client
-set completeopt=noinsert,menuone,noselect
-set shortmess+=c
-" set cmdheight=2
-set signcolumn=yes
+" vim-json {{{
+let g:vim_json_syntax_conceal = 0
+" }}}
 
+" languagetool {{{
+let g:languagetool_jar='/usr/local/Cellar/languagetool/4.8_1/libexec/languagetool-commandline.jar'
+hi link LanguageToolGrammarError CocErrorHighlight
 
+nnoremap <leader>zn ]s
+nnoremap <leader>zp [s
+" }}}
 
-" coconfig
+" thesaurus_query {{{
+let g:tq_mthesaur_file="~/.config/nvim/thesaurus/mthesaur.txt"
+let g:tq_openoffice_en_file="~/.config/nvim/thesaurus/th_en_US_new"
+let g:tq_language=['en', 'fr']
+let g:tq_enabled_backends=["openoffice_en", "mthesaur_txt", "synonymo_fr"]
+
+nnoremap <silent> <leader>tes :ThesaurusQueryReplaceCurrentWord<CR>
+" }}}
+
+" ultisnips  {{{
+let g:UltiSnipsExpandTrigger='<C-j>'
+let g:UltiSnipsSnippetDirectories=['my-snippets']
+" }}}
+
+"" vim-translate {{{
+let g:translate#default_languages = {
+      \ 'fr': 'en',
+      \ 'en': 'fr'
+      \ }
+
+nnoremap <silent> <leader>tt :Translate<CR>
+vnoremap <silent> <leader>tt :TranslateVisual<CR>
+vnoremap <silent> <leader>tr :TranslateReplace<CR>
+nnoremap <silent> <leader>tw viw :TranslateVisual<CR>
+nmap <leader>ts <Plug>Translate
+nmap <leader>tr <Plug>TranslateReplace
+" }}}
+
+" vim-search-me {{{
+let g:vsm_default_mappings = 0
+" }}}
+
+" vim-easy-align {{{
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" }}}
+
+" vim-fugitive {{{
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gd :call ToggleGvdiff()<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gs :call ToggleGStatus()<CR>
+nnoremap <silent> <leader>gf :call fzf#vim#gitfiles('?', {'options': ['--no-preview']})<CR>
+" }}}
+
+" vim.wiki {{{
+nnoremap <C-space> :WikiListToggle<CR>
+nnoremap <C-Up> <plug>(wiki-journal-previous)
+nnoremap <C-Down> <plug>(wiki-journal-next)
+" }}}
+
+"coc.nvim {{{
+hi CocErrorFloat ctermfg=1 guifg=#BF616A
+hi CocErrorSign ctermfg=1 guifg=#BF616A
+hi link CocHighlightText CursorColumn
+hi link CocWarningSign SpecialChar
+hi link CocInfoSign SpecialChar
+
 set updatetime=300
 
 let g:coc_status_error_sign="✘ "
@@ -358,7 +479,6 @@ let g:coc_status_warning_sign="⚠︎ "
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
-
 inoremap <expr> <c-j> pumvisible() ? "\<C-y>" : "\<C-g>u\<c-j>"
 
 nmap <silent> gd <Plug>(coc-definition)
@@ -419,127 +539,14 @@ nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list
 " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-
-" translate
-nnoremap <silent> <leader>tt :Translate<CR>
-vnoremap <silent> <leader>tt :TranslateVisual<CR>
-vnoremap <silent> <leader>tr :TranslateReplace<CR>
-nnoremap <silent> <leader>tw viw :TranslateVisual<CR>
-nnoremap <silent> <leader>tes :ThesaurusQueryReplaceCurrentWord<CR>
-
-nmap <leader>ts <Plug>Translate
-nmap <leader>tr <Plug>TranslateReplace
-
-
-" vim.wiki
-nnoremap <C-space> :WikiListToggle<CR>
-nnoremap <C-Up> <plug>(wiki-journal-previous)
-nnoremap <C-Down> <plug>(wiki-journal-next)
-
-
-" }}}
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Commands {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-command! AbsolutePath execute "echo expand('%:p')"
-command! DisableOpenQF execute "let g:neomake_open_qflist = 0"
-command! EnableOpenQF execute "let g:neomake_open_qflist = 1"
-command! Datef execute ":pu=strftime('%F')"
-
 command! Refs :LspReferences
-command! -nargs=? -bar Gshow call setqflist(map(systemlist("git show --pretty='' --name-only <args>"), '{"filename": v:val, "lnum": 1}')) | copen
-
-" temp stuff
-command! Pre Neoformat | Neomake
-
-command! CpFilePath :let @+ = expand("%")
-
-command! ShowTag :vimgrep "<!--.*-->" % | wincmd H | vertical resize 110
-
-command! EslintFix CocCommand eslint.executeAutofix
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+command! EslintFix CocCommand eslint.executeAutofix
 
-command! TitleFileName put! =expand('%:t:r')
-
-command! CreateCard execute '!prep add-file "' . expand('%') .'"'
-
-
-command! -nargs=? Prose call s:enable_prose(<q-args>)
-command! NoProse call s:disable_prose()
-
-command! WhatIsThisHiGroup :let s = synID(line('.'), col('.'), 1) | echo synIDattr(s, 'name') . ' -> ' . synIDattr(synIDtrans(s), 'name')
-
-fun s:enable_prose(lang)
-  if &filetype == ''
-    set filetype=markdown
-  endif
-  let l:lang = a:lang != '' ? a:lang : "en_us"
-  let &spelllang = l:lang
-  " set spell
-
-  CocEnable
-  call coc#config('languageserver', {
-        \ 'prose': {
-        \ 'command': 'prose-language-server',
-        \ 'args': ['--stdio'],
-        \ 'filetypes': ['markdown', 'vimwiki'],
-        \ }
-        \})
-endfun
-
-fun s:disable_prose()
-  LanguageToolClear
-  set nospell
-  CocDisable
-endfun
 "}}}
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugins configuration {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:vim_markdown_folding_disabled = 1
-
-" Neomake
-"""""""""
-function! HandleNeomakeJobFinished()
-  let l:winnr = winnr()
-  let l:qfopen = s:isbufopen('Quickfix List')
-  lwindow 
-  if winnr() != l:winnr
-    wincmd p
-  endif
-endfunction
-
-" augroup neomakee
-"   autocmd!
-"   autocmd User NeomakeFinished :call HandleNeomakeJobFinished()
-"   autocmd BufWritePost * :Neomake
-" augroup END
-
-let g:neomake_list_height = 10
-" let g:neomake_open_list = 2 " auto open list if error
-
-
-"" Javascript
-let g:neomake_jsx_enabled_makers = []
-let g:neomake_javascript_enabled_makers = []
-
-let g:neomake_ocaml_enabled_makers = ['merlin']
-
-
-""" Eslint
-let g:eslint_path = nrun#Which('eslint')
-if g:eslint_path !=# 'eslint not found'
-  let g:neomake_javascript_eslint_exe = g:eslint_path
-  let g:neomake_jsx_enabled_makers = ['eslint']
-  let g:neomake_javascript_enabled_makers = ['eslint']
-endif
-
+" ledger {{{
+let g:ledger_default_commodity = '€'
 
 fun s:ledger_align()
   let save_pos = getpos(".")
@@ -547,81 +554,17 @@ fun s:ledger_align()
   call setpos('.', save_pos)
 endfun
 
-"" Neoformat
-""""""""""""
-augroup fmt
+augroup ledger
   autocmd!
-  " autocmd FileType javascript,javascript.jsx,typescript,python
-  "       \ autocmd! BufWritePre * Neoformat
-
   autocmd FileType ledger autocmd! BufWritePre * call s:ledger_align()
-
+  autocmd FileType ledger inoremap <silent> <c-space> <C-r>=ledger#autocomplete_and_align()<CR>
+  autocmd FileType ledger vnoremap <silent> <buffer> <Tab> :LedgerAlign<CR>
 augroup END
+" }}}
 
-let g:neoformat_enabled_json = ['prettier']
-let g:neoformat_enabled_javascript = ['prettier']
-let g:neoformat_enabled_typescript = ['prettier']
-
-
-" Misc plugin related config
-" (usually small config)
-""""""""""""""""""""""""""""
-
-"" fzf
-let g:fzf_preview_window = ''
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-let g:fzf_layout = { 'down': '~40%' }
-
-"" vim-jsx
-let g:jsx_ext_required = 0 " set filetype=javascript.jsx even on .js
-
-let g:vim_jsx_pretty_colorful_config = 1
-
-
-"" vim-json
-let g:vim_json_syntax_conceal = 0
-
-"" vim-instant-markdown
-let g:instant_markdown_slow = 1
-let g:instant_markdown_autostart = 0
-
-
-
-"" Prose
-" languagetool
-let g:languagetool_jar='/usr/local/Cellar/languagetool/4.8_1/libexec/languagetool-commandline.jar'
-hi link LanguageToolGrammarError CocErrorHighlight
-let g:tq_mthesaur_file="~/.config/nvim/thesaurus/mthesaur.txt"
-let g:tq_openoffice_en_file="~/.config/nvim/thesaurus/th_en_US_new"
-let g:tq_language=['en', 'fr']
-let g:tq_enabled_backends=["openoffice_en", "mthesaur_txt", "synonymo_fr"]
-
-
-" ultisnips 
-let g:UltiSnipsExpandTrigger='<C-j>'
-let g:UltiSnipsSnippetDirectories=['my-snippets']
-
-
-" Wiki
-" vim.wiki
+" wiki {{{
 let g:wiki_root = '~/Dropbox/wiki'
-
 let g:wiki_filetypes = ['md']
-
-" vimwiki
-" let g:wiki_filetypes=['md']
-" let g:wiki_journal="diary"
-
-"vimwiki
-" FIXME: I don't know how to do this for now..
-command! VimwikiIndex2
-      \ call vimwiki#base#goto_index(2)
-
-command! VimwikiIndex3
-      \ call vimwiki#base#goto_index(3)
-
-command! VimwikiMakeDiaryNote3
-      \ call vimwiki#diary#make_note(v:count3)
 
 let g:vimwiki_global_ext=0
 let s:wiki_perso = {}
@@ -631,22 +574,18 @@ let s:wiki_perso.ext= '.md'
 let s:wiki_perso.auto_tags = 1 
 let s:wiki_perso.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql'}
 
-"fluo wiki
-let s:wiki_fluo = {}
-let s:wiki_fluo.path = '~/Dropbox/jobs/fluo/wiki/'
-let s:wiki_fluo.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql'}
-let s:wiki_fluo.auto_tags = 1 
 
-"foncia wiki
+" Foncia
 let s:wiki_foncia = {}
 let s:wiki_foncia.path = '~/Dropbox/jobs/foncia/wiki/'
 let s:wiki_foncia.syntax = 'markdown'
 let s:wiki_foncia.ext= '.md'
 let s:wiki_foncia.nested_syntaxes = {'python': 'python', 'sh': 'sh', 'sql': 'sql', 'js': 'javascript'}
 let s:wiki_foncia.auto_tags = 1 
-let g:vimwiki_list = [s:wiki_perso, s:wiki_fluo, s:wiki_foncia]
 
+let g:vimwiki_list = [s:wiki_perso, s:wiki_foncia]
 let g:vimwiki_listsyms = ' .oOx'
+
 
 function! VimwikiLinkHandler(link)
   " Use Vim to open external files with the 'file:' scheme.  E.g.:
@@ -669,28 +608,17 @@ function! VimwikiLinkHandler(link)
 endfunction
 
 
-"" Goyo
-" vint: -ProhibitAutocmdWithNoGroup
-autocmd! User GoyoLeave nested call s:configureTheme('dark')
+"}}}
+
+" goyo {{{
 let g:goyo_width = 80
 
-"" translate
-let g:translate#default_languages = {
-      \ 'fr': 'en',
-      \ 'en': 'fr'
-      \ }
-
-" vim-search-me
-let g:vsm_default_mappings = 0
+augroup goyoau
+  autocmd!
+  autocmd User GoyoLeave nested call s:configureTheme('dark')
+augroup END
+" }}}
 
 " }}}
 
-" ledger
-
-augroup ledger_au
-  autocmd!
-  au FileType ledger inoremap <silent> <c-space> <C-r>=ledger#autocomplete_and_align()<CR>
-  au FileType ledger vnoremap <silent> <buffer> <Tab> :LedgerAlign<CR>
-augroup END
-let g:ledger_default_commodity = '€'
-
+" vim:foldmethod=marker

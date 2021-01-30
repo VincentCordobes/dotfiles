@@ -2,6 +2,7 @@
   "python.linting.flake8Enabled": true,
   "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
+  "coc.preferences.promptInput": false,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
     "javascript",
@@ -12,9 +13,9 @@
     "ocaml",
     "haskell"
   ],
-  "eslint.autoFixOnSave": true,
-  "eslint.autoFix": true,
-  "eslint.filetypes": [
+  "eslint.trace.server": "verbose",
+  "eslint.codeActionsOnSave.mode": "all",
+  "eslint.validate": [
     "javascript",
     "javascriptreact",
     "typescript",
@@ -28,11 +29,12 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     },
-    /* "prose": { */
-    /*   "command": "prose-language-server", */
-    /*   "args": ["--stdio"], */
-    /*   "filetypes": ["markdown"] */
-    /* }, */
+    "prose": {
+      "command": "~/code/prose-language-server/build/index.js",
+      "args": ["--stdio"],
+      "trace.server":"verbose",
+      "filetypes": ["markdown"]
+    },
     "ocaml": {
       "command": "ocamllsp",
       "filetypes": ["ocaml"]
