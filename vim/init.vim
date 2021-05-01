@@ -411,7 +411,7 @@ let g:neoformat_enabled_typescript = ['prettier']
 
 " fzf {{{
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
 let g:fzf_preview_window = ''
 let g:fzf_history_dir = '~/.local/share/fzf-history'
@@ -514,7 +514,11 @@ inoremap <expr> <c-j> pumvisible() ? "\<C-y>" : "\<C-g>u\<c-j>"
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> <leader>cD <Plug>(coc-references)
+nmap <silent> <leader>ci <Plug>(coc-implementation)
+nmap <silent> <leader>cr <Plug>(coc-rename)
+nmap <silent> <leader>ca  <Plug>(coc-codeaction-line)
+vmap <silent> <leader>ca  <Plug>(coc-codeaction-selected)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -528,7 +532,6 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
 
 augroup coc
   autocmd!
@@ -539,14 +542,6 @@ augroup coc
 
 augroup end
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-" xmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>i  <Plug>(coc-codeaction-line)
-" Fix autofix problem of current line
-" nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
