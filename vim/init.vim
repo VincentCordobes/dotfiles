@@ -410,17 +410,20 @@ let g:neoformat_enabled_typescript = ['prettier']
 " }}}
 
 " fzf {{{
+autocmd! FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
 let g:fzf_preview_window = ''
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_layout = { 'down': '~40%' }
 
-if !has('gui_running')
-  nnoremap <silent> <C-p> :FZF<CR>
-endif
+nnoremap <silent> <C-p> :FZF<CR>
+nnoremap <silent> <leader>ff :FZF<CR>
+nnoremap <silent> <leader>fb :Buffers<CR>
+nnoremap <silent> <leader>fr :History<CR>
+nnoremap <silent> <leader>fg :call fzf#vim#gitfiles('?', {'options': ['--no-preview']})<CR>
+
 imap <c-x><c-f> <plug>(fzf-complete-file-ag)
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>h :History<CR>
-nnoremap <leader>c :History:<CR>
 " }}}
 
 " vim-jsx {{{
@@ -484,7 +487,6 @@ nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gd :call ToggleGvdiff()<CR>
 nnoremap <silent> <leader>gb :Git blame<CR>
 nnoremap <silent> <leader>gs :call ToggleGStatus()<CR>
-nnoremap <silent> <leader>gf :call fzf#vim#gitfiles('?', {'options': ['--no-preview']})<CR>
 " }}}
 
 " vim.wiki {{{
