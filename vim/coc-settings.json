@@ -1,8 +1,11 @@
 {
   "python.linting.flake8Enabled": true,
+  "diagnostic.errorSign": "✘",
+  "diagnostic.infoSign": "ℹ",
   "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
   "coc.preferences.promptInput": false,
+  "codeLens.enable":false,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
     "javascript",
@@ -22,6 +25,8 @@
     "typescriptreact"
   ],
   "typescript.showUnused": false,
+  /* "rust-analyzer.lens.enable": false, */
+  "rust-analyzer.inlayHints.enable":false,
   "languageserver": {
     "bash": {
       "command": "bash-language-server",

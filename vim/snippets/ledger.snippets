@@ -2,3 +2,19 @@ snippet ent
 `!v strftime("%Y/%m/%d")` ${1:transaction}
 	$0
 endsnippet
+
+snippet ptva
+`!v strftime("%Y/%m/%d")` Paiement TVA ${1:period}
+	Liabilities:VAT Payable                             €$0
+	Assets:Checking:Pro                  
+
+endsnippet
+
+
+snippet pcotsoc
+`!v strftime("%Y/%m/%d")` Paiement URSAFF ${1:no} trimestre
+	Expenses:URSAFF                                     €$0
+	Assets:Checking:Pro
+
+endsnippet
+

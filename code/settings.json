@@ -1,6 +1,5 @@
 // Place your settings in this file to overwrite the default settings
 {
-  "workbench.colorTheme": "Nord",
   "editor.fontSize": 13,
   "vim.leader": " ",
   "vim.useSystemClipboard": true,
@@ -131,7 +130,7 @@
     "suppressResultsExplorerNotice": false,
     "suppressShowKeyBindingsNotice": true
   },
-  "window.zoomLevel": 1,
+  "window.zoomLevel": 2,
   "vim.visualstar": true,
   "editor.fontFamily": "SF Mono, Monaco, 'Courier New', monospace",
   "reason.codelens.enabled": true,
@@ -153,5 +152,6 @@
   "editor.suggestSelection": "first",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "liveshare.featureSet": "insiders",
-  "python.formatting.provider": "black"
+  "python.formatting.provider": "black",
+  "workbench.colorTheme": "Nord"
 }

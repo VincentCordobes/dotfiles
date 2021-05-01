@@ -11,6 +11,7 @@ function! ListNavigate(cmd)
     elseif s:isbufopen('Location List')
       exec('l'.a:cmd)
     else
+      call coc#rpc#request('fillDiagnostics', [bufnr('%')])
       exec('l'.nearby_cmd[a:cmd])
     endif
   catch /E553/
@@ -85,7 +86,7 @@ function! ToggleGStatus()
   if buflisted(bufname('.git/index'))
     bd .git/index
   else
-    10Gstatus
+    :8split|0Git
   endif
 endfunction
 

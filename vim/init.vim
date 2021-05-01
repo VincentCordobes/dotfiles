@@ -7,9 +7,12 @@ call plug#begin('~/.config/nvim/plugged')
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-vinegar'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 
 "" Git
 Plug 'tpope/vim-fugitive' 
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-rhubarb'
 
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
@@ -46,11 +49,6 @@ Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 " Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 " Plug 'zchee/deoplete-jedi',          { 'for': 'python' }
 
-"" Javascript
-Plug 'pangloss/vim-javascript',    { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
-Plug 'maxmellon/vim-jsx-pretty',   { 'for': ['javascript', 'javascript.jsx','typescript', 'typescript.tsx'] }
-" Plug 'statico/vim-javascript-sql', { 'for': ['typescript']}
 
 "" rust
 Plug 'cespare/vim-toml'
@@ -66,7 +64,6 @@ Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plain
 Plug 'ron89/thesaurus_query.vim', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
 Plug 'VincentCordobes/vim-translate'
 " Plug '~/code/vim-translate'
-" Plug 'soywod/vim-phonetics', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
 Plug '~/code/phonetics.vim' 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
@@ -83,9 +80,6 @@ source ~/dotfiles/vim/utils.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 set clipboard+=unnamedplus
 set termguicolors " true colors
-
-set pastetoggle=<f6> " Currently needed for neovim paste issue
-set nopaste " FIXME: don't remember why it's needed
 
 " filetype on " not required for neovim
 set noshowmode " display mode in messages (disable cuz we use vim airlin)
@@ -148,7 +142,6 @@ augroup filetypes
   autocmd BufNewFile,BufRead .prettierrc set filetype=json
   autocmd BufNewFile,BufRead tsconfig.json set filetype=jsonc
   autocmd BufNewFile,BufRead .gitignore set filetype=config
-  autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
   autocmd BufNewFile,BufRead *.css set filetype=scss
   autocmd BufNewFile,BufRead zprofile set filetype=zsh
 augroup END
@@ -181,7 +174,7 @@ command! -nargs=1 -complete=customlist,FoldMethodComplete FoldMethod silent setl
 " TODO: maybe highlight the result
 
 fun! FoldMethodComplete(ArgLead, CmdLine, CursorPos)
-  return ["indent",  "syntax"]
+  return ["indent",  "syntax", "expr"]
 endfun
 
 fun! EscapeSearch(text) 
@@ -231,6 +224,12 @@ function! s:configureTheme(color)
     source ~/dotfiles/vim/custom_light.vim
   else
     colorscheme nord
+    hi DiffDelete guifg=NONE guibg=#5a414d gui=NONE
+    " hi DiffDelete guifg=#383E50 guibg=#333947 
+    hi DiffAdd guifg=NONE guibg=#4c5b6f
+    hi DiffChange guifg=NONE guibg=#3f4a5a
+    hi DiffText guifg=NONE guibg=#4c5b6f
+    "
   endif
 endfunction
 
@@ -282,6 +281,10 @@ nnoremap * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 
 "" execute q macro on selected lines
 xnoremap Q :'<,'>:normal @q<CR>
+
+nmap <c-l> <Plug>(GitGutterNextHunk)
+nmap <c-h> <Plug>(GitGutterPrevHunk)
+
 
 " }}}
 
@@ -339,6 +342,31 @@ endfun
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins configuration {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" nvim-treesitter {{{
+set foldexpr=nvim_treesitter#foldexpr()
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "rust", "c", "javascript", "typescript", "tsx", "css", "ocaml", "ocamllex", "bash", "python" },
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+  },
+  indent = {
+    enable = true
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<CR>",
+      scope_incremental = "<TAB>",
+      node_incremental = "<CR>",
+      node_decremental = "<BS>",
+    },
+  },
+}
+EOF
+" }}}
 
 " vim-markdown {{{
 let g:vim_markdown_folding_disabled = 1
@@ -426,7 +454,7 @@ let g:UltiSnipsExpandTrigger='<C-j>'
 let g:UltiSnipsSnippetDirectories=['my-snippets']
 " }}}
 
-"" vim-translate {{{
+" vim-translate {{{
 let g:translate#default_languages = {
       \ 'fr': 'en',
       \ 'en': 'fr'
@@ -454,7 +482,7 @@ nmap ga <Plug>(EasyAlign)
 " vim-fugitive {{{
 nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gd :call ToggleGvdiff()<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gb :Git blame<CR>
 nnoremap <silent> <leader>gs :call ToggleGStatus()<CR>
 nnoremap <silent> <leader>gf :call fzf#vim#gitfiles('?', {'options': ['--no-preview']})<CR>
 " }}}

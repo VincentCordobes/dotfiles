@@ -129,7 +129,7 @@ bmarks() {
 
 	
 fwiki() {
-  (cd /Users/vincent/Dropbox/jobs/foncia/wiki; vim -c VimwikiIndex3)
+  (cd /Users/vincent/Dropbox/jobs/foncia/wiki; vim -c VimwikiIndex2)
 }
 
 pdiary() {
@@ -235,7 +235,7 @@ howmuchVAT() {
   ledger reg \
     Assets:VAT Deductible \
     Liabilities:VAT Payable \
-    Income:Comet \
+    Income:Freelance \
     -b $start -e $end
 
 }
@@ -249,14 +249,14 @@ howmuchcotsoc() {
   echo -e "Balance:"
 
   ledger bal \
-    Income:Comet \
+    Income:Freelance \
     -b $start -e $end
 
   echo ""
   echo "Details:"
 
   ledger reg \
-    Income:Comet \
+    Income:Freelance \
     -b $start -e $end
 
 }
