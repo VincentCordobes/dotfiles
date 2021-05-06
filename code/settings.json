@@ -153,5 +153,7 @@
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "liveshare.featureSet": "insiders",
   "python.formatting.provider": "black",
-  "workbench.colorTheme": "Nord"
+  "workbench.colorTheme": "Nord",
+  "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
+  "vscode-neovim.neovimInitVimPaths.darwin": "/Users/Vincent/dotfiles/vim/init.vim"
 }

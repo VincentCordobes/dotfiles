@@ -104,6 +104,7 @@ set pumheight=12 " 12 is enough, no need to hide my entire screen :p
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
 set signcolumn=yes
+set title
 
 let g:python_host_prog = '/Users/vincent/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = '/Users/vincent/.pyenv/versions/neovim3/bin/python'
@@ -284,6 +285,8 @@ xnoremap Q :'<,'>:normal @q<CR>
 
 nmap <c-l> <Plug>(GitGutterNextHunk)
 nmap <c-h> <Plug>(GitGutterPrevHunk)
+let g:gitgutter_sign_added = '│'
+let g:gitgutter_sign_modified = '│'
 
 
 " }}}
@@ -422,6 +425,7 @@ nnoremap <silent> <leader>ff :FZF<CR>
 nnoremap <silent> <leader>fb :Buffers<CR>
 nnoremap <silent> <leader>fr :History<CR>
 nnoremap <silent> <leader>fg :call fzf#vim#gitfiles('?', {'options': ['--no-preview']})<CR>
+nnoremap <silent> <leader>is :Snippets<CR>
 
 imap <c-x><c-f> <plug>(fzf-complete-file-ag)
 " }}}
@@ -493,6 +497,7 @@ nnoremap <silent> <leader>gs :call ToggleGStatus()<CR>
 nnoremap <C-space> :WikiListToggle<CR>
 nnoremap <C-Up> <plug>(wiki-journal-previous)
 nnoremap <C-Down> <plug>(wiki-journal-next)
+" map <cr> <Plug>VimwikiToggleListItem
 " }}}
 
 "coc.nvim {{{
@@ -638,10 +643,18 @@ endfunction
 " goyo {{{
 let g:goyo_width = 80
 
-augroup goyoau
-  autocmd!
-  autocmd User GoyoLeave nested call s:configureTheme('dark')
-augroup END
+function! s:goyo_enter()
+  set linebreak
+  set wrap
+endfunction
+
+function! s:goyo_leave()
+  set nolinebreak
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
 " }}}
 
 " }}}
