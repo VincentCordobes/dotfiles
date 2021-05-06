@@ -3,18 +3,53 @@ snippet ent
 	$0
 endsnippet
 
-snippet ptva
-`!v strftime("%Y/%m/%d")` Paiement TVA ${1:period}
-	Liabilities:VAT Payable                             €$0
+snippet ptva "Paiement TVA"
+`!v strftime("%Y/%m/%d")` ! Paiement TVA ${1:period}
+	Liabilities:VAT Payable                             €$2
 	Assets:Checking:Pro                  
-
+$0
 endsnippet
 
 
 snippet pcotsoc
-`!v strftime("%Y/%m/%d")` Paiement URSAFF ${1:no} trimestre
-	Expenses:URSAFF                                     €$0
+`!v strftime("%Y/%m/%d")` ! Paiement URSAFF ${1:no} trimestre
+	Expenses:URSAFF                                     €$2
 	Assets:Checking:Pro
-
+$0
 endsnippet
 
+snippet freelanceincome "Freelance income"
+`!v strftime("%Y/%m/%d")` * ${1:Foncia} #${2:no} ${3:prestation jan. 2021}
+	Assets:Checking:Pro                                €$4  
+	Income:Freelance                                  €-$5 
+	Liabilities:VAT Payable                            €-$6
+$0
+endsnippet
+
+snippet wemind "Freelance wemind"
+`!v strftime("%Y/%m/%d")` * Wemind
+	Expenses:Insurance                                    €30.00
+	Assets:Checking:Pro
+$0
+endsnippet
+
+snippet pel "Plan Epargne Logement"
+`!v strftime("%Y/%m/%d")` * PEL
+	Assets:Savings:PEL                                    €45.00
+	Assets:Checking:Perso
+$0
+endsnippet
+
+snippet phone "Free mobile"
+`!v strftime("%Y/%m/%d")` * Phone
+	Expenses:Utilities                                    €19.99
+	Assets:Checking:Perso               
+$0
+endsnippet
+
+snippet alan "Alan mutuelle"
+`!v strftime("%Y/%m/%d")` * Alan
+	Expenses:Insurance                                    €51.00
+	Assets:Checking:Perso
+$0
+endsnippet
