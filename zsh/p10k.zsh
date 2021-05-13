@@ -38,6 +38,7 @@
     command_execution_time  # duration of the last command
     # =========================[ Line #2 ]=========================
     newline                 # \n
+    virtualenv              # python virtual environment
     prompt_char             # prompt symbol
   )
 
@@ -798,7 +799,7 @@
 
   ###[ virtualenv: python virtual environment (https://docs.python.org/3/library/venv.html) ]###
   # Python virtual environment color.
-  typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=6
+  typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=246
   # Don't show Python version next to the virtual environment name.
   typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
   # If set to "false", won't show virtualenv if pyenv is already shown.
