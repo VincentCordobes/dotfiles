@@ -169,30 +169,22 @@ set grepprg=rg\ --vimgrep\ --smart-case
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 
 fun! EscapeSearch(text) 
+  let l:text = trim(a:text)
+  let l:text = substitute(l:text, '^-', '\\-', '')
 
-  fun! s:trim(str)
-    return substitute(a:str, '\n', '', 'g')
-  endfun
-
-  if a:text !~# '"'
-    let l:escaped = '"' . s:trim(a:text) . '"'
-  elseif a:text !~# "'"
-    let l:escaped = "'" . s:trim(a:text) . "'"
+  if l:text !~# '"'
+    let l:escaped = '"' . l:text . '"'
+  elseif l:text !~# "'"
+    let l:escaped = "'" . l:text . "'"
   else
-    let l:escaped = '"' . s:trim(escape(a:text, '"')) . '"'
+    let l:escaped = '"' . escape(l:text, '"') . '"'
   endif
 
-  if a:text =~# '^-'
-    let l:sep = '-- '
-  else
-    let l:sep = ''
-  endif
-
-  return l:sep . l:escaped
+  return l:escaped
 endfun
 
 nnoremap <leader>a :Grep<space>
-vnoremap <leader>a "ay :Grep -F <c-r>=EscapeSearch(@a)<cr>
+vnoremap <leader>a "ay :Grep <c-r>=EscapeSearch(@a)<cr> -F
 command! -nargs=+ -complete=file_in_path -range Grep silent exe "grep!" escape(<q-args>, '|#%')
 
 fun! s:foldMethodComplete(ArgLead, CmdLine, CursorPos)
