@@ -168,16 +168,6 @@ set statusline=%<%f\ %h%m%r\ \ \ %{coc#status()}\ %=%y\ \ \ %-10.(%l,%v%)\ %P
 set grepprg=rg\ --vimgrep\ --smart-case
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 
-nnoremap <leader>a :Grep<space>
-vnoremap <leader>a "ay :Grep -F <c-r>=EscapeSearch(@a)<cr>
-command! -nargs=* -complete=file -range Grep silent grep! <args>
-command! -nargs=1 -complete=customlist,FoldMethodComplete FoldMethod silent setlocal foldmethod=<args>
-" TODO: maybe highlight the result
-
-fun! FoldMethodComplete(ArgLead, CmdLine, CursorPos)
-  return ["indent",  "syntax", "expr"]
-endfun
-
 fun! EscapeSearch(text) 
 
   fun! s:trim(str)
@@ -200,6 +190,16 @@ fun! EscapeSearch(text)
 
   return l:sep . l:escaped
 endfun
+
+nnoremap <leader>a :Grep<space>
+vnoremap <leader>a "ay :Grep -F <c-r>=EscapeSearch(@a)<cr>
+command! -nargs=+ -complete=file_in_path -range Grep silent exe "grep!" escape(<q-args>, '|#%')
+
+fun! s:foldMethodComplete(ArgLead, CmdLine, CursorPos)
+  return ["indent",  "syntax", "expr"]
+endfun
+
+command! -nargs=1 -complete=customlist,s:foldMethodComplete FoldMethod silent setlocal foldmethod=<args>
 
 " }}}
 
