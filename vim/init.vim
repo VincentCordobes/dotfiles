@@ -171,6 +171,12 @@ set grepformat=%f:%l:%c:%m,%f:%l:%m
 fun! EscapeSearch(text) 
   let l:text = trim(a:text)
   let l:text = substitute(l:text, '^-', '\\-', '')
+  let l:text = substitute(l:text, '\n', '\\\n', 'g')
+
+  let l:opts = ['F']
+  if l:text =~# '\n'
+    let l:opts = l:opts + ['U'] 
+  endif
 
   if l:text !~# '"'
     let l:escaped = '"' . l:text . '"'
@@ -180,11 +186,11 @@ fun! EscapeSearch(text)
     let l:escaped = '"' . escape(l:text, '"') . '"'
   endif
 
-  return l:escaped
+  return l:escaped . ' -' . join(l:opts, '')
 endfun
 
 nnoremap <leader>a :Grep<space>
-vnoremap <leader>a "ay :Grep <c-r>=EscapeSearch(@a)<cr> -F
+vnoremap <leader>a "ay :Grep <c-r>=EscapeSearch(@a)<cr>
 command! -nargs=+ -complete=file_in_path -range Grep silent exe "grep!" escape(<q-args>, '|#%')
 
 fun! s:foldMethodComplete(ArgLead, CmdLine, CursorPos)
