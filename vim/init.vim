@@ -54,11 +54,10 @@ Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'cespare/vim-toml'
 
 "" Writing
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
 Plug 'voldikss/vim-search-me'
 Plug 'lervag/vimtex' ,            { 'for': 'tex' }
-" Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'PratikBhusal/vim-grip'
 Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
 Plug 'ron89/thesaurus_query.vim', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
@@ -162,7 +161,7 @@ augroup qf
 augroup END
 
 " statusline
-set statusline=%<%f\ %h%m%r\ \ \ %{coc#status()}\ %=%y\ \ \ %-10.(%l,%v%)\ %P
+set statusline=%<%f\ %h%m%r\ \ \ %{coc#status()}\ %=%y\ \ %{&fileencoding?&fileencoding:&encoding}\ \ %-10.(%l,%v%)\ %P
 
 "" grep
 set grepprg=rg\ --vimgrep\ --smart-case
@@ -287,6 +286,9 @@ let g:gitgutter_sign_added = '│'
 let g:gitgutter_sign_modified = '│'
 
 
+command! CopyToSlack execute ':!pandoc -f gfm -t ~/scripts/slack.lua "'. expand('%') . '"' . ' | pbcopy'
+
+
 " }}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -371,6 +373,7 @@ EOF
 
 " vim-markdown {{{
 let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_strikethrough = 1
 " }}}
 
 " Neomake {{{
@@ -424,6 +427,7 @@ nnoremap <silent> <leader>fb :Buffers<CR>
 nnoremap <silent> <leader>fr :History<CR>
 nnoremap <silent> <leader>fg :call fzf#vim#gitfiles('?', {'options': ['--no-preview']})<CR>
 nnoremap <silent> <leader>is :Snippets<CR>
+nnoremap <silent> <leader>x :Commands<CR>
 
 imap <c-x><c-f> <plug>(fzf-complete-file-ag)
 " }}}
@@ -613,6 +617,12 @@ let s:wiki_foncia.auto_tags = 1
 let g:vimwiki_list = [s:wiki_perso, s:wiki_foncia]
 let g:vimwiki_listsyms = ' .oOx'
 
+let g:neoformat_enabled_vimwiki = ['prettier']
+let g:neoformat_vimwiki_prettier = {
+        \ 'exe': 'prettier',
+        \ 'args': ['--stdin-filepath', '"%:p"'],
+        \ 'stdin': 1,
+        \ }
 
 function! VimwikiLinkHandler(link)
   " Use Vim to open external files with the 'file:' scheme.  E.g.:
