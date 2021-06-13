@@ -19,7 +19,7 @@ Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . c
 Plug 'tomtom/tcomment_vim' " comment stuff out
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
-Plug 'SirVer/ultisnips' 
+" Plug 'SirVer/ultisnips' 
 Plug 'sbdchd/neoformat'
 Plug 'moll/vim-bbye'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

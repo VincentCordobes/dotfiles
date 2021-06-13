@@ -1,36 +1,51 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# zmodload zsh/zprof
-# ~/scripts/today_word.py
-
 ###########################################
-# Oh My Zsh configuration                 #
+# General options
 ###########################################
 
-export ZSH=/Users/vincent/.oh-my-zsh
+# completion
+setopt always_to_end
+setopt complete_in_word
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
-DISABLE_AUTO_TITLE="true"
-plugins=(git)
+zmodload zsh/complist
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 
-source $ZSH/oh-my-zsh.sh
+# history
+HISTFILE=~/.histfile
+HISTSIZE=50000
+SAVEHIST=10000
+
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt share_history
+
+# directories
+setopt autocd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_minus
+
+setopt noflowcontrol
+setopt interactivecomments
+setopt login
+setopt longlistjobs
+setopt promptsubst
+
+zstyle :compinstall filename '/home/vincent/.zshrc'
+
+autoload -Uz compinit
+compinit
+
 
 ###########################################
 # User configuration                      #
 ###########################################
 
-# # prompt
-# autoload -U promptinit; promptinit
-# prompt pure
-
-
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+export GPG_TTY=$(tty)
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -43,7 +58,6 @@ fi
 export KEYTIMEOUT=1
 bindkey -v
 bindkey "^?" backward-delete-char
-
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
@@ -56,48 +70,34 @@ bindkey "^F" edit-command-line
 
 # Aliases
 alias vim='nvim'
-alias ta='tmux attach -t'
 alias vimdiff='nvim -d'
-alias l='ls -lFh'
-alias la='ls -lAFh'
+
+alias ls='ls --color=auto'
+alias lsa='ls -lAh'
+alias ll='ls -lh'
+
 alias gs='git status'
+alias gd='git diff'
 alias gupdate='git add . && git commit -m "Update"'
-# alias ctop='ctop -i'
+alias glog='git log --oneline --decorate --graph'
+
 alias w=watson
 alias git-remove-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -D'
 
 alias stocks="watch -n 60 -t -c ~/scripts/ticker.sh MSFT AMZN SHOP GOOG SAF.PA"
-alias scid="/Users/Vincent/Downloads/scid_macos/scid/scid"
-alias hardclear="printf '\033[2J\033[3J\033[1;1H'"
-
-gimp() {
- open $@ -a GIMP-2.10.app
-}
 
 goal() {
   vim `ls -dA ~/Dropbox/wiki/goal_* | tail -1`
 }
 
-darktable() {
- open $@ -a darktable.app
-}
-
-web() {
- open $@ -a "Google Chrome.app"
-}
-
-# nvm stuff
-export NVM_DIR="$HOME/.nvm"
-alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
-
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [ -e /usr/share/fzf ]; then
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+fi
+
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob \!.git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-# source ~/dotfiles/zsh/base16-hopscotch.config
-# source ~/dotfiles/zsh/base16-ocean.config
-
-# export FZF_DEFAULT_OPTS='--color=light,bg+:#fafafa,hl:#00897B,hl+:#00897B'
 export FZF_DEFAULT_OPTS='--color bg+:#3b4252,hl:#A3BE8C,hl+:#A3BE8C,pointer:#bf616a'
 
 # fshow - git commit browser
@@ -115,7 +115,7 @@ FZF-EOF"
 
 # pyenv
 loadPyenv() {
-  export PATH="/Users/vincent/.pyenv/bin:$PATH"
+  export PATH="/home/vincent/.pyenv/bin:$PATH"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 }
@@ -126,11 +126,11 @@ ptag() {
 }
 
 vw() {
-  (cd /Users/vincent/Dropbox/wiki; vim index.md)
+  (cd /home/vincent/Dropbox/wiki; vim index.md)
 }
 
 draft() {
-  (cd /Users/vincent/Dropbox/wiki; vim "drafts/$(date +%Y-%m-%d)_${1-"en"}.md" -c "set spelllang=${1:-en_us}|set spell")
+  (cd /home/vincent/Dropbox/wiki; vim "drafts/$(date +%Y-%m-%d)_${1-"en"}.md" -c "set spelllang=${1:-en_us}|set spell")
 }
 
 pad() {
@@ -143,30 +143,20 @@ pad() {
 }
 
 todo() {
-  (cd /Users/vincent/Dropbox/wiki; vim ./todo.md; clear)
+  (cd /home/vincent/Dropbox/wiki; vim ./todo.md; clear)
 }
 
 bmarks() {
-  (cd /Users/vincent/Dropbox/wiki; vim ./bookmarks.md)
+  (cd /home/vincent/Dropbox/wiki; vim ./bookmarks.md)
 }
 
 	
 fwiki() {
-  (cd /Users/vincent/Dropbox/jobs/foncia/wiki; vim -c VimwikiIndex2)
-}
-
-pdiary() {
-  (cd /Users/vincent/Dropbox/job/payfit/wiki; vim -c VimwikiMakeDiaryNote)
+  (cd /home/vincent/Dropbox/jobs/foncia/wiki; vim index.md)
 }
 
 tmp() {
-  (cd /Users/vincent/tmp; vim tmp.md; clear)
-}
-
-
-golight() {
-  ~/scripts/set_session_profile.py
-  export COLORSCHEME="light"
+  (cd /home/vincent/tmp; vim tmp.md; clear)
 }
 
 incworkout() {
@@ -190,26 +180,6 @@ incworkout() {
   fi
 }
 
-
-# fnm
-# eval "$(fnm env --multi)"
-
-# opam configuration
-test -r /Users/Vincent/.opam/opam-init/init.zsh && . /Users/Vincent/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
-
-
-# nvm
-nvmLoadShit() {
-  npm config delete prefix
-  loadnvm
-}
-
-nvmUnLoadShit() {
-  npm config set prefix '~/.npm-global'
-  nvm unload
-}
-
 fe() (
   IFS=$'\n' files=($(fzf --height ${FZF_TMUX_HEIGHT:-10%} --query="$1" --multi --exit-0))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
@@ -221,18 +191,9 @@ sk() {
 }
 
 
-covstats() {
-  curl https://corona-stats.online\?top\=15\&source\=2
-}
-
 ledgerdit() {
   vim "+ normal Gk" ~/Dropbox/wiki/ledger.dat
 }
-
-notifyfinish() {
-  osascript -e 'display notification "Finished!" with title "Task"'
-}
-
 
 tophistory() {
   history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n"${1:-10}"
@@ -297,9 +258,6 @@ jsontocsv() {
 
 
 alias preview="watch -n 5 --color prep review"
-[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
-
-
 
 # foncia
 export RABBITMQ__IS_ACTIVATED=true
@@ -330,6 +288,3 @@ wyesterday() {
 moop() {
   mpv $@ --start=${start:=0} --ab-loop-a=${start:=0} --ab-loop-b=${end:=0} --speed=${speed:=1}
 }
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
