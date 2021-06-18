@@ -16,3 +16,11 @@ code:
 
 node:
 	./node/install.sh
+
+.PHONY: bluetooth
+bluetooth:
+	sudo pacman -S --needed --noconfirm \
+		bluez \
+		bluez-utils
+	systemctl enable bluetooth.service
+	
