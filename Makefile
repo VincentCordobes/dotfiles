@@ -23,4 +23,16 @@ bluetooth:
 		bluez \
 		bluez-utils
 	systemctl enable bluetooth.service
+
+.PHONY: python
+python:
+	sudo pacman -S --needed --noconfirm python-pip
+
+.PHONY: tlp
+tlp:
+	sudo pacman -S --needed --noconfirm tlp tlp-rdw
+	systemctl enable tlp.service
+	systemctl enable NetworkManager-dispatcher.service
+	systemctl mask systemd-rfkill.service
+	systemctl mask systemd-rfkill.socket
 	

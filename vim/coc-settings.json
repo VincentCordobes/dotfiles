@@ -5,6 +5,7 @@
   "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
   "coc.preferences.promptInput": false,
+  "coc.source.file.ignoreHidden": false,
   "codeLens.enable":false,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
