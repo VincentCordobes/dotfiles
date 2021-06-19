@@ -2,6 +2,9 @@
 # General options
 ###########################################
 
+autoload -U promptinit; promptinit
+prompt pure
+
 # completion
 setopt always_to_end
 setopt complete_in_word
@@ -143,7 +146,7 @@ pad() {
 }
 
 todo() {
-  (cd /home/vincent/Dropbox/wiki; vim ./todo.md; clear)
+  (cd /home/vincent/Dropbox/wiki; vim todo.md)
 }
 
 bmarks() {

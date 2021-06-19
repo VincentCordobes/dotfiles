@@ -35,4 +35,3 @@ tlp:
 	systemctl enable NetworkManager-dispatcher.service
 	systemctl mask systemd-rfkill.service
 	systemctl mask systemd-rfkill.socket
-	
