@@ -12,7 +12,6 @@ bluez-utils
 brightnessctl
 chromium
 dropbox
-evolution
 fakeroot
 firefox
 flex
@@ -21,7 +20,6 @@ fzf
 gcc
 gimp
 git
-gnome-keyring
 grim
 inkscape
 intel-ucode
