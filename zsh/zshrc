@@ -4,6 +4,8 @@
 
 autoload -U promptinit; promptinit
 prompt pure
+PURE_PROMPT_SYMBOL="→"
+PURE_PROMPT_VICMD_SYMBOL="←"
 
 # completion
 setopt always_to_end
