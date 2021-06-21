@@ -198,6 +198,10 @@ endfun
 
 command! -nargs=1 -complete=customlist,s:foldMethodComplete FoldMethod silent setlocal foldmethod=<args>
 
+
+" TODO: remove once https://github.com/neovim/neovim/issues/11330 is resolved
+autocmd VimEnter * :silent exec "!kill -s SIGWINCH $PPID"
+
 " }}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
