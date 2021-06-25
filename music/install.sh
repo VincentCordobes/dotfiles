@@ -1,7 +1,8 @@
 #!/bin/bash
 
-DIRNAME="$(cd "$(dirname "$0")";pwd -P)"
+mkdir -p ~/.config/mpd
+mkdir -p ~/.config/mpd/playlists
 
-ln -sf $DIRNAME/mpd.conf ~/.mpd/mpd.conf
-ln -sf $DIRNAME/ncmpcpp ~/.ncmpcpp/config
-ln -sf $DIRNAME/bindings ~/.ncmpcpp/bindings
+ln -sf ~/dotfiles/music/mpd.conf ~/.config/mpd/mpd.conf
+# ln -sf $DIRNAME/ncmpcpp ~/.ncmpcpp/config
+# ln -sf $DIRNAME/bindings ~/.ncmpcpp/bindings
