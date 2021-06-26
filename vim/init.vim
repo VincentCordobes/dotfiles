@@ -142,7 +142,7 @@ augroup filetypes
   autocmd BufNewFile,BufRead .prettierrc set filetype=json
   autocmd BufNewFile,BufRead tsconfig.json set filetype=jsonc
   autocmd BufNewFile,BufRead .gitignore set filetype=config
-  autocmd BufNewFile,BufRead *.css set filetype=scss
+  " autocmd BufNewFile,BufRead *.css set filetype=scss
   autocmd BufNewFile,BufRead zprofile set filetype=zsh
 augroup END
 

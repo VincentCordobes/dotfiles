@@ -8,7 +8,10 @@
 
 window#waybar {
   background-color: #22272e;
+  /* soywod */
   color: #bbc2cf;
+  /* github */
+  color: #adbac7;
 }
 
 #workspaces button {

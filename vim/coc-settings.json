@@ -9,6 +9,8 @@
   "codeLens.enable":false,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
+    "json",
+    "jsonc",
     "javascript",
     "typescript",
     "typescriptreact",
