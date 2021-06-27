@@ -30,6 +30,8 @@ set $menu rofi -show run | xargs swaymsg exec --
 ###################################
 # Output configuration
 ###################################
+default_border pixel 2
+titlebar_padding 2
 
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill

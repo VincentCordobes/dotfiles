@@ -16,6 +16,7 @@ intel-ucode
 kitty
 languagetool
 ledger
+libimobiledevice
 mako
 man-db
 mpv
@@ -43,6 +44,7 @@ slack-desktop
 sof-firmware
 sudo
 sway
+swayidle
 swaylock
 telegram-desktop
 tlp

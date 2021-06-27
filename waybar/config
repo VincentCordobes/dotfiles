@@ -1,8 +1,13 @@
 {
   "position": "top",
   // Choose the order of the modules
-  "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
-  "modules-center": ["sway/window"],
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode",
+    "custom/media"
+    /* "sway/window" */
+  ],
+  "modules-center": [],
   "modules-right": [
     "tray",
     "bluetooth",
@@ -34,6 +39,9 @@
   // },
   "sway/mode": {
     "format": "<span style=\"italic\">{}</span>"
+  },
+  "sway/window": {
+    "max-length": 30
   },
   "mpd": {
     "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
@@ -84,11 +92,10 @@
     // "timezone": "America/New_York",
     "format": " {:%H:%M}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format-alt": "{:%Y-%m-%d}"
+    "format-alt": " {:%Y-%m-%d}"
   },
   "cpu": {
-    "format": " {usage}%",
-    "tooltip": false
+    "format": " {usage}%"
   },
   "memory": {
     "format": " {}%"
@@ -97,13 +104,13 @@
     // "thermal-zone": 2,
     // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
     "critical-threshold": 80,
-    // "format-critical": "{temperatureC}°C {icon}",
     "format": "{icon} {temperatureC}°C",
     "format-icons": ["", "", ""]
   },
   "backlight": {
     // "device": "acpi_video1",
-    "format": "{icon} {percent}%",
+    "format": "{icon}",
+    /* "on-click": "brightnessctl set 1%", */
     "format-icons": ["", ""]
   },
   "battery": {
@@ -121,11 +128,12 @@
     "format-icons": ["", "", "", "", ""]
   },
   "network": {
-    "format-wifi": " {signalStrength}%",
+    "format-wifi": "",
+    "tooltip-format-wifi": "Signal {signalStrength}%",
+    "format-alt": " {signalStrength}%",
     "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
     "format-linked": " {ifname} (No IP)",
-    "format-disconnected": "⚠ Disconnected",
-    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    "format-disconnected": "⚠ Disconnected"
   },
   "pulseaudio": {
     // "scroll-step": 1, // %, can be a float
@@ -133,7 +141,7 @@
     "format-bluetooth": "{icon} {volume}%  {format_source}",
     "format-bluetooth-muted": " {icon} {format_source}",
     "format-muted": " {format_source}",
-    "format-source": " {volume}%",
+    "format-source": "",
     "format-source-muted": "",
     "format-icons": {
       "headphone": "",
