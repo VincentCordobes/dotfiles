@@ -1,8 +1,13 @@
 #!/bin/bash
 
-DIRNAME="$(cd "$(dirname "$0")";pwd -P)"
-
 mkdir -p ~/.config/mpv
 
-ln -sf $DIRNAME/ledgerrc ~/.ledgerrc
-ln -sf $DIRNAME/mpv.conf ~/.config/mpv/
+echo "ledger"
+ln -sf ~/dotfiles/misc/ledgerrc ~/.ledgerrc
+
+echo "mpv"
+ln -sf ~/dotfiles/misc/mpv.conf ~/.config/mpv/mpv.conf
+
+echo "XDG defaults"
+xdg-mime default zathura.desktop   application/pdf
+xdg-mime default imv.desktop       image/png

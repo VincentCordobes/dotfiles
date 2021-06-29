@@ -74,6 +74,7 @@ zle -N edit-command-line
 bindkey "^F" edit-command-line
 
 # Aliases
+alias open='xdg-open'
 alias vim='nvim'
 alias vimdiff='nvim -d'
 
@@ -197,7 +198,7 @@ sk() {
 
 
 ledgerdit() {
-  vim "+ normal Gk" ~/Dropbox/wiki/ledger.dat
+  vim "+ normal Gk" ~/Dropbox/data/ledger.dat
 }
 
 tophistory() {
