@@ -9,6 +9,7 @@
   ],
   "modules-center": [],
   "modules-right": [
+    "custom/recorder",
     "tray",
     "bluetooth",
     "idle_inhibitor",
@@ -153,6 +154,14 @@
       "default": ["", "", ""]
     },
     "on-click": "pavucontrol"
+  },
+  "custom/recorder": {
+    "format": "",
+    "return-type": "json",
+    "interval": 10,
+    "signal": 8,
+    "exec": "echo '{\"class\": \"recording\"}'",
+    "exec-if": "pgrep wf-recorder"
   },
   "custom/media": {
     "format": "{icon} {}",

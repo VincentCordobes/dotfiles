@@ -104,3 +104,18 @@ window#waybar {
 #idle_inhibitor.activated {
   color: #f1c40f;
 }
+
+@keyframes blink {
+  to {
+    color: #eb4d4b;
+  }
+}
+
+#custom-recorder.recording {
+  color: #ffffff;
+  animation-name: blink;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}

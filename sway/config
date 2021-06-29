@@ -227,6 +227,10 @@ bindsym $alt+Print   exec grimshot --notify save window $screenshot_file
 bindsym Ctrl+Print        exec grimshot --notify copy output
 bindsym Ctrl+$alt+Print   exec grimshot --notify copy window
 
+
+# Screencast
+bindsym Shift+Print   exec record-screen-area
+
 bindsym $mod+c exec $term --class="qalc" qalc 
 for_window [app_id="qalc"] {
   move scratchpad
@@ -235,7 +239,7 @@ for_window [app_id="qalc"] {
   resize set 500px 400px
 }
 
-for_window [app_id="telegramdesktop"] move container to workspace number 10, focus
+for_window [app_id="telegramdesktop"] move container to workspace number 10
 
 # Scratchpad
 
