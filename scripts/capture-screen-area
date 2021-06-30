@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Select window or area
+geom=$(swaymsg -t get_tree \
+  | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' \
+  | slurp)
+
+if [ -z "$geom" ]; then
+  exit
+fi
+
+file="/tmp/screenshot.png"
+
+grim -g "$geom" "$file"
+wl-copy < "$file"
+
+notify-send -t 3000 "Screenshot" $file

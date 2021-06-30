@@ -1,0 +1,8 @@
+#!/bin/bash
+
+file="/tmp/$(date -Is).png"
+
+grim "$file"
+wl-copy < "$file"
+
+notify-send -t 3000 "Screenshot" $file
