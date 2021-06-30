@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ ! -z "$(pgrep -x slurp)" ]; then
+  exit
+fi
+
 # Select window or area
 geom=$(swaymsg -t get_tree \
   | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' \
