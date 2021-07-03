@@ -46,6 +46,9 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 output DP-3 position 0,0
 output eDP-1 position 420,1080
 
+workspace 1 output eDP-1
+workspace 2 output DP-3
+
 ### Idle configuration
 #
 # Example configuration:
