@@ -12,3 +12,4 @@ echo "XDG defaults"
 xdg-mime default zathura.desktop   application/pdf
 xdg-mime default zathura.desktop   application/epub+zip
 xdg-mime default imv.desktop       image/png
+xdg-mime default nvim.desktop      text/plain
