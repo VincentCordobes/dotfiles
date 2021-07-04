@@ -205,52 +205,6 @@ tophistory() {
   history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n"${1:-10}"
 }
 
-
-howmuchVAT() {
-  start=`date  -v1d -v-1m +%Y-%m-%d`
-  end=`date  -v1d -v-1d +%Y-%m-%d`
-
-  echo "Period: \e[33m$start..$end\e[39m\n"
-
-  echo -e "Balance:"
-
-  ledger bal \
-    Liabilities:VAT Payable \
-    Assets:VAT Deductible \
-    -e $end
-
-  echo ""
-  echo "Details:"
-
-  ledger reg \
-    Assets:VAT Deductible \
-    Liabilities:VAT Payable \
-    Income:Freelance \
-    -b $start -e $end
-
-}
-
-howmuchcotsoc() {
-  start=`date  -v1d -v-3m +%Y-%m-%d`
-  end=`date  -v1d -v-1d +%Y-%m-%d`
-
-  echo "Period: \e[33m$start..$end\e[39m\n"
-
-  echo -e "Balance:"
-
-  ledger bal \
-    Income:Freelance \
-    -b $start -e $end
-
-  echo ""
-  echo "Details:"
-
-  ledger reg \
-    Income:Freelance \
-    -b $start -e $end
-
-}
-
 jsontocsv() {
   inputfile=$1
   filename=$(basename "$inputfile")
