@@ -18,7 +18,7 @@ set $term kitty --single-instance
 # Application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu rofi -show run | xargs swaymsg exec --
+set $menu rofi -show drun | xargs swaymsg exec --
 
 
 ###################################
@@ -46,8 +46,19 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 output DP-3 position 0,0
 output eDP-1 position 420,1080
 
-workspace 1 output eDP-1
-workspace 2 output DP-3
+set $output_internal eDP-1
+set $output_external DP-3
+
+workspace 1 output $output_external
+workspace 2 output $output_external 
+workspace 3 output $output_external 
+workspace 4 output $output_external 
+workspace 5 output $output_external 
+workspace 6 output $output_external 
+workspace 7 output $output_external 
+workspace 8 output $output_external 
+workspace 9 output $output_external 
+workspace 10 output $output_internal
 
 ### Idle configuration
 #
@@ -169,7 +180,7 @@ bindsym $mod+eacute      workspace number 2
 bindsym $mod+quotedbl     workspace number 3
 bindsym $mod+apostrophe  workspace number 4
 bindsym $mod+parenleft   workspace number 5
-# bindsym $mod+minus       workspace number 6
+bindsym $mod+minus       workspace number 6
 bindsym $mod+egrave      workspace number 7
 bindsym $mod+underscore  workspace number 8
 bindsym $mod+ccedilla    workspace number 9
@@ -214,7 +225,7 @@ bindsym $mod+Shift+space floating toggle
 
 
 # Swap focus between the tiling area and the floating area
-bindsym $mod+space focus mode_toggle
+# bindsym $mod+space focus mode_toggle
 
 # Move focus to the parent container
 bindsym $mod+a focus parent
@@ -242,11 +253,12 @@ for_window [app_id="telegramdesktop"] move container to workspace number 10
 # You can send windows there and get them back later.
 
 # Move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+m move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
+# bindsym $mod+minus scratchpad show
+bindsym $mod+space scratchpad show
 
 # bindsym $mod+Shift+Return exec $term, move scatchpad 
 
