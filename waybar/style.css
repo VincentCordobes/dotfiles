@@ -75,6 +75,14 @@ window#waybar {
   margin-right: 0;
 }
 
+#memory.critical {
+  color: #f53c3c;
+}
+
+#memory.warning {
+  color: #f1c40f;
+}
+
 #battery.warning:not(.charging) {
   color: #f1c40f;
 }

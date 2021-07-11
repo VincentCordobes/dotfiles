@@ -99,7 +99,11 @@
     "format": " {usage}%"
   },
   "memory": {
-    "format": " {}%"
+    "format": " {}%",
+    "states": {
+      "critical": 90,
+      "warning": 80
+    }
   },
   "temperature": {
     // "thermal-zone": 2,

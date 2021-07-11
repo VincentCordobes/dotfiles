@@ -1,0 +1,11 @@
+#!/bin/bash
+
+date=`date -Is`
+dir="/mnt/hdd/backups"
+logfile="$dir/linuxbackup.log"
+
+echo "Backing up to $dir"
+
+rsync -avh --delete /home/vincent /mnt/hdd/backups/linux/
+
+[ $? -eq 0 ] && echo "Successfully backed up on $date" > "$logfile"

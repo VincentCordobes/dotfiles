@@ -57,7 +57,7 @@ workspace 5 output $output_external
 workspace 6 output $output_external 
 workspace 7 output $output_external 
 workspace 8 output $output_external 
-workspace 9 output $output_external 
+workspace 9 output $output_internal
 workspace 10 output $output_internal
 
 ### Idle configuration
