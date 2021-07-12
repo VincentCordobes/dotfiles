@@ -290,7 +290,7 @@ let g:gitgutter_sign_added = '│'
 let g:gitgutter_sign_modified = '│'
 
 
-command! CopyToSlack execute ':!pandoc -f gfm -t ~/scripts/slack.lua "'. expand('%') . '"' . ' | pbcopy'
+command! CopyToSlack execute ':!pandoc -f gfm -t ~/scripts/slack.lua "'. expand('%') . '"' . ' | wl-copy'
 
 
 " }}}
