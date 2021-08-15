@@ -13,3 +13,6 @@ xdg-mime default zathura.desktop   application/pdf
 xdg-mime default zathura.desktop   application/epub+zip
 xdg-mime default imv.desktop       image/png
 xdg-mime default nvim.desktop      text/plain
+xdg-mime default mpv.desktop       audio/mpegapplication/octet-stream
+xdg-mime default mpv.desktop       video/mp4
+
