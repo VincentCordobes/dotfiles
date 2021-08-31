@@ -321,7 +321,6 @@ bar {
 ###################################
 # Startup programs
 ###################################
-exec dropbox
 exec mako
 
 # exec swayidle -w \
