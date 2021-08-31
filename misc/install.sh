@@ -16,3 +16,11 @@ xdg-mime default nvim.desktop      text/plain
 xdg-mime default mpv.desktop       audio/mpegapplication/octet-stream
 xdg-mime default mpv.desktop       video/mp4
 
+echo "zathura"
+mkdir -p ~/.config/zathura
+ln -sf ~/dotfiles/misc/zathurarc ~/.config/zathura/zathurarc
+
+
+echo "Rust completions"
+rustup completions zsh cargo > /usr/local/share/zsh/site-functions/_cargo
+rustup completions zsh       > /usr/local/share/zsh/site-functions/_rustup

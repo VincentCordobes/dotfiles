@@ -212,7 +212,7 @@ jsontocsv() {
   inputfile=$1
   filename=$(basename "$inputfile")
   filename="${filename%.*}"
-  outputfile=~/tmp/$filename.csv
+  outputfile=/tmp/$filename.csv
 
   cat "$inputfile" \
     | jq -r '(map(keys) | add | unique) as $cols | map(. as $row | $cols | map($row[.])) as $rows | $cols, $rows[] | @csv' \
