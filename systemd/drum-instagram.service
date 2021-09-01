@@ -1,0 +1,9 @@
+[Unit]
+Description=Download instagram saved content
+
+[Service]
+Type=exec
+ExecStart=/home/vincent/.npm-global/bin/drum-instagram
+
+[Install]
+WantedBy=multi-user.target
