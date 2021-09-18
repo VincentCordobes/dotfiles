@@ -1,5 +1,6 @@
 [Unit]
 Description=Download instagram saved content
+ConditionACPower=true
 
 [Service]
 Type=exec

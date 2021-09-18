@@ -4,13 +4,15 @@
   "modules-left": [
     "sway/workspaces",
     "sway/mode",
-    "custom/media"
+    "custom/media",
+    "tray"
     /* "sway/window" */
   ],
   "modules-center": [],
   "modules-right": [
     "custom/recorder",
-    "tray",
+    "custom/trackie",
+    "custom/github",
     "bluetooth",
     "idle_inhibitor",
     "pulseaudio",
@@ -158,6 +160,20 @@
       "default": ["", "", ""]
     },
     "on-click": "pavucontrol"
+  },
+  "custom/trackie": {
+    "format": " {}",
+    /* "return-type": "json", */
+    "interval": 30,
+    "signal": 8,
+    "exec": "trackie status -f '%p'"
+  },
+  "custom/github": {
+    "exec": "$HOME/dotfiles/waybar/github-notifs",
+    "on-click": "xdg-open https://github.com/notifications",
+    "format": " {}",
+    "return-type": "json",
+    "interval": 60
   },
   "custom/recorder": {
     "format": "",

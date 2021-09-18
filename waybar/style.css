@@ -39,19 +39,23 @@ window#waybar {
   background-color: #64727d;
 }
 
-#clock,
-#battery,
+#mode,
+#tray,
+#custom-media,
+#custom-recorder,
+#custom-trackie,
+#custom-github,
+#bluetooth,
+#idle_inhibitor,
+#pulseaudio,
+#backlight,
+#temperature,
 #cpu,
 #memory,
-#disk,
-#temperature,
-#backlight,
+#clock,
 #network,
-#pulseaudio,
-#custom-media,
-#tray,
-#mode,
-#idle_inhibitor,
+#battery,
+#disk,
 #language,
 #mpd {
   padding: 0 0.6em;
@@ -98,6 +102,13 @@ window#waybar {
 #pulseaudio.muted {
   /* background-color: #90b1b1; */
   color: #4d5159;
+}
+
+#custom-trackie {
+  /* color: #98be65; */
+  /* color: #c678dd; */
+  /* color: #b48ead; */
+  /* color: #57ab5a; */
 }
 
 #custom-media {

@@ -5,12 +5,18 @@ end=`date -I -d "$(date +"%Y-%m-01") - 1 day"`
 
 echo -e "Period: \e[33m$beg..$end\e[39m\n"
 
-echo "Balance:"
+echo "VAT:"
 
 ledger bal \
   Liabilities:VAT Payable \
   Assets:VAT Deductible \
   -e $end
+
+echo "Income:"
+
+ledger bal \
+  Income:Freelance \
+  -b $beg -e $end
 
 echo ""
 echo "Details:"

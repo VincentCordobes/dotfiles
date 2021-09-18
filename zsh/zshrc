@@ -90,7 +90,6 @@ alias glog='git log --oneline --decorate --graph'
 alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign -m "--wip-- [skip ci]"'
 alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
 
-alias w=watson
 alias git-remove-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -D'
 
 alias stocks="watch -n 60 -t -c ~/scripts/ticker.sh MSFT AMZN SHOP GOOG SAF.PA"
@@ -121,6 +120,10 @@ fshow() {
 FZF-EOF"
 }
 
+w() {
+  trackie $@
+  pkill -SIGRTMIN+8 waybar
+}
 
 # pyenv
 loadPyenv() {
@@ -147,7 +150,6 @@ pad() {
   dir=`dirname $tmpfile`
   pushd $dir
   vim $tmpfile -c "set ft=markdown"
-  rm $tmpfile
   popd
 }
 
@@ -186,6 +188,7 @@ incworkout() {
     echo "Already marked => ignore"
   else
     echo "$line" >> $WORKOUT_FILE
+    dijo -c "track-up running"
   fi
 }
 
@@ -224,6 +227,11 @@ alias preview="watch -n 5 --color prep review"
 
 # foncia
 export RABBITMQ__IS_ACTIVATED=true
+
+
+sshreviewapp() {
+  ssh -o StrictHostKeyChecking=no -o "UserKnownHostsFile /dev/null" -i ~/.ssh/id_rsa -L 28030:127.0.0.1:27017 -J vincent.cordobes@bastion.factory.fonciamillenium.net -t vincent.cordobes@$1 "cd /tmp/localstack ; bash"
+}
 
 fwtoday() {
   watson report --day --project foncia --current

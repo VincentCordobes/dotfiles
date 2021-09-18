@@ -46,6 +46,10 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 output DP-3 position 0,0
 output eDP-1 position 420,1080
 
+# output DP-3 scale 1
+# output DP-3 position 0,0
+# output eDP-1 position 740,1440
+
 set $output_internal eDP-1
 set $output_external DP-3
 
@@ -321,6 +325,7 @@ bar {
 ###################################
 # Startup programs
 ###################################
+exec dropbox
 exec mako
 
 # exec swayidle -w \
