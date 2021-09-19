@@ -4,15 +4,14 @@
   "modules-left": [
     "sway/workspaces",
     "sway/mode",
-    "custom/media",
-    "tray"
+    "custom/media"
     /* "sway/window" */
   ],
   "modules-center": [],
   "modules-right": [
     "custom/recorder",
     "custom/trackie",
-    "custom/github",
+    "tray",
     "bluetooth",
     "idle_inhibitor",
     "pulseaudio",
@@ -166,7 +165,7 @@
     /* "return-type": "json", */
     "interval": 30,
     "signal": 8,
-    "exec": "trackie status -f '%p'"
+    "exec": "trackie status -f '%p\n%D'"
   },
   "custom/github": {
     "exec": "$HOME/dotfiles/waybar/github-notifs",

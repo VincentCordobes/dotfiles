@@ -1,11 +1,35 @@
 #!/bin/bash
 
 date=`date -Is`
-dir="/mnt/hdd/backups"
-logfile="$dir/linuxbackup.log"
+backups_dir="/mnt/hdd/backups"
+logfile="$backups_dir/archlinuxbackup.log"
+backup_arch="$backups_dir/archlinux/"
+exclude_file="/home/vincent/dotfiles/scripts/backup_ignore.txt"
 
-echo "Backing up to $dir"
+echo "Backing up to $backup_arch"
 
-rsync -avh --delete /home/vincent /mnt/hdd/backups/linux/
+mkdir -p $backup_arch
+
+# Option -a doesn't work with exfat because of permissions
+#
+# man says:
+#   -a is equivalent to -rlptgoD
+#
+#   r: recursive
+#   l: symlink
+#   t: time
+#   p: perms
+#   g: groups
+#   o: owner
+#   D: devices and special files
+#   v: verbose
+#   u: update
+#   h: humain-readable
+
+rsync -avh \
+  --delete \
+  --delete-excluded \
+  --exclude-from=$exclude_file \
+  / $backup_arch
 
 [ $? -eq 0 ] && echo "Successfully backed up on $date" > "$logfile"
