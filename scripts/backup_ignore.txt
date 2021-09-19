@@ -22,6 +22,7 @@
 /home/vincent/.npm-global
 /home/vincent/.rustup
 /home/vincent/Dropbox
+/home/vincent/.dropbox
 /home/vincent/.dropbox-dist
 /home/vincent/.config/nvim/plugged
 /home/vincent/code
