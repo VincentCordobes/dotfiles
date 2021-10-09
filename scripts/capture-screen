@@ -2,7 +2,9 @@
 
 file="/tmp/$(date -Is).png"
 
-grim "$file"
+output=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused)' | jq -r '.name')
+
+grim -o "$output" "$file"
 wl-copy < "$file"
 
 notify-send -t 3000 "Screenshot" $file
