@@ -6,7 +6,7 @@
   "python.linting.mypyEnabled": true,
   "coc.preferences.promptInput": false,
   "coc.source.file.ignoreHidden": false,
-  "codeLens.enable":false,
+  "codeLens.enable": false,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
     "json",
@@ -21,7 +21,7 @@
   ],
   "eslint.trace.server": "verbose",
   "eslint.codeActionsOnSave.mode": "all",
-  "eslint.autoFixOnSave": true, 
+  "eslint.autoFixOnSave": true,
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -30,7 +30,7 @@
   ],
   "typescript.showUnused": false,
   /* "rust-analyzer.lens.enable": false, */
-  "rust-analyzer.inlayHints.enable":false,
+  "rust-analyzer.inlayHints.enable": false,
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
@@ -45,7 +45,8 @@
     /*   "filetypes": ["markdown"] */
     /* }, */
     "ocaml": {
-      "command": "ocamllsp",
+      "command": "opam",
+      "args": ["config", "exec", "--", "ocamllsp"],
       "filetypes": ["ocaml"]
     },
     "haskell": {

@@ -108,6 +108,8 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --glob \!.git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--color bg+:#3b4252,hl:#A3BE8C,hl+:#A3BE8C,pointer:#bf616a'
 
+[[ ! -r /home/vincent/.opam/opam-init/init.zsh ]] || source /home/vincent/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
 # fshow - git commit browser
 fshow() {
   git log --graph --color=always \
@@ -230,7 +232,7 @@ export RABBITMQ__IS_ACTIVATED=true
 
 
 sshreviewapp() {
-  ssh -o StrictHostKeyChecking=no -o "UserKnownHostsFile /dev/null" -i ~/.ssh/id_rsa -L 28030:127.0.0.1:27017 -J vincent.cordobes@bastion.factory.fonciamillenium.net -t vincent.cordobes@$1 "cd /tmp/localstack ; bash"
+  ssh -o StrictHostKeyChecking=no -o "UserKnownHostsFile /dev/null" -i ~/.ssh/id_rsa -L 28030:127.0.0.1:27017 -J vincent.cordobes@bastion.dev1.fonciamillenium.net -t vincent.cordobes@$1 "cd /tmp/localstack ; bash"
 }
 
 fwtoday() {

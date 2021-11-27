@@ -45,12 +45,12 @@ output * bg `find $wallpapers_path -type f | shuf -n 1` fill "#7f9ecd"
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
-output DP-2 position 0,0
-output eDP-1 position 420,1080
 
-# output eDP-1 scale 1
-# output DP-3 position 0,0
-# output eDP-1 position 740,1440
+# output DP-2 position -420,-1080
+# output eDP-1 position 0,0
+
+# output DP-2 position -740,-1440
+# output eDP-1 position 0,0
 
 set $output_internal eDP-1
 set $output_external DP-2
@@ -264,7 +264,7 @@ bindsym $mod+m move scratchpad
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 # bindsym $mod+minus scratchpad show
-bindsym $mod+d scratchpad show
+bindsym $mod+o scratchpad show
 
 # bindsym $mod+Shift+Return exec $term, move scatchpad 
 
@@ -329,6 +329,7 @@ bar {
 ###################################
 exec dropbox
 exec mako
+exec kanshi
 
 # exec swayidle -w \
 # 	timeout 300 'swaymsg "output * dpms off"' \

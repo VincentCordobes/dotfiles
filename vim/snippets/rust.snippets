@@ -9,6 +9,10 @@ mod tests {
 }
 endsnippet
 
+snippet derivedef "Derive default"
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+endsnippet
+
 snippet test "#[test]"
 #[test]
 fn ${1:name}() {
