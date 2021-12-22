@@ -8,6 +8,7 @@ echo -e "Period: \e[33m$beg..$end\e[39m\n"
 echo "VAT:"
 
 ledger bal \
+  Income:Freelance \
   Liabilities:VAT Payable \
   Assets:VAT Deductible \
   -e $end

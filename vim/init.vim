@@ -55,6 +55,7 @@ Plug 'cespare/vim-toml'
 
 "" Writing
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+Plug 'lervag/wiki.vim'
 Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
 Plug 'voldikss/vim-search-me'
 Plug 'lervag/vimtex' ,            { 'for': 'tex' }

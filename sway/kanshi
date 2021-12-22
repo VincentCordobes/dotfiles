@@ -1,0 +1,10 @@
+profile "Normal" {
+  output eDP-1 enable position 0,0
+}
+
+profile "Home external monitor" {
+  output "Ancor Communications Inc ASUS VC239 G5LMTJ023083" position 0,0
+  output eDP-1 position 420,1080
+  # output eDP-1 position 1920,740
+}
+
