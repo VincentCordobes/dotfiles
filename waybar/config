@@ -19,8 +19,8 @@
     "temperature",
     "cpu",
     "memory",
-    "clock",
     "network",
+    "clock",
     "battery"
   ],
   // Modules configuration
@@ -97,10 +97,12 @@
     "format-alt": " {:%Y-%m-%d}"
   },
   "cpu": {
+    "interval": 2,
     "format": " {usage}%"
   },
   "memory": {
     "format": " {}%",
+    "interval": 2,
     "states": {
       "critical": 90,
       "warning": 80
@@ -110,6 +112,7 @@
     // "thermal-zone": 2,
     // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
     "critical-threshold": 80,
+    "interval": 2,
     "format": "{icon} {temperatureC}°C",
     "format-icons": ["", "", ""]
   },
@@ -134,9 +137,11 @@
     "format-icons": ["", "", "", "", ""]
   },
   "network": {
+    "interface": "wlp0s20f3",
+    "interval": 2,
     "format-wifi": "",
-    "tooltip-format-wifi": "Signal {signalStrength}%",
-    "format-alt": " {signalStrength}%",
+    "tooltip-format-wifi": " {signalStrength}%",
+    "format-alt": "⇅ {bandwidthUpOctets} {bandwidthDownOctets}",
     "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
     "format-linked": " {ifname} (No IP)",
     "format-disconnected": "⚠ Disconnected"

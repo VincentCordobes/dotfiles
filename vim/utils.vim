@@ -94,6 +94,8 @@ function! ToggleGvdiff()
   let l:gitBuf = bufname('.git//0/')
   if buflisted(l:gitBuf)
     exe 'bd ' . l:gitBuf
+    set noscrollbind
+    set nocursorbind
   else
     Gvdiff
     wincmd p
