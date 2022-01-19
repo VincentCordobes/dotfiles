@@ -329,7 +329,6 @@ bar {
 ###################################
 exec dropbox
 exec mako
-exec kanshi
 
 # exec swayidle -w \
 # 	timeout 300 'swaymsg "output * dpms off"' \
