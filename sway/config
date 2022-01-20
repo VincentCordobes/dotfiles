@@ -328,7 +328,7 @@ bar {
 # Startup programs
 ###################################
 exec dropbox
-exec mako
+exec_always "systemctl --user import-environment; systemctl --user start sway-session.target"
 
 # exec swayidle -w \
 # 	timeout 300 'swaymsg "output * dpms off"' \
