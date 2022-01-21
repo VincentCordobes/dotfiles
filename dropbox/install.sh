@@ -2,11 +2,8 @@
 
 yay -S dropbox
 
-# FIXME
-echo "Please proceed at the install manually"
+ln -sf  ~/dotfiles/dropbox/dropbox.service ~/.config/systemd/user/dropbox.service
 
-# $ systemctl --user edit dropbox.service  
-# $ systemctl --user enable dropbox.service
+systemctl --user enable dropbox.service
+systemctl --user start dropbox.service
 
-# [Service]
-# Environment=DISPLAY=:0
