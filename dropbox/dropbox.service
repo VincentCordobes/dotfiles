@@ -1,7 +1,7 @@
 [Unit]
 Description=Dropbox
 BindsTo=graphical-session.target
-After=graphical-session.target network-online.target
+After=network-online.target graphical-session.target
 
 [Service]
 Type=forking

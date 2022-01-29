@@ -7,7 +7,7 @@
     "coc-python": ">=1.2.13",
     "coc-rust-analyzer": ">=0.59.1",
     "coc-texlab": ">=3.2.0",
-    "coc-tsserver": ">=1.9.6",
+    "coc-tsserver": ">=1.9.8",
     "coc-vimlsp": ">=0.12.5",
     "coc-vimtex": ">=1.1.0",
     "coc-yaml": ">=1.6.1"

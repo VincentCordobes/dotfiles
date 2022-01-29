@@ -256,6 +256,11 @@ wyesterday() {
     --to "$yesterday $to"
 }
 
+reloadAudio() {
+  sudo rmmod snd_sof_pci_intel_tgl
+  sudo modprobe snd_sof_pci_intel_tgl
+}
+
 
 
 moop() {
