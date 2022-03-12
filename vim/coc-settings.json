@@ -7,6 +7,7 @@
   "coc.preferences.promptInput": false,
   "coc.source.file.ignoreHidden": false,
   "codeLens.enable": false,
+  "diagnostic.showDeprecated": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
     "json",
@@ -35,7 +36,7 @@
     "bash": {
       "command": "bash-language-server",
       "args": ["start"],
-      "filetypes": ["sh", "zsh"],
+      "filetypes": ["sh", "zsh", "bash"],
       "ignoredRootPaths": ["~"]
     },
     /* "prose": { */

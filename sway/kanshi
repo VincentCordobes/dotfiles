@@ -1,14 +1,14 @@
-profile "Home external monitor" {
-  output "Ancor Communications Inc ASUS VC239 G5LMTJ023083" position 0,0
-  output eDP-1 position 420,1080
-  # output eDP-1 position 1920,740
+profile Normal {
+  output eDP-1 position 0,0
 }
 
-profile "Work" {
-  output "Unknown HP Z27n G2 6CM83403L1" position 0,0
+profile Home {
+  output "Ancor Communications Inc ASUS VC239 G5LMTJ023083" mode 1920x1080 position 0,0
+  output eDP-1 position 420,1080
+}
+
+profile Work {
+  output "HP Z27n G2 6CM8291ZQJ" position 0,0
   output eDP-1 position 740,1440
 }
 
-profile "Normal" {
-  output eDP-1 enable position 0,0
-}

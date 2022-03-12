@@ -4,7 +4,7 @@ BindsTo=graphical-session.target
 After=network-online.target graphical-session.target
 
 [Service]
-Type=forking
+Type=simple
 ExecStart=-/usr/bin/dropbox
 ExecReload=/bin/kill -HUP $MAINPID
 PIDFile=/home/vincent/.dropbox/dropbox.pid

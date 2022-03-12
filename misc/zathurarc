@@ -1,1 +1,2 @@
 set selection-clipboard clipboard
+set first-page-column 1:1

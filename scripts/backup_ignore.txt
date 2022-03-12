@@ -28,6 +28,7 @@
 /home/vincent/code
 /home/vincent/dotfiles
 /home/vincent/scripts
+/home/vincent/go
 
 /home/vincent/.local/lib
 /home/vincent/.local/share/Trash

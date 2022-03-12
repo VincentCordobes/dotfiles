@@ -5,12 +5,7 @@ PartOf=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/swayidle -w \
-          timeout 600 'swaylock -f -i /home/vincent/Pictures/lockscreen/cat_lock.png' \
-          timeout 1200 'swaymsg "output * dpms off"' \
-          resume 'swaymsg "output * dpms on"' \
-          before-sleep 'swaylock -f -i /home/vincent/Pictures/lockscreen/cat_lock.png' \
-          lock 'swaylock -f -i /home/vincent/Pictures/lockscreen/cat_lock.png'
+ExecStart=/home/vincent/dotfiles/sway/start_swayidle
 
 [Install]
 WantedBy=sway-session.target
