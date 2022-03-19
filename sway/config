@@ -251,6 +251,14 @@ for_window [app_id="qalc"] {
   resize set 500px 400px
 }
 
+bindsym $mod+t exec $term --title="takenote" takenote
+for_window [title="takenote"] {
+  move scratchpad
+  scratchpad show
+  move position center
+  resize set 600px 600px
+}
+
 for_window [app_id="telegramdesktop"] move container to workspace number 10
 
 bindsym $alt+Ctrl+delete exec loginctl lock-session
@@ -329,10 +337,5 @@ mode "resize" {
 ###################################
 # Startup programs
 ###################################
-exec_always "systemctl --user import-environment; systemctl --user start sway-session.target"
-
-# exec swayidle -w \
-# 	timeout 300 'swaymsg "output * dpms off"' \
-# 	resume 'swaymsg "output * dpms on"'
-
+exec "systemctl --user start sway-session.target"
 include /etc/sway/config.d/*

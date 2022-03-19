@@ -602,6 +602,7 @@ augroup END
 let g:wiki_root = '~/Dropbox/wiki'
 let g:wiki_filetypes = ['md']
 
+let g:vimwiki_autowriteall=0
 let g:vimwiki_global_ext=0
 let s:wiki_perso = {}
 let s:wiki_perso.path = '~/Dropbox/wiki/'

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+today="$(date +%Y-%m-%d)"
+time="$(date +%H:%M)"
+file="$HOME/Dropbox/wiki/journal/$today.md"
+
+
+args=()
+
+if [ ! -f $file ] || ! grep -q "$today" $file; then
+  args+=( -c "norm i# $today")
+fi
+
+if [ ! -f $file ] || ! grep -q "$time" $file; then
+  args+=( -c "norm Go" )
+  args+=( -c "norm Go## $time")
+fi
+
+nvim "${args[@]}" \
+  -c "norm Go" \
+  -c "norm zz" \
+  $file

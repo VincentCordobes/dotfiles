@@ -1,10 +1,15 @@
 profile Normal {
-  output eDP-1 position 0,0
+  output eDP-1 enable scale 2 position 0,0
+}
+
+profile Home1 {
+  output "Ancor Communications Inc ASUS VC239 G5LMTJ023083" mode 1920x1080 position 0,0
+  output eDP-1 position 420,1080
 }
 
 profile Home {
-  output "Ancor Communications Inc ASUS VC239 G5LMTJ023083" mode 1920x1080 position 0,0
-  output eDP-1 position 420,1080
+  output "ASUS PA279" enable scale 2 position 0,0
+  output eDP-1 enable position 420,1080
 }
 
 profile Work {
