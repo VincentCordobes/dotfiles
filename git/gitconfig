@@ -1,0 +1,26 @@
+[user]
+	name = Vincent Cordobes
+	email = vincent.cordobes@gmail.com
+	signingkey = B343EAD2142E7D1B
+[core]
+	editor = nvim
+	pager = delta
+[pull]
+	rebase = true
+[merge]
+	tool = vimdiff
+[push]
+	followTags = true
+[rebase]
+	autoStash = true
+[commit]
+	gpgsign = true
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	minus-style = "#e9d8d8 #5a414d"
+	minus-emph-style = "#e9d8d8 #794a56"
+	plus-style = "#dfe9d8 #405543"
+	plus-emph-style = "#dfe9d8 #47704c"
+	syntax-theme = Nord
