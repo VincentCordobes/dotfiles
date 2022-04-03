@@ -18,8 +18,8 @@ set $term kitty --single-instance
 # Application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu bemenu-run --prompt="run:" --line-height 24 
-# set $menu rofi -show drun | xargs swaymsg exec --
+# set $menu bemenu-run --prompt="run:" --line-height 24 
+set $menu rofi -show drun | xargs swaymsg exec --
 
 
 ###################################
@@ -52,9 +52,13 @@ output * bg `find $wallpapers_path -type f | shuf -n 1` fill "#7f9ecd"
 # output DP-2 position -740,-1440
 # output eDP-1 position 0,0
 
-set $output_internal eDP-1
-set $output_external DP-2
+output eDP-1 enable position 0,0
+output "Unknown ASUS PA279 0x00003300" enable scale 2 position -420,-1080
+output "Ancor Communications Inc ASUS VC239 G5LMTJ023083" mode 1920x1080 position -2340,-750
 
+set $output_internal eDP-1
+set $output_external DP-3
+#
 workspace 1 output $output_external
 workspace 2 output $output_external 
 workspace 3 output $output_external 

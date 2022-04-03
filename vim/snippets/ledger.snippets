@@ -5,7 +5,7 @@ endsnippet
 
 snippet ptva "Paiement TVA"
 `!v strftime("%Y/%m/%d")` ! Paiement TVA ${1:period}
-	Liabilities:VAT Payable                             €$2
+	Liabilities:VAT Payable                             €${2:amount}
 	Assets:Checking:Pro                  
 $0
 endsnippet
@@ -13,16 +13,16 @@ endsnippet
 
 snippet pcotsoc "Paiment cotisations sociales sur CA"
 `!v strftime("%Y/%m/%d")` ! Paiement URSAFF ${1:no} trimestre
-	Expenses:URSAFF                                     €$2
+	Expenses:URSAFF                                     €${2:debit}
 	Assets:Checking:Pro
 $0
 endsnippet
 
 snippet freelanceincome "Freelance income"
 `!v strftime("%Y/%m/%d")` * ${1:Foncia} #${2:no} ${3:prestation jan. 2021}
-	Assets:Checking:Pro                                €$4  
-	Income:Freelance                                  €-$5 
-	Liabilities:VAT Payable                            €-$6
+	Assets:Checking:Pro                                €${4:debit}
+	Income:Freelance                                  €-${5:credit}
+	Liabilities:VAT Payable                            €-${6:credit}
 $0
 endsnippet
 
@@ -47,16 +47,23 @@ snippet phone "Free mobile"
 $0
 endsnippet
 
+snippet internet "Orange internet"
+`!v strftime("%Y/%m/%d")` * Orange
+	Expenses:Utilities                                    €14.99
+	Assets:Checking:Perso
+	$0
+endsnippet
+
 snippet alan "Alan mutuelle"
 `!v strftime("%Y/%m/%d")` * Alan
-	Expenses:Insurance                                    €51.00
+	Expenses:Insurance                                    €57.00
 	Assets:Checking:Perso
 $0
 endsnippet
 
 snippet revolut "Top up revolut"
 `!v strftime("%Y/%m/%d")` * Top up rev
-	Assets:Checking:Revolut                             €$1
+	Assets:Checking:Revolut                             €${1:amount}
 	Assets:Checking:Perso
 	$0
 endsnippet
@@ -72,4 +79,32 @@ snippet icloud "iCloud"
 `!v strftime("%Y/%m/%d")` * iCloud
 	Expenses:Membership                                    €2.99
 	Assets:Checking:Revolut
+endsnippet
+
+snippet loan "loan"
+`!v strftime("%Y/%m/%d")` * Rmbt Prêt
+	Liabilities:Loans                                   €${1:debit}
+	Assets:Checking:Perso
+	$0
+endsnippet
+
+snippet habitation "Assurance Habitation"
+`!v strftime("%Y/%m/%d")` * Assurance Habitation 
+	Expenses:Insurance                                   €20.75
+	Assets:Checking:Perso
+	$0
+endsnippet
+
+snippet charges "Charges appart"
+`!v strftime("%Y/%m/%d")` * Charges Les Jardins de la Nive
+	Expenses:Charges                                     €${1:debit}
+	Assets:Checking:Perso
+	$0
+endsnippet
+
+snippet edf "EDF"
+`!v strftime("%Y/%m/%d")` * EDF
+	Expenses:Home                                         €111.00
+	Assets:Checking:Perso
+	$0
 endsnippet

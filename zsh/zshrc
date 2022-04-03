@@ -76,6 +76,7 @@ bindkey "^F" edit-command-line
 # Aliases
 alias open='xdg-open'
 alias vim='nvim'
+alias e='nvim'
 alias vimdiff='nvim -d'
 
 alias ls='ls --color=auto'
@@ -107,6 +108,10 @@ fi
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob \!.git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--color bg+:#3b4252,hl:#A3BE8C,hl+:#A3BE8C,pointer:#bf616a'
+
+
+BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
+export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 
 [[ ! -r /home/vincent/.opam/opam-init/init.zsh ]] || source /home/vincent/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
@@ -157,6 +162,10 @@ pad() {
 
 todo() {
   (cd /home/vincent/Dropbox/wiki; vim todo.md)
+}
+
+cooking() {
+  (cd /home/vincent/Dropbox/wiki; vim cooking.md)
 }
 
 bmarks() {

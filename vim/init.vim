@@ -61,7 +61,6 @@ Plug 'voldikss/vim-search-me'
 Plug 'lervag/vimtex' ,            { 'for': 'tex' }
 Plug 'PratikBhusal/vim-grip'
 Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
-Plug 'ron89/thesaurus_query.vim', { 'for': ['markdown', 'vimwiki', 'plaintex'] }
 Plug 'VincentCordobes/vim-translate'
 " Plug '~/code/vim-translate'
 Plug '~/code/phonetics.vim' 
@@ -565,9 +564,9 @@ nnoremap <silent> <space>k  :<C-u>CocList diagnostics<cr>
 " nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
 " Find symbol of current document
-nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>co  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>cs  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
 " nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
