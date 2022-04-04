@@ -64,5 +64,7 @@
         "languageServerHaskell": {}
       }
     }
-  }
+  },
+  "Lua.hint.paramType": false,
+  "Lua.telemetry.enable": false
 }

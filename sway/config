@@ -52,9 +52,9 @@ output * bg `find $wallpapers_path -type f | shuf -n 1` fill "#7f9ecd"
 # output DP-2 position -740,-1440
 # output eDP-1 position 0,0
 
-output eDP-1 enable position 0,0
-output "Unknown ASUS PA279 0x00003300" enable scale 2 position -420,-1080
-output "Ancor Communications Inc ASUS VC239 G5LMTJ023083" mode 1920x1080 position -2340,-750
+# output eDP-1 enable position 0,0
+# output "Unknown ASUS PA279 0x00003300" enable scale 2 position -420,-1080
+# output "Ancor Communications Inc ASUS VC239 G5LMTJ023083" mode 1920x1080 position -2340,-750
 
 set $output_internal eDP-1
 set $output_external DP-3

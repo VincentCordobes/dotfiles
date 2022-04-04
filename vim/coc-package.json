@@ -6,6 +6,7 @@
     "coc-prettier": ">=9.2.3",
     "coc-python": ">=1.2.13",
     "coc-rust-analyzer": ">=0.61.2",
+    "coc-sumneko-lua": ">=0.0.23",
     "coc-texlab": ">=3.2.0",
     "coc-tsserver": ">=1.9.15",
     "coc-vimlsp": ">=0.12.5",
