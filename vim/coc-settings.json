@@ -32,6 +32,14 @@
   "typescript.showUnused": false,
   /* "rust-analyzer.lens.enable": false, */
   "rust-analyzer.inlayHints.enable": false,
+  "ltex.checkFrequency": "save",
+  "ltex.language": "auto",
+  "ltex.markdown.nodes": {
+    "CodeBlock": "ignore",
+    "FencedCodeBlock": "ignore",
+    "AutoLink": "dummy",
+    "Code": "dummy"
+  },
   "languageserver": {
     "bash": {
       "command": "bash-language-server",

@@ -30,8 +30,8 @@ Plug 'bronson/vim-visual-star-search'
 " Plug 'junegunn/vader.vim'
 
 "" Themes
-Plug 'albertorestifo/github.vim', {'commit': '5dd1be6' }
-Plug 'arcticicestudio/nord-vim'
+Plug 'albertorestifo/github.vim', {'commit': '5dd1be6'}
+Plug 'arcticicestudio/nord-vim', {'commit': 'a825678'}
 
 """ Make & Linting
 Plug 'benekastah/neomake' " using neovim's job control functonality
@@ -63,7 +63,8 @@ Plug 'PratikBhusal/vim-grip'
 Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
 Plug 'VincentCordobes/vim-translate'
 " Plug '~/code/vim-translate'
-Plug '~/code/phonetics.vim' 
+" Plug '~/code/phonetics.vim' 
+Plug 'soywod/phonetics.vim'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 Plug 'ledger/vim-ledger', { 'for': 'ledger' }
@@ -226,6 +227,7 @@ function! s:configureTheme(color)
     source ~/dotfiles/vim/custom_light.vim
   else
     colorscheme nord
+    " hi StatusLine guibg=#d8dee9 guifg=#3b4252
     hi DiffDelete guifg=NONE guibg=#5a414d gui=NONE
     " hi DiffDelete guifg=#383E50 guibg=#333947 
     hi DiffAdd guifg=NONE guibg=#4c5b6f
@@ -334,10 +336,12 @@ fun s:enable_prose(lang)
         \ 'command': '~/code/prose-language-server/build/index.js',
         \ 'args': ['--stdio'],
         \ 'trace.server': 'verbose',
-        \ 'filetypes': ['markdown', 'vimwiki'],
+        \ 'filetypes': ['markdown', 'vimwiki', 'vimwiki.markdown'],
         \ }
         \})
 endfun
+
+let g:coc_filetype_map = {'tex': 'latex', 'vimwiki.markdown': 'markdown'}
 
 fun s:disable_prose()
   LanguageToolClear
@@ -378,6 +382,8 @@ EOF
 " vim-markdown {{{
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_strikethrough = 1
+let g:vimwiki_key_mappings = { 'all_maps': 0 }
+
 " }}}
 
 " Neomake {{{
@@ -603,6 +609,9 @@ let g:wiki_filetypes = ['md']
 
 let g:vimwiki_autowriteall=0
 let g:vimwiki_global_ext=0
+let g:vimwiki_filetypes = ['markdown']
+set completefunc=vimwiki#emoji#complete
+
 let s:wiki_perso = {}
 let s:wiki_perso.path = '~/Dropbox/wiki/'
 let s:wiki_perso.syntax = 'markdown'

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -z "$(pgrep -x slurp)" ]; then
+if [ -n "$(pgrep -x slurp)" ]; then
   exit
 fi
 
@@ -17,13 +17,13 @@ if [ -z "$(pgrep -x wf-recorder)" ]; then
   wf-recorder -g "$geom" -f "$file" &
 
   # Notify waybar that it's recording
-  while [ -z $(pgrep -x wf-recorder) ]; do sleep 0.1; done
+  while [ -z "$(pgrep -x wf-recorder)" ]; do sleep 0.1; done
   pkill -SIGRTMIN+8 waybar
 
 else
   pkill -SIGINT wf-recorder
 
   # Notify waybar that it's no longer recording
-  while [ ! -z $(pgrep -x wf-recorder) ]; do sleep 0.1; done
+  while [ -n "$(pgrep -x wf-recorder)" ]; do sleep 0.1; done
   pkill -SIGRTMIN+8 waybar
 fi

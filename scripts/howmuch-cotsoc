@@ -1,7 +1,7 @@
 #!/bin/bash
 
-beg=`date -I -d "$(date +"%Y-%m-01") - 3 month"`
-end=`date -I -d "$(date +"%Y-%m-01") - 1 day"`
+beg=$(date -I -d "$(date +"%Y-%m-01") - 3 month")
+end=$(date -I -d "$(date +"%Y-%m-01") - 1 day")
 
 echo -e "Period: \e[33m$beg..$end\e[39m\n"
 
@@ -9,11 +9,11 @@ echo "Balance:"
 
 ledger bal \
   Income:Freelance \
-  -b $beg -e $end
+  -b "$beg" -e "$end"
 
 echo ""
 echo "Details:"
 
 ledger reg \
   Income:Freelance \
-  -b $beg -e $end
+  -b "$beg" -e "$end"

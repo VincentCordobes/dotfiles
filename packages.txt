@@ -58,6 +58,7 @@ ripgrep
 rofi
 rofi-calc
 rsync
+shellcheck
 slack-desktop
 sof-firmware
 sudo

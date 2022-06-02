@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -z "$(pgrep -x slurp)" ]; then
+if [ -n "$(pgrep -x slurp)" ]; then
   exit
 fi
 
