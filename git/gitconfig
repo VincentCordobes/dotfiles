@@ -4,7 +4,7 @@
 	signingkey = B343EAD2142E7D1B
 [core]
 	editor = nvim
-	pager = delta
+  pager = delta --paging=always
 [pull]
 	rebase = true
 [merge]

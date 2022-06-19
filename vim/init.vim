@@ -354,6 +354,11 @@ endfun
 " Plugins configuration {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
+" tcomment {{{
+" let g:tcomment#filetype#guess = 1
+" let g:tcomment#filetype#guess_typescriptreact = 1
+" }}}
+
 " nvim-treesitter {{{
 set foldexpr=nvim_treesitter#foldexpr()
 
@@ -382,7 +387,7 @@ EOF
 " vim-markdown {{{
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_strikethrough = 1
-let g:vimwiki_key_mappings = { 'all_maps': 0 }
+let g:vimwiki_key_mappings = { 'all_maps': 1, 'headers': 0, 'mouse': 0 }
 
 " }}}
 

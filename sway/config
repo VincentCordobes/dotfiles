@@ -264,6 +264,14 @@ for_window [title="takenotecmd"] {
   resize set 600px 600px
 }
 
+bindsym $mod+g exec $term --title="tmptrashbuffer" nvim
+for_window [title="tmptrashbuffer"] {
+  move scratchpad
+  scratchpad show
+  move position center
+  resize set 600px 600px
+}
+
 for_window [app_id="telegramdesktop"] move container to workspace number 10
 
 bindsym $alt+Ctrl+delete exec loginctl lock-session

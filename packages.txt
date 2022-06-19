@@ -21,6 +21,7 @@ git
 git-delta
 grim
 htop
+hyperfine
 imv
 inkscape
 intel-media-driver
