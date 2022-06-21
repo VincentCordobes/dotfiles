@@ -31,6 +31,7 @@
   ],
   "typescript.showUnused": false,
   /* "rust-analyzer.lens.enable": false, */
+  "rust-analyzer.checkOnSave.command": "clippy",
   "rust-analyzer.inlayHints.enable": false,
   "ltex.checkFrequency": "save",
   "ltex.language": "auto",

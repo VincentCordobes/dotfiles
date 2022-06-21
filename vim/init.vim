@@ -106,6 +106,24 @@ set shortmess+=c
 set signcolumn=yes
 set title
 
+set linebreak
+set wrap
+set textwidth=80
+set formatoptions=    " :h fo-table
+set formatoptions+=t  " Auto-wrap text using textwidth
+set formatoptions+=c  " Auto-wrap comments using textwidth
+set formatoptions+=q  " Allow formatting of comments with gq
+set formatoptions+=j  " Remove a comment leader when joining lines
+set formatoptions+=r  " Insert the current comment leader after hitting <Enter>
+set formatoptions+=1  " Don't break a line after a one-letter word.
+set formatoptions+=n  " Recognize numbered lists
+
+augroup mail_trailing_whitespace
+  autocmd!
+  " Trailing white space indicates a paragraph continues in the next line
+  autocmd FileType mail setlocal formatoptions+=w  
+augroup END
+
 " let g:python_host_prog = '/Users/vincent/.pyenv/versions/neovim2/bin/python'
 " let g:python3_host_prog = '/Users/vincent/.pyenv/versions/neovim3/bin/python'
 
@@ -129,11 +147,6 @@ nnoremap <space> <Nop>
 
 autocmd filetype crontab setlocal nobackup nowritebackup
 
-"" Remove auto comment new line..
-augroup remove_new_line_comment
-  autocmd!
-  au FileType * set fo-=c fo-=r fo-=o
-augroup END
 
 "" Define some extra filetype recognition
 augroup filetypes
@@ -387,6 +400,7 @@ EOF
 " vim-markdown {{{
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_strikethrough = 1
+let g:vim_markdown_auto_insert_bullets = 0
 let g:vimwiki_key_mappings = { 'all_maps': 1, 'headers': 0, 'mouse': 0 }
 
 " }}}
@@ -669,17 +683,7 @@ endfunction
 " goyo {{{
 let g:goyo_width = 80
 
-function! s:goyo_enter()
-  set linebreak
-  set wrap
-endfunction
 
-function! s:goyo_leave()
-  set nolinebreak
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " }}}
 
