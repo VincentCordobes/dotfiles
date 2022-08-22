@@ -52,15 +52,11 @@ compinit
 ###########################################
 
 export GPG_TTY=$(tty)
+export EDITOR=nvim
 export PAGER=less
 export LESS=--RAW-CONTROL-CHARS
-
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR=vim
-else
-  export EDITOR=nvim
-fi
+export BROWSER=chromium
+export ESCDELAY=0
 
 # VI keys
 export KEYTIMEOUT=1
@@ -102,6 +98,11 @@ goal() {
   vim `ls -dA ~/Dropbox/wiki/goal_* | tail -1`
 }
 
+mutt() {
+  neomutt $@
+  mbsync -a
+}
+
 # fzf
 if [ -e /usr/share/fzf ]; then
   source /usr/share/fzf/key-bindings.zsh
@@ -110,7 +111,6 @@ fi
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob \!.git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS='--color bg+:#3b4252,hl:#A3BE8C,hl+:#A3BE8C,pointer:#bf616a'
 
 
 BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
@@ -129,6 +129,8 @@ fshow() {
                 {}
 FZF-EOF"
 }
+
+# alias w="pkill -SIGRTMIN+8 waybar && trackie"
 
 w() {
   trackie $@

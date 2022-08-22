@@ -25,6 +25,8 @@
 /home/vincent/.dropbox
 /home/vincent/.dropbox-dist
 /home/vincent/.config/nvim/plugged
+/home/vincent/.config/chromium
+/home/vincent/.config/coc/extensions
 /home/vincent/code
 /home/vincent/dotfiles
 /home/vincent/scripts
@@ -33,6 +35,10 @@
 /home/vincent/.local/lib
 /home/vincent/.local/share/Trash
 /home/vincent/.local/share/TelegramDesktop
+/home/vincent/.local/share/pnpm
+/home/vincent/.local/share/airshipper
+
+/home/vincent/.opam
 
 /home/vincent/.mongodb
 node_modules

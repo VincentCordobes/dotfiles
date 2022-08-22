@@ -8,7 +8,8 @@ profile Home1 {
 }
 
 profile Home {
-  output eDP-1 enable position 420,1080
+  # output eDP-1 enable position 420,1080
+  output eDP-1 enable position 1920,700
   output "Unknown ASUS PA279 0x00003300" enable scale 2 mode 3840x2160@60Hz position 0,0
 }
 

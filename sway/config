@@ -19,7 +19,20 @@ set $term kitty --single-instance
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # set $menu bemenu-run --prompt="run:" --line-height 24 
-set $menu rofi -show drun | xargs swaymsg exec --
+
+for_window [app_id="^launcher$"] {
+  floating enable
+  sticky enable
+  resize set 400 200
+  move position 0 0 
+}
+
+set $menu exec $term --class=launcher /home/vincent/scripts/launcher
+
+# set $menu exec kitty @launch --os-window-class=launcher --color background=#22272e  --type os-window sway-launcher-desktop
+# bindsym $mod+d exec $menu
+
+# set $menu rofi -show drun | xargs swaymsg exec --
 
 
 ###################################
@@ -103,7 +116,7 @@ input type:keyboard {
   xkb_layout "fr"
   repeat_delay 250
   repeat_rate 30
-  xkb_options caps:shiftlock
+  xkb_options 'ctrl:swapcaps,altwin:swap_lalt_lwin'
 }
 
 input type:touchpad {
@@ -126,6 +139,9 @@ bindsym $mod+Shift+q kill
 
 # Start your launcher
 bindsym $mod+space exec $menu
+# bindsym $mod+i exec exec $term --class=launcher /home/vincent/scripts/wiki 
+bindsym $mod+i exec $term wiki
+bindsym $alt+i exec $term wiki --journal
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -186,9 +202,10 @@ bindsym $mod+Shift+Right move right
 # Workspaces
 
 # Switch to workspace
+
 bindsym $mod+ampersand   workspace number 1
 bindsym $mod+eacute      workspace number 2
-bindsym $mod+quotedbl     workspace number 3
+bindsym $mod+quotedbl    workspace number 3
 bindsym $mod+apostrophe  workspace number 4
 bindsym $mod+parenleft   workspace number 5
 bindsym $mod+minus       workspace number 6
@@ -196,6 +213,17 @@ bindsym $mod+egrave      workspace number 7
 bindsym $mod+underscore  workspace number 8
 bindsym $mod+ccedilla    workspace number 9
 bindsym $mod+agrave      workspace number 10
+
+bindsym $mod+KP_1   workspace number 1
+bindsym $mod+KP_2   workspace number 2
+bindsym $mod+KP_3   workspace number 3
+bindsym $mod+KP_4   workspace number 4
+bindsym $mod+KP_5   workspace number 5
+bindsym $mod+KP_6   workspace number 6
+bindsym $mod+KP_7   workspace number 7
+bindsym $mod+KP_8   workspace number 8
+bindsym $mod+KP_9   workspace number 9
+bindsym $mod+KP_0   workspace number 10
 
 bindsym Mod1+Ctrl+$right workspace next
 bindsym Mod1+Ctrl+$left workspace prev
@@ -212,6 +240,9 @@ bindsym $mod+Shift+egrave move container to workspace number 7
 bindsym $mod+Shift+underscore move container to workspace number 8
 bindsym $mod+Shift+ccedilla move container to workspace number 9
 bindsym $mod+Shift+agrave move container to workspace number 10
+
+
+
 # Note: workspaces can have any name you want, not just numbers.
 # We just use 1-10 as the default.
 
@@ -248,6 +279,7 @@ bindsym --release XF86SelectiveScreenshot   exec capture-screen
 # Screencast
 bindsym Shift+Print   exec record-screen-area
 
+
 bindsym $mod+c exec $term --class="qalc" qalc 
 for_window [app_id="qalc"] {
   move scratchpad
@@ -269,7 +301,7 @@ for_window [title="tmptrashbuffer"] {
   move scratchpad
   scratchpad show
   move position center
-  resize set 600px 600px
+  resize set 795px 600px
 }
 
 for_window [app_id="telegramdesktop"] move container to workspace number 10
@@ -351,4 +383,6 @@ mode "resize" {
 # Startup programs
 ###################################
 exec "systemctl --user start sway-session.target"
+# till https://github.com/emersion/kanshi/issues/43
+exec_always kanshictl reload
 include /etc/sway/config.d/*

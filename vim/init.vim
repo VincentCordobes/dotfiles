@@ -7,8 +7,10 @@ call plug#begin('~/.config/nvim/plugged')
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-vinegar'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
+
+" https://github.com/nvim-treesitter/nvim-treesitter/issues/2996
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit': 'e4df422'}
+" Plug 'nvim-treesitter/playground'
 
 "" Git
 Plug 'tpope/vim-fugitive' 
@@ -31,7 +33,8 @@ Plug 'bronson/vim-visual-star-search'
 
 "" Themes
 Plug 'albertorestifo/github.vim', {'commit': '5dd1be6'}
-Plug 'arcticicestudio/nord-vim', {'commit': 'a825678'}
+" Plug 'arcticicestudio/nord-vim', {'commit': 'a825678'}
+Plug 'arcticicestudio/nord-vim'
 
 """ Make & Linting
 Plug 'benekastah/neomake' " using neovim's job control functonality
@@ -54,7 +57,7 @@ Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'cespare/vim-toml'
 
 "" Writing
-Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+" Plug 'vimwiki/vimwiki'
 Plug 'lervag/wiki.vim'
 Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
 Plug 'voldikss/vim-search-me'
@@ -110,19 +113,29 @@ set linebreak
 set wrap
 set textwidth=80
 set formatoptions=    " :h fo-table
-set formatoptions+=t  " Auto-wrap text using textwidth
+" set formatoptions+=t  " Auto-wrap text using textwidth
 set formatoptions+=c  " Auto-wrap comments using textwidth
 set formatoptions+=q  " Allow formatting of comments with gq
 set formatoptions+=j  " Remove a comment leader when joining lines
 set formatoptions+=r  " Insert the current comment leader after hitting <Enter>
 set formatoptions+=1  " Don't break a line after a one-letter word.
 set formatoptions+=n  " Recognize numbered lists
+set formatoptions+=w  " format=flowed
 
-augroup mail_trailing_whitespace
+augroup my_fo
+  autocmd!
+  " Some plugins set this options... 
+  au FileType * setlocal formatoptions-=o
+augroup END
+
+augroup mail
   autocmd!
   " Trailing white space indicates a paragraph continues in the next line
-  autocmd FileType mail setlocal formatoptions+=w  
+  " autocmd FileType mail setlocal formatoptions+=w
+  autocmd FileType mail setlocal textwidth=72
+  set list
 augroup END
+
 
 " let g:python_host_prog = '/Users/vincent/.pyenv/versions/neovim2/bin/python'
 " let g:python3_host_prog = '/Users/vincent/.pyenv/versions/neovim3/bin/python'
@@ -258,6 +271,9 @@ call s:configureTheme('dark')
 
 command! -nargs=? GoLight :call s:configureTheme('light')
 
+" highlight ExtraWhitespace guibg=#434C5E
+" match ExtraWhitespace /\s\+$/
+
 " }}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -278,8 +294,8 @@ vnoremap < <gv
 nnoremap <silent><leader><space> :noh<CR>
 
 "" Cycle through completion with tab
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
 "" Toggle Qf and LocList
 nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
@@ -335,7 +351,17 @@ command! NoProse call s:disable_prose()
 
 command! WhatIsThisHiGroup :let s = synID(line('.'), col('.'), 1) | echo synIDattr(s, 'name') . ' -> ' . synIDattr(synIDtrans(s), 'name')
 
-fun s:enable_prose(lang)
+command! -range SoftCopy call SoftCopy()
+
+fun! SoftCopy() 
+  let s:old_tw = &textwidth
+  set tw=999999999
+  silent! normal! gvgq gvy
+  let &tw = s:old_tw
+  silent! normal! gvgq
+endfun
+
+fun! s:enable_prose(lang)
   if &filetype == ''
     set filetype=markdown
   endif
@@ -356,7 +382,7 @@ endfun
 
 let g:coc_filetype_map = {'tex': 'latex', 'vimwiki.markdown': 'markdown'}
 
-fun s:disable_prose()
+fun! s:disable_prose()
   LanguageToolClear
   set nospell
   CocDisable
@@ -386,12 +412,12 @@ require'nvim-treesitter.configs'.setup {
   },
   incremental_selection = {
     enable = true,
-    keymaps = {
-      init_selection = "<CR>",
-      scope_incremental = "<TAB>",
-      node_incremental = "<CR>",
-      node_decremental = "<BS>",
-    },
+    -- keymaps = {
+    --   init_selection = "<CR>",
+    --   scope_incremental = "<TAB>",
+    --   node_incremental = "<CR>",
+    --   node_decremental = "<BS>",
+    -- },
   },
 }
 EOF
@@ -525,9 +551,17 @@ nnoremap <silent> <leader>gs :call ToggleGStatus()<CR>
 " }}}
 
 " vim.wiki {{{
+let g:wiki_root = '~/Dropbox/wiki'
+let g:wiki_filetypes = ['md']
+
 nnoremap <C-space> :WikiListToggle<CR>
-nnoremap <C-Up> <plug>(wiki-journal-previous)
-nnoremap <C-Down> <plug>(wiki-journal-next)
+nnoremap <C-Up> <Plug>(wiki-journal-prev)
+nnoremap <C-Down> <Plug>(wiki-journal-next)
+
+" let g:wiki_mappings_local_journal = {
+"       \ '<plug>(wiki-journal-prev)' : '<C-Up>',
+"       \ '<plug>(wiki-journal-next)' : '<C-Down>',
+"       \}
 " map <cr> <Plug>VimwikiToggleListItem
 " }}}
 
@@ -543,9 +577,19 @@ set updatetime=300
 let g:coc_status_error_sign="✘ "
 let g:coc_status_warning_sign="⚠︎ "
 
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ "\<Tab>"
+
+inoremap <silent><expr> <s-TAB>
+      \ coc#pum#visible() ? coc#pum#prev(1):
+      \ "\<Tab>"
+
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
-inoremap <silent> <expr> <cr> pumvisible() ? coc#_select_confirm() : "\<cr>"
+" inoremap <silent> <expr> <cr> pumvisible() ? coc#_select_confirm() : "\<cr>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
@@ -608,7 +652,7 @@ command! EslintFix CocCommand eslint.executeAutofix
 " ledger {{{
 let g:ledger_default_commodity = '€'
 
-fun s:ledger_align()
+fun! s:ledger_align()
   let save_pos = getpos(".")
   %LedgerAlign
   call setpos('.', save_pos)
@@ -622,9 +666,7 @@ augroup ledger
 augroup END
 " }}}
 
-" wiki {{{
-let g:wiki_root = '~/Dropbox/wiki'
-let g:wiki_filetypes = ['md']
+" vimwiki {{{
 
 let g:vimwiki_autowriteall=0
 let g:vimwiki_global_ext=0

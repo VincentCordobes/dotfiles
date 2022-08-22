@@ -12,4 +12,6 @@ sudo ln -sf ~/dotfiles/scripts/howmuch-cotsoc      /usr/local/bin/howmuch-cotsoc
 sudo ln -sf ~/dotfiles/scripts/backup              /usr/local/bin/backup
 sudo ln -sf ~/dotfiles/scripts/takenote            /usr/local/bin/takenote
 
+sudo ln -sf ~/dotfiles/scripts/wiki                /usr/local/bin/wiki
+
 echo "Done."

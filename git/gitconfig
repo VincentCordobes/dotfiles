@@ -11,10 +11,14 @@
 	tool = vimdiff
 [push]
 	followTags = true
+	autoSetupRemote = true
 [rebase]
 	autoStash = true
 [commit]
 	gpgsign = true
+[sendemail]
+	smtpserver = /usr/bin/msmtp
+	from = vcordo@outlook.fr
 [interactive]
 	diffFilter = delta --color-only
 [delta]

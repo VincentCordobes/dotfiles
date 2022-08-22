@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd /home/vincent/Dropbox/wiki || exit
+
+if [[ $1 == "--journal" ]]; then
+  nvim +WikiJournal
+else
+  nvim +WikiIndex
+fi
