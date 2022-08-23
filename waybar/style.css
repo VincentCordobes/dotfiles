@@ -43,7 +43,7 @@ window#waybar {
 #tray,
 #custom-media,
 #custom-recorder,
-#custom-trackie,
+#custom-watson,
 #custom-github,
 #bluetooth,
 #idle_inhibitor,
@@ -104,7 +104,7 @@ window#waybar {
   color: #4d5159;
 }
 
-#custom-trackie {
+#custom-watson {
   /* color: #98be65; */
   /* color: #c678dd; */
   /* color: #b48ead; */

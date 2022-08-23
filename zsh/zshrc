@@ -93,6 +93,7 @@ alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
 alias git-remove-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -D'
 
 alias stocks="watch -n 1 -t -c ~/scripts/ticker.sh DIS AMZN"
+alias w="pkill -SIGRTMIN+8 waybar && watson"
 
 goal() {
   vim `ls -dA ~/Dropbox/wiki/goal_* | tail -1`
@@ -128,13 +129,6 @@ fshow() {
                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
                 {}
 FZF-EOF"
-}
-
-# alias w="pkill -SIGRTMIN+8 waybar && trackie"
-
-w() {
-  trackie $@
-  pkill -SIGRTMIN+8 waybar
 }
 
 # pyenv

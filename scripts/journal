@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /home/vincent/Dropbox/wiki || exit
+
+nvim "+silent WikiJournal"

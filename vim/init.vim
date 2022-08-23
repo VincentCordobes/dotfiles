@@ -78,6 +78,7 @@ call plug#end()
 
 source ~/dotfiles/vim/utils.vim
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " General settings {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -555,13 +556,12 @@ let g:wiki_root = '~/Dropbox/wiki'
 let g:wiki_filetypes = ['md']
 
 nnoremap <C-space> :WikiListToggle<CR>
-nnoremap <C-Up> <Plug>(wiki-journal-prev)
-nnoremap <C-Down> <Plug>(wiki-journal-next)
+nnoremap <M-i> :WikiJournal<CR>
 
-" let g:wiki_mappings_local_journal = {
-"       \ '<plug>(wiki-journal-prev)' : '<C-Up>',
-"       \ '<plug>(wiki-journal-next)' : '<C-Down>',
-"       \}
+let g:wiki_mappings_local_journal = {
+      \ '<plug>(wiki-journal-prev)' : '<C-Up>',
+      \ '<plug>(wiki-journal-next)' : '<C-Down>',
+      \}
 " map <cr> <Plug>VimwikiToggleListItem
 " }}}
 

@@ -2,15 +2,15 @@
   "dependencies": {
     "coc-css": ">=1.2.6",
     "coc-eslint": ">=1.5.8",
-    "coc-json": ">=1.4.2",
+    "coc-json": ">=1.6.1",
     "coc-prettier": ">=9.3.1",
     "coc-python": ">=1.2.13",
-    "coc-rust-analyzer": ">=0.65.2",
-    "coc-sumneko-lua": ">=0.0.31",
+    "coc-rust-analyzer": ">=0.66.0",
+    "coc-sumneko-lua": ">=0.0.34",
     "coc-texlab": ">=3.2.0",
-    "coc-tsserver": ">=1.10.5",
+    "coc-tsserver": ">=1.11.3",
     "coc-vimlsp": ">=0.12.5",
     "coc-vimtex": ">=1.1.5",
-    "coc-yaml": ">=1.7.5"
+    "coc-yaml": ">=1.8.0"
   }
 }

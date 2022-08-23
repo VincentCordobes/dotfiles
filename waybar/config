@@ -10,7 +10,7 @@
   "modules-center": [],
   "modules-right": [
     "custom/recorder",
-    "custom/trackie",
+    "custom/watson",
     "custom/multa",
     "tray",
     // "bluetooth", make waybar crash
@@ -173,12 +173,12 @@
     "signal": 8,
     "exec": "multa report | tail -n 1 | awk '{ if($1 == \"ko\") {printf \"%s·%s\\n%s\", $2,$4,$6}}'"
   },
-  "custom/trackie": {
+  "custom/watson": {
     "format": " {}",
     /* "return-type": "json", */
     "interval": 30,
     "signal": 8,
-    "exec": "trackie status -f '%p\n%D'"
+    "exec": "/home/vincent/scripts/waytson"
   },
   "custom/github": {
     "exec": "$HOME/dotfiles/waybar/github-notifs",

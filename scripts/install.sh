@@ -13,5 +13,6 @@ sudo ln -sf ~/dotfiles/scripts/backup              /usr/local/bin/backup
 sudo ln -sf ~/dotfiles/scripts/takenote            /usr/local/bin/takenote
 
 sudo ln -sf ~/dotfiles/scripts/wiki                /usr/local/bin/wiki
+sudo ln -sf ~/dotfiles/scripts/journal                /usr/local/bin/journal
 
 echo "Done."
