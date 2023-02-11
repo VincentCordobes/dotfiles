@@ -10,11 +10,11 @@ profile Home1 {
 profile Home {
   # output eDP-1 enable position 420,1080
   output eDP-1 enable position 1920,700
-  output "Unknown ASUS PA279 0x00003300" enable scale 2 mode 3840x2160@60Hz position 0,0
+  output "ASUSTek COMPUTER INC ASUS PA279 0x00003300" enable scale 2 mode 3840x2160@60Hz position 0,0
 }
 
 profile Work {
   output eDP-1 position 740,1440
-  output "HP Z27n G2 6CM8291ZQJ" position 0,0
+  output "HP Inc. HP Z27n G2 6CM8051T7J" position 0,0
 }
 

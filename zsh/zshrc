@@ -88,12 +88,14 @@ alias gupdate='git add . && git commit -m "Update"'
 alias gco='git checkout'
 alias glog='git log --oneline --decorate --graph'
 alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign -m "--wip-- [skip ci]"'
-alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
+alias gunwip='git log -n 1 | grep -q -c "\--wip--" && git reset HEAD~1'
 
 alias git-remove-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -D'
 
-alias stocks="watch -n 1 -t -c ~/scripts/ticker.sh DIS AMZN"
+alias stocks="watch -n 1 -t -c ~/scripts/ticker.sh INTC DIS GOOGL DDOG"
 alias w="pkill -SIGRTMIN+8 waybar && watson"
+# alias wi="wiki"
+# alias wj="wjournal"
 
 goal() {
   vim `ls -dA ~/Dropbox/wiki/goal_* | tail -1`
@@ -141,10 +143,6 @@ loadPyenv() {
 
 ptag() {
   git log --oneline | grep "\[.*\]" | awk '{count[$2]++} END {for (tag in count) print tag, count[tag]}'  | fzf
-}
-
-ww() {
-  (cd /home/vincent/Dropbox/wiki; vim index.md)
 }
 
 draft() {

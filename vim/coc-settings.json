@@ -22,7 +22,7 @@
     "ocaml",
     "haskell"
   ],
-  "eslint.trace.server": "verbose",
+  "tsserver.trace.server": "verbose",
   "eslint.codeActionsOnSave.mode": "all",
   "eslint.autoFixOnSave": true,
   "eslint.probe": [
@@ -42,6 +42,7 @@
   /* "rust-analyzer.lens.enable": false, */
   "rust-analyzer.checkOnSave.command": "clippy",
   "rust-analyzer.inlayHints.enable": false,
+  "inlayHint.enable": false,
   "ltex.checkFrequency": "save",
   "ltex.language": "auto",
   "ltex.markdown.nodes": {

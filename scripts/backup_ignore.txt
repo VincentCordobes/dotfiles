@@ -19,6 +19,7 @@
 /home/vincent/.cache
 /home/vincent/.cargo
 /home/vincent/.npm
+/home/vincent/.pnpm-store
 /home/vincent/.npm-global
 /home/vincent/.rustup
 /home/vincent/Dropbox

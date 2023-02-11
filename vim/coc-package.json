@@ -1,16 +1,18 @@
 {
   "dependencies": {
-    "coc-css": ">=1.2.6",
+    "coc-css": ">=2.0.0",
     "coc-eslint": ">=1.5.8",
-    "coc-json": ">=1.6.1",
+    "coc-json": ">=1.7.1",
     "coc-prettier": ">=9.3.1",
     "coc-python": ">=1.2.13",
-    "coc-rust-analyzer": ">=0.66.0",
-    "coc-sumneko-lua": ">=0.0.34",
+    "coc-rust-analyzer": ">=0.69.7",
+    "coc-sumneko-lua": ">=0.0.35",
     "coc-texlab": ">=3.2.0",
-    "coc-tsserver": ">=1.11.3",
-    "coc-vimlsp": ">=0.12.5",
+    "coc-tsserver": ">=2.1.0",
+    "coc-vimlsp": ">=0.12.9",
     "coc-vimtex": ">=1.1.5",
-    "coc-yaml": ">=1.8.0"
-  }
+    "coc-yaml": ">=1.9.0"
+  },
+  "disabled": [],
+  "locked": []
 }

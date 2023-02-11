@@ -176,9 +176,11 @@
   "custom/watson": {
     "format": " {}",
     /* "return-type": "json", */
+    "on-click": "/home/vincent/.local/bin/watson stop",
+    "exec-on-event": true,
     "interval": 30,
     "signal": 8,
-    "exec": "/home/vincent/scripts/waytson"
+    "exec": "sleep 0.2 && /home/vincent/scripts/waytson"
   },
   "custom/github": {
     "exec": "$HOME/dotfiles/waybar/github-notifs",

@@ -10,6 +10,7 @@ Plug 'tpope/vim-vinegar'
 
 " https://github.com/nvim-treesitter/nvim-treesitter/issues/2996
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit': 'e4df422'}
+" Plug 'nvim-treesitter/nvim-treesitter'
 " Plug 'nvim-treesitter/playground'
 
 "" Git
@@ -376,7 +377,7 @@ fun! s:enable_prose(lang)
         \ 'command': '~/code/prose-language-server/build/index.js',
         \ 'args': ['--stdio'],
         \ 'trace.server': 'verbose',
-        \ 'filetypes': ['markdown', 'vimwiki', 'vimwiki.markdown'],
+        \ 'filetypes': ['markdown', 'vimwiki', 'vimwiki.markdown', 'mail'],
         \ }
         \})
 endfun
@@ -498,7 +499,7 @@ let g:vim_json_syntax_conceal = 0
 " }}}
 
 " languagetool {{{
-let g:languagetool_jar='/usr/local/Cellar/languagetool/4.8_1/libexec/languagetool-commandline.jar'
+let g:languagetool_jar='/usr/share/java/languagetool/languagetool.jar'
 hi link LanguageToolGrammarError CocErrorHighlight
 
 nnoremap <leader>zn ]s
@@ -557,6 +558,16 @@ let g:wiki_filetypes = ['md']
 
 nnoremap <C-space> :WikiListToggle<CR>
 nnoremap <M-i> :WikiJournal<CR>
+
+let g:wiki_mappings_use_defaults='local'
+nnoremap <silent> <leader>fw :WikiFzfPages<CR>
+
+let g:wiki_mappings_global = {
+      \ '<plug>(wiki-index)': '<leader>wi',
+      \ '<plug>(wiki-open)': '<leader>wn',
+      \ '<plug>(wiki-journal)': '<leader>wj',
+      \ '<plug>(wiki-reload)': '<leader>wx',
+      \}
 
 let g:wiki_mappings_local_journal = {
       \ '<plug>(wiki-journal-prev)' : '<C-Up>',

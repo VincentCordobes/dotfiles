@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -eo pipefail
+
+function cleanup {
+  if [ ! -s "$file" ] ; then
+    rm -rf "$file"
+  fi
+}
+
+trap cleanup EXIT
+
+
+now="$(date +%s)"
+tpl="/tmp/scratchpad.$now.XXX"
+file="$(mktemp "$tpl")"
+
+cd /tmp
+nvim "$file"

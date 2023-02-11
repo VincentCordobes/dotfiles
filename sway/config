@@ -71,7 +71,7 @@ output * bg `find $wallpapers_path -type f | shuf -n 1` fill "#7f9ecd"
 
 set $output_internal eDP-1
 set $output_external DP-3
-#
+
 workspace 1 output $output_external
 workspace 2 output $output_external 
 workspace 3 output $output_external 
@@ -80,7 +80,7 @@ workspace 5 output $output_external
 workspace 6 output $output_external 
 workspace 7 output $output_external 
 workspace 8 output $output_external 
-workspace 9 output $output_internal
+workspace 9 output $output_external
 workspace 10 output $output_internal
 
 ### Idle configuration
@@ -164,15 +164,17 @@ bindsym $mod+XF86MonBrightnessDown   exec brightnessctl set 1%
 bindsym $mod+XF86MonBrightnessUp     exec brightnessctl set 100%
 
 # Audio
-bindsym XF86AudioLowerVolume       exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioRaiseVolume       exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym Shift+XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1%
-bindsym Shift+XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1%
-# bindsym $mod+XF86AudioRaiseVolume  exec pactl set-sink-volume @DEFAULT_SINK@ 100% Too dangerous!!
-bindsym $mod+XF86AudioLowerVolume  exec pactl set-sink-volume @DEFAULT_SINK@ 1%
 
-bindsym XF86AudioMute         exec pactl set-sink-mute   @DEFAULT_SINK@   toggle
-bindsym XF86AudioMicMute      exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioRaiseVolume       exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume       exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+
+bindsym Shift+XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+
+bindsym Shift+XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-
+
+bindsym $mod+XF86AudioLowerVolume  exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%
+
+bindsym XF86AudioMute         exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute      exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
 # Moving around
 # Move your focus around
@@ -256,7 +258,7 @@ bindsym $mod+v splitv
 # Switch the current container between different layout styles
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+# bindsym $mod+e layout toggle split
 
 # Make the current focus fullscreen
 bindsym $mod+f fullscreen
@@ -273,7 +275,7 @@ bindsym $mod+a focus parent
 
 # Screenshot
 bindsym --release Print                     exec capture-screen-area
-bindsym --release XF86SelectiveScreenshot   exec capture-screen
+bindsym --release XF86Launch2   exec capture-screen
 
 # Screencast
 bindsym Shift+Print   exec record-screen-area
@@ -295,6 +297,7 @@ for_window [title="takenotecmd"] {
   resize set 600px 600px
 }
 
+bindsym $mod+e exec $term --title="scratch" scratchpad
 bindsym $mod+g exec $term --title="tmptrashbuffer" nvim
 for_window [title="tmptrashbuffer"] {
   move scratchpad
@@ -302,8 +305,6 @@ for_window [title="tmptrashbuffer"] {
   move position center
   resize set 795px 600px
 }
-
-for_window [app_id="telegramdesktop"] move container to workspace number 10
 
 bindsym $alt+Ctrl+delete exec loginctl lock-session
 
@@ -381,7 +382,8 @@ mode "resize" {
 ###################################
 # Startup programs
 ###################################
+include /etc/sway/config.d/*
 exec "systemctl --user start sway-session.target"
 # till https://github.com/emersion/kanshi/issues/43
 exec_always kanshictl reload
-include /etc/sway/config.d/*
+exec_always autotiling

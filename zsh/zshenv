@@ -1,3 +1,3 @@
-export COMPOSE_FILE=docker-compose.yml:.compose/full.yml:docker-compose.override.yml
+export COMPOSE_FILE=mongodb.yml:docker-compose.yml:.compose/full.yml:docker-compose.override.yml
 
 export FZF_DEFAULT_OPTS='--color bg+:#3b4252,hl:#A3BE8C,hl+:#A3BE8C,pointer:#bf616a'

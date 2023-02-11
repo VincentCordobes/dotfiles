@@ -1,6 +1,6 @@
 #!/bin/bash
 
-date=`date -Is`
+date=$(date -Is)
 backup_dir="/mnt/backup"
 logfile="$backup_dir/archlinuxbackup.log"
 backup_arch="$backup_dir/archlinux/"
@@ -21,8 +21,8 @@ echo "Backing up to $backup_arch"
 #
 #   r: recursive
 #   l: symlink
-#   t: time
 #   p: perms
+#   t: time
 #   g: groups
 #   o: owner
 #   D: devices and special files

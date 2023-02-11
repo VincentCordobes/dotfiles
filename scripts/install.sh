@@ -11,8 +11,9 @@ sudo ln -sf ~/dotfiles/scripts/howmuch-cotsoc      /usr/local/bin/howmuch-cotsoc
 
 sudo ln -sf ~/dotfiles/scripts/backup              /usr/local/bin/backup
 sudo ln -sf ~/dotfiles/scripts/takenote            /usr/local/bin/takenote
+sudo ln -sf ~/dotfiles/scripts/scratchpad          /usr/local/bin/scratchpad
 
 sudo ln -sf ~/dotfiles/scripts/wiki                /usr/local/bin/wiki
-sudo ln -sf ~/dotfiles/scripts/journal                /usr/local/bin/journal
+sudo ln -sf ~/dotfiles/scripts/wjournal            /usr/local/bin/wjournal
 
 echo "Done."
