@@ -121,6 +121,8 @@ export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SO
 
 [[ ! -r /home/vincent/.opam/opam-init/init.zsh ]] || source /home/vincent/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
+export RIPGREP_CONFIG_PATH=$HOME/.config/ripgreprc
+
 # fshow - git commit browser
 fshow() {
   git log --graph --color=always \

@@ -60,17 +60,16 @@ Plug 'cespare/vim-toml'
 "" Writing
 " Plug 'vimwiki/vimwiki'
 Plug 'lervag/wiki.vim'
+Plug 'lervag/wiki-ft.vim'
+Plug 'lervag/lists.vim'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'lervag/vimtex' ,    { 'for': 'tex' }
 Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'tex', 'plaintex', 'asciidoc'] }
 Plug 'voldikss/vim-search-me'
-Plug 'lervag/vimtex' ,            { 'for': 'tex' }
 Plug 'PratikBhusal/vim-grip'
 Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plaintex', 'asciidoc'] } " just awesome !
 Plug 'VincentCordobes/vim-translate'
 " Plug '~/code/vim-translate'
-" Plug '~/code/phonetics.vim' 
-Plug 'soywod/phonetics.vim'
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-
 Plug 'ledger/vim-ledger', { 'for': 'ledger' }
 
 call plug#end()
@@ -124,6 +123,10 @@ set formatoptions+=1  " Don't break a line after a one-letter word.
 set formatoptions+=n  " Recognize numbered lists
 set formatoptions+=w  " format=flowed
 
+set nofoldenable
+" set foldmethod=expr
+" set foldexpr=nvim_treesitter#foldexpr()
+
 augroup my_fo
   autocmd!
   " Some plugins set this options... 
@@ -173,6 +176,7 @@ augroup filetypes
   autocmd BufNewFile,BufRead .gitignore set filetype=config
   " autocmd BufNewFile,BufRead *.css set filetype=scss
   autocmd BufNewFile,BufRead zprofile set filetype=zsh
+  autocmd BufNewFile,BufRead *.md set filetype=wiki
 augroup END
 
 augroup qf
@@ -401,7 +405,6 @@ endfun
 " }}}
 
 " nvim-treesitter {{{
-set foldexpr=nvim_treesitter#foldexpr()
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
@@ -426,10 +429,16 @@ EOF
 " }}}
 
 " vim-markdown {{{
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_strikethrough = 1
-let g:vim_markdown_auto_insert_bullets = 0
-let g:vimwiki_key_mappings = { 'all_maps': 1, 'headers': 0, 'mouse': 0 }
+let g:lists_filetypes = ['md']
+
+highlight default wikiHeader1 gui=bold guifg=#eceff4
+highlight default wikiHeader2 gui=bold guifg=#ebcb8b
+highlight default wikiHeader3 guifg=#a3be8c
+highlight default wikiHeader4 guifg=#8fbcbb
+
+highlight Underlined guifg=#81a1c1
+highlight Underlined guifg=#88c0d0
+
 
 " }}}
 
@@ -560,6 +569,7 @@ nnoremap <C-space> :WikiListToggle<CR>
 nnoremap <M-i> :WikiJournal<CR>
 
 let g:wiki_mappings_use_defaults='local'
+let g:wiki_link_target_type='md'
 nnoremap <silent> <leader>fw :WikiFzfPages<CR>
 
 let g:wiki_mappings_global = {
@@ -573,6 +583,9 @@ let g:wiki_mappings_local_journal = {
       \ '<plug>(wiki-journal-prev)' : '<C-Up>',
       \ '<plug>(wiki-journal-next)' : '<C-Down>',
       \}
+
+
+
 " map <cr> <Plug>VimwikiToggleListItem
 " }}}
 
@@ -739,6 +752,11 @@ let g:goyo_width = 80
 
 
 " }}}
+
+" table-mode {{{
+let g:table_mode_disable_mappings = 1
+let g:table_mode_disable_tableize_mappings = 1
+"}}}
 
 " }}}
 

@@ -23,6 +23,9 @@ echo "zathura"
 mkdir -p ~/.config/zathura
 ln -sf ~/dotfiles/misc/zathurarc ~/.config/zathura/zathurarc
 
+echo "ripgrep"
+ln -sf ~/dotfiles/misc/ripgreprc ~/.config/ripgreprc
+
 
 echo "Rust completions"
 rustup completions zsh cargo > /usr/local/share/zsh/site-functions/_cargo
