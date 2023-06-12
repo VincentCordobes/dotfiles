@@ -2,8 +2,9 @@
 
 sudo pacman -S --needed --noconfirm \
   pipewire \
-  pipewire-media-session \
-  pipewire-pulse
+  wireplumber \
+  pipewire-pulse \
+  pipewire-alsa
 
 systemctl --user enable pipewire.service
 systemctl --user start pipewire.service
