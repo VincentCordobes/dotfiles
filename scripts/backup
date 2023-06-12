@@ -1,7 +1,7 @@
 #!/bin/bash
 
 date=$(date -Is)
-backup_dir="/mnt/backup"
+backup_dir="/run/media/vincent/backup"
 logfile="$backup_dir/archlinuxbackup.log"
 backup_arch="$backup_dir/archlinux/"
 exclude_file="/home/vincent/dotfiles/scripts/backup_ignore.txt"

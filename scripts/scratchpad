@@ -12,7 +12,7 @@ trap cleanup EXIT
 
 
 now="$(date +%s)"
-tpl="/tmp/scratchpad.$now.XXX"
+tpl="/tmp/scratchpad.$now.XXX.md"
 file="$(mktemp "$tpl")"
 
 cd /tmp

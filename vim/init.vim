@@ -114,7 +114,8 @@ set linebreak
 set wrap
 set textwidth=80
 set formatoptions=    " :h fo-table
-" set formatoptions+=t  " Auto-wrap text using textwidth
+set formatoptions+=t  " Auto-wrap text using textwidth
+set formatoptions+=l  " Auto-wrap text using textwidth
 set formatoptions+=c  " Auto-wrap comments using textwidth
 set formatoptions+=q  " Allow formatting of comments with gq
 set formatoptions+=j  " Remove a comment leader when joining lines
@@ -327,7 +328,7 @@ let g:gitgutter_sign_added = '│'
 let g:gitgutter_sign_modified = '│'
 
 
-command! CopyToSlack execute ':!pandoc -f gfm -t ~/scripts/slack.lua "'. expand('%') . '"' . ' | wl-copy'
+command! CopySlack execute ':!pandoc -f gfm -t ~/scripts/slack.lua "'. expand('%') . '"' . ' | wl-copy'
 
 
 " }}}
@@ -357,9 +358,9 @@ command! NoProse call s:disable_prose()
 
 command! WhatIsThisHiGroup :let s = synID(line('.'), col('.'), 1) | echo synIDattr(s, 'name') . ' -> ' . synIDattr(synIDtrans(s), 'name')
 
-command! -range SoftCopy call SoftCopy()
+command! -range FlowedCopy call CopySoft()
 
-fun! SoftCopy() 
+fun! CopySoft() 
   let s:old_tw = &textwidth
   set tw=999999999
   silent! normal! gvgq gvy
@@ -408,7 +409,7 @@ endfun
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "rust", "c", "javascript", "typescript", "tsx", "css", "ocaml", "ocamllex", "bash", "python" },
+  ensure_installed = { "rust", "javascript", "typescript", "tsx", "css", "ocaml", "ocamllex", "bash", "python" },
   highlight = {
     enable = true,              -- false will disable the whole extension
   },
@@ -563,7 +564,7 @@ nnoremap <silent> <leader>gs :call ToggleGStatus()<CR>
 
 " vim.wiki {{{
 let g:wiki_root = '~/Dropbox/wiki'
-let g:wiki_filetypes = ['md']
+let g:wiki_filetypes = ['md', 'wiki']
 
 nnoremap <C-space> :WikiListToggle<CR>
 nnoremap <M-i> :WikiJournal<CR>
@@ -684,7 +685,7 @@ endfun
 
 augroup ledger
   autocmd!
-  autocmd FileType ledger autocmd! BufWritePre * call s:ledger_align()
+  " autocmd FileType ledger autocmd! BufWritePre * call s:ledger_align()
   autocmd FileType ledger inoremap <silent> <c-space> <C-r>=ledger#autocomplete_and_align()<CR>
   autocmd FileType ledger vnoremap <silent> <buffer> <Tab> :LedgerAlign<CR>
 augroup END

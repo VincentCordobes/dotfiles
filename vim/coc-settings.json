@@ -10,19 +10,9 @@
   "coc.source.file.ignoreHidden": false,
   "codeLens.enable": false,
   "diagnostic.showDeprecated": true,
-  "coc.preferences.formatOnSaveFiletypes": [
-    "css",
-    "json",
-    "jsonc",
-    "javascript",
-    "typescript",
-    "typescriptreact",
-    "python",
-    "rust",
-    "ocaml",
-    "haskell"
-  ],
+  "coc.preferences.formatOnSave": true,
   "tsserver.trace.server": "verbose",
+  "tsserver.useLocalTsdk": true,
   "eslint.codeActionsOnSave.mode": "all",
   "eslint.autoFixOnSave": true,
   "eslint.probe": [
@@ -42,14 +32,6 @@
   /* "rust-analyzer.lens.enable": false, */
   "rust-analyzer.check.command": "clippy",
   "inlayHint.enable": false,
-  "ltex.checkFrequency": "save",
-  "ltex.language": "auto",
-  "ltex.markdown.nodes": {
-    "CodeBlock": "ignore",
-    "FencedCodeBlock": "ignore",
-    "AutoLink": "dummy",
-    "Code": "dummy"
-  },
   "languageserver": {
     "bash": {
       "command": "bash-language-server",

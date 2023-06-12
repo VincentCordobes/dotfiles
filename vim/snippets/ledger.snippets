@@ -48,7 +48,7 @@ endsnippet
 
 snippet internet "Orange internet"
 `!v strftime("%Y/%m/%d")` * Orange
-	Expenses:Utilities                                    €14.99
+	Expenses:Utilities                                    €29.99
 	Assets:Checking:Perso
 $0
 endsnippet
@@ -89,7 +89,7 @@ endsnippet
 
 snippet habitation "Assurance Habitation"
 `!v strftime("%Y/%m/%d")` * Assurance Habitation 
-	Expenses:Insurance                                   €20.75
+	Expenses:Insurance                                   €21.45
 	Assets:Checking:Perso
 $0
 endsnippet
@@ -108,9 +108,23 @@ snippet edf "EDF"
 $0
 endsnippet
 
+snippet eau "Tres. Bayonne Munici"
+`!v strftime("%Y/%m/%d")` * Tres. Bayonne Munici
+	Expenses:Eau                                           €19.80
+	Assets:Checking:Perso
+$0
+endsnippet
+
 snippet edm "Enfant du Mekong association"
 `!v strftime("%Y/%m/%d")` * Enfant du Mekong asso
-	Expenses:Donations:EDM                                €62.00
+	Expenses:Donations:EDM                                €90.00
 	Assets:Checking:Perso
+$0
+endsnippet
+
+snippet tiime "tiime"
+`!v strftime("%Y/%m/%d")` * Tree For Dev
+	Assets:Checking:Perso                               €${1:debit}
+	Assets:Checking:Tiime
 $0
 endsnippet
