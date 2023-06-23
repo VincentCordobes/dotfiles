@@ -18,6 +18,7 @@
     "pulseaudio",
     "backlight",
     "temperature",
+    // "wireplumber",
     "cpu",
     "memory",
     "network",
@@ -92,10 +93,22 @@
     "spacing": 10
   },
   "clock": {
-    // "timezone": "America/New_York",
     "format": " {:%H:%M}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format-alt": " {:%Y-%m-%d}"
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "on-click-right": "mode",
+      "format": {
+        "today": "<span color='#ebcb8b'><b><u>{}</u></b></span>"
+      }
+    },
+    "format-alt": " {:%Y-%m-%d}",
+    "actions": {
+      "on-click-right": "mode"
+    }
   },
   "cpu": {
     "interval": 2,
@@ -147,6 +160,12 @@
     "format-linked": " {ifname} (No IP)",
     "format-disconnected": "⚠ Disconnected"
   },
+  // "wireplumber": {
+  //   "format": "{icon} {volume}%",
+  //   "format-muted": "",
+  //   "on-click": "helvum",
+  //   "format-icons": ["", "", ""]
+  // },
   "pulseaudio": {
     // "scroll-step": 1, // %, can be a float
     "format": "{icon} {volume}% {format_source}",

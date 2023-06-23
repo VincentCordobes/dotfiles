@@ -109,6 +109,7 @@ button:hover {
   color: #f53c3c;
 }
 
+#wireplumber.muted,
 #pulseaudio.muted {
   /* background-color: #90b1b1; */
   color: #4d5159;
