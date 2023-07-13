@@ -9,8 +9,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-vinegar'
 
 " https://github.com/nvim-treesitter/nvim-treesitter/issues/2996
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit': 'e4df422'}
-" Plug 'nvim-treesitter/nvim-treesitter'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit': 'e4df422'}
+Plug 'nvim-treesitter/nvim-treesitter'
 " Plug 'nvim-treesitter/playground'
 
 "" Git
@@ -94,7 +94,7 @@ set tabstop=2 shiftwidth=2 expandtab
 " set expandtab    " spaces instead of tab
 set encoding=utf8
 set conceallevel=2 " wether hide some char or not
-set scrolloff=3    " cursor padding when scrolling
+set scrolloff=8    " cursor padding when scrolling
 set showmatch      " show matching braces
 set hidden         " current buffer can be put into background
 set ttimeoutlen=50 " this is for the timeout on ecape press I hope..
