@@ -585,6 +585,12 @@ let g:wiki_mappings_local_journal = {
       \ '<plug>(wiki-journal-next)' : '<C-Down>',
       \}
 
+let g:wiki_ui_method = {
+      \ 'confirm': 'legacy',
+      \ 'input': 'legacy',
+      \ 'select': 'legacy',
+      \}
+
 
 
 " map <cr> <Plug>VimwikiToggleListItem

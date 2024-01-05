@@ -1,3 +1,5 @@
+export XDG_CURRENT_DESKTOP=sway
+
 export MOZ_ENABLE_WAYLAND=1
 export GTK_THEME=Adwaita:dark
 
@@ -9,6 +11,7 @@ export TERMINAL="kitty --single-instance"
 
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   exec sway
+  # exec Hyprland
 fi
 
 # qtile start -b wayland

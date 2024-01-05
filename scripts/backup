@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eo pipefail
+
 date=$(date -Is)
 backup_dir="/run/media/vincent/backup"
 logfile="$backup_dir/archlinuxbackup.log"
@@ -8,8 +10,8 @@ exclude_file="/home/vincent/dotfiles/scripts/backup_ignore.txt"
 
 
 if ! mountpoint -q $backup_dir ; then 
-  echo "Error: $backup_dir not mounted"
-  exit 1
+  echo "Mounting backup disk"
+  udisksctl mount -b /dev/disk/by-label/backup
 fi
 
 echo "Backing up to $backup_arch"

@@ -240,6 +240,25 @@ fe() (
 )
 
 
+export DLOG="/home/vincent/Dropbox/data/daily.txt"
+
+dlog() {
+  case "$1" in
+    a|add )
+      line="$(date +%Y-%m-%d) ${@:2}"
+      echo "$line" >> $DLOG;
+      echo "$line"
+      ;;
+
+    e|edit )
+      ${EDITOR:-vim} $DLOG
+      ;;
+
+    *)
+      cat $DLOG
+  esac
+}
+
 sk() {
   (cd ~/Dropbox/wiki && fe "$@")
 }
@@ -285,6 +304,7 @@ fwyesterday() {
 }
 
 
+
 wyesterday() {
   project=$1
   from=$2
@@ -306,3 +326,8 @@ reloadAudio() {
 moop() {
   mpv "$@" --start="${start:=0}" --ab-loop-a="${start:=0}" --ab-loop-b="${end:=0}" --speed="${speed:=1}"
 }
+
+# pnpm
+export PNPM_HOME="/home/vincent/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end

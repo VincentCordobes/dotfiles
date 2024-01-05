@@ -32,6 +32,8 @@
 /home/vincent/dotfiles
 /home/vincent/scripts
 /home/vincent/go
+/home/vincent/.docker
+/home/vincent/.nvm
 
 /home/vincent/.local/lib
 /home/vincent/.local/share/Trash
