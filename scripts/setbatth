@@ -1,0 +1,13 @@
+#!/bin/bash
+
+case "$1" in
+  on )
+    echo 60 > /sys/class/power_supply/BAT0/charge_control_start_threshold
+    echo 80 > /sys/class/power_supply/BAT0/charge_control_end_threshold
+    ;;
+
+  off )
+    echo 0   > /sys/class/power_supply/BAT0/charge_control_start_threshold
+    echo 100 > /sys/class/power_supply/BAT0/charge_control_end_threshold
+    ;;
+esac

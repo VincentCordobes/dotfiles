@@ -16,4 +16,6 @@ sudo ln -sf ~/dotfiles/scripts/scratchpad          /usr/local/bin/scratchpad
 sudo ln -sf ~/dotfiles/scripts/wiki                /usr/local/bin/wiki
 sudo ln -sf ~/dotfiles/scripts/wjournal            /usr/local/bin/wjournal
 
+sudo ln -sf ~/dotfiles/scripts/setbatth            /usr/local/bin/setbatth
+
 echo "Done."
