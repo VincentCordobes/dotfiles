@@ -12,6 +12,7 @@
   "modules-right": [
     "custom/recorder",
     "custom/watson",
+    "mpris",
     "custom/multa",
     "tray",
     // "bluetooth", make waybar crash
@@ -47,6 +48,18 @@
   },
   "sway/window": {
     "max-length": 30
+  },
+  "mpris": {
+    "dynamic-len": 20,
+    "format": " {player} ({status})",
+    // "dynamic-order": ["title", "artist", "album"],
+    "player-icons": {
+      // "default": "▶"
+      // "mpv": "🎵"
+    },
+    "status-icons": {
+      // "paused": ""
+    }
   },
   "mpd": {
     "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",

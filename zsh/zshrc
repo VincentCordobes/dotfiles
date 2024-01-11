@@ -55,7 +55,7 @@ export GPG_TTY=$(tty)
 export EDITOR=nvim
 export PAGER=less
 export LESS=--RAW-CONTROL-CHARS
-export BROWSER=chromium
+export BROWSER=firefox
 export ESCDELAY=0
 
 # VI keys
