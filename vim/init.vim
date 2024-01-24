@@ -143,6 +143,7 @@ augroup mail
 augroup END
 
 
+
 " let g:python_host_prog = '/Users/vincent/.pyenv/versions/neovim2/bin/python'
 " let g:python3_host_prog = '/Users/vincent/.pyenv/versions/neovim3/bin/python'
 
@@ -178,6 +179,7 @@ augroup filetypes
   " autocmd BufNewFile,BufRead *.css set filetype=scss
   autocmd BufNewFile,BufRead zprofile set filetype=zsh
   autocmd BufNewFile,BufRead *.md set filetype=wiki
+  autocmd BufWritePost *.scratchpad.md :FlowedCopy
 augroup END
 
 augroup qf

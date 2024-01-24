@@ -69,6 +69,7 @@ button:hover {
 #disk,
 #language,
 #mpris,
+#custom-mako,
 #mpd {
   padding: 0 0.6em;
 }
@@ -111,6 +112,8 @@ button:hover {
   color: #f53c3c;
 }
 
+#custom-mako.disabled,
+#idle_inhibitor,
 #wireplumber.muted,
 #pulseaudio.muted {
   /* background-color: #90b1b1; */

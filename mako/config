@@ -2,4 +2,7 @@ background-color=#323232
 border-size=1
 border-color=#454545
 
+[mode=do-not-disturb]
+invisible=1
+
 # vim:ft=conf

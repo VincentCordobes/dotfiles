@@ -17,6 +17,7 @@
     "tray",
     // "bluetooth", make waybar crash
     "idle_inhibitor",
+    "custom/mako",
     "pulseaudio",
     "backlight",
     "temperature",
@@ -146,10 +147,9 @@
   },
   "backlight": {
     // "device": "acpi_video1",
-    "format": "{icon}",
-    "tooltip-format": "{percent}%",
+    "format": " {percent}%",
+    "tooltip-format": "{percent}%"
     /* "on-click": "brightnessctl set 1%", */
-    "format-icons": ["", ""]
   },
   "battery": {
     "states": {
@@ -215,6 +215,14 @@
     "interval": 30,
     "signal": 8,
     "exec": "sleep 0.2 && /home/vincent/scripts/waytson"
+  },
+  "custom/mako": {
+    "exec": "~/dotfiles/mako/widget",
+    "return-type": "json",
+    "on-click": "if makoctl mode | grep -q disturb; then makoctl mode -r do-not-disturb; else makoctl mode -a do-not-disturb; fi; pkill -SIGRTMIN+8 waybar",
+    "exec-on-event": true,
+    "interval": 30,
+    "signal": 8
   },
   "custom/github": {
     "exec": "$HOME/dotfiles/waybar/github-notifs",

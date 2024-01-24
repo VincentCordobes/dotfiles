@@ -104,7 +104,6 @@ sway-launcher-desktop
 swayidle
 swaylock
 telegram-desktop
-texlive-most
 thunar
 thunderbird
 translate-shell

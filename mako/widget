@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+set -euo pipefail
+
+if makoctl mode | grep -q "disturb" ; then 
+  class="enabled";
+else 
+  class="disabled";
+fi
+
+printf '{"text": "%s", "class": "%s"}\n' "" "$class"
