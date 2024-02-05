@@ -13,6 +13,7 @@
   "coc.preferences.formatOnSave": true,
   "tsserver.trace.server": "verbose",
   "tsserver.useLocalTsdk": true,
+  "tsserver.maxTsServerMemory": 6072,
   "eslint.codeActionsOnSave.mode": "all",
   "eslint.autoFixOnSave": true,
   "eslint.probe": [

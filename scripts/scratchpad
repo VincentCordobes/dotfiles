@@ -16,4 +16,4 @@ tpl="/tmp/scratchpad.$now.XXX.md"
 file="$(mktemp "$tpl")"
 
 cd /tmp
-nvim "$file"
+nvim "$file" -c 'set fo-=tlc'

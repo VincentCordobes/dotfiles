@@ -58,6 +58,7 @@ linux-lts
 lsof
 mako
 man-db
+mgitstatus
 mpd
 mpv
 mpv-mpris

@@ -132,6 +132,7 @@ augroup my_fo
   autocmd!
   " Some plugins set this options... 
   au FileType * setlocal formatoptions-=o
+  au FileType wiki setlocal wrap
 augroup END
 
 augroup mail

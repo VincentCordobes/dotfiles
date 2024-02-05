@@ -39,3 +39,5 @@ rsync -avh \
   / $backup_arch
 
 [ $? -eq 0 ] && echo "Successfully backed up on $date" > "$logfile"
+
+mgitstatus --no-pull -e --no-upstream /home/vincent/code/ /home/vincent/scripts/ /home/vincent/dotfiles
