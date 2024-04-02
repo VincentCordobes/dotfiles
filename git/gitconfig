@@ -8,7 +8,8 @@
 [pull]
 	rebase = true
 [merge]
-	tool = vimdiff
+	tool = nvimdiff
+	conflictStyle = diff3
 [push]
 	followTags = true
 	autoSetupRemote = true

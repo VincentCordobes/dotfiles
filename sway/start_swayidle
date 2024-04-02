@@ -1,14 +1,14 @@
 #!/bin/bash
 
-enable_lock=false
+enable_lock=true
 
-image=/home/vincent/Pictures/lockscreen/cat_lock.png
+image=/home/vincent/Pictures/lockscreen/cat_lock_bw_1.png
 lock_cmd="swaylock -f -i $image"
 
 if $enable_lock; then
   /usr/bin/swayidle -w \
-    timeout 600  "$lock_cmd" \
-    timeout 800 "swaymsg 'output * dpms off'" \
+    timeout 1800  "$lock_cmd" \
+    timeout 1800 "swaymsg 'output * dpms off'" \
     resume "swaymsg 'output * dpms on'" \
     timeout 1800 "systemctl suspend" \
     before-sleep "$lock_cmd" \

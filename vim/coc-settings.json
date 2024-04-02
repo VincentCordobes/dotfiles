@@ -9,6 +9,7 @@
   "coc.preferences.promptInput": false,
   "coc.source.file.ignoreHidden": false,
   "codeLens.enable": false,
+  "typescript.autoClosingTags": false,
   "diagnostic.showDeprecated": true,
   "coc.preferences.formatOnSave": true,
   "tsserver.trace.server": "verbose",

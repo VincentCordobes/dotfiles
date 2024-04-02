@@ -278,8 +278,16 @@ bindsym --release XF86Launch2   exec capture-screen
 bindsym Shift+Print   exec record-screen-area
 
 
-bindsym $mod+c exec swaymsg [app_id=qalcapp] scratchpad show || exec $termfloat --class="qalcapp" qalc ; exec swaymsg [app_id=qalcapp] move position center
+bindsym $mod+c exec swaymsg [app_id=qalcapp] scratchpad show || exec $termfloat --class="qalcapp" qalc ; exec swaymsg [app_id=qalcapp] move position center; exec swaymsg [app_id=qalcapp] resize set 500px 400px ; 
 for_window [app_id="qalcapp"] {
+  move scratchpad
+  scratchpad show
+  move position center
+  resize set 500px 400px
+}
+
+bindsym $mod+x exec swaymsg [app_id=tmpshell] scratchpad show || exec $termfloat --class="tmpshell"; exec swaymsg [app_id=tmpshell] move position center; exec swaymsg [app_id=tmpshell] resize set 500px 400px ; 
+for_window [app_id="tmpshell"] {
   move scratchpad
   scratchpad show
   move position center

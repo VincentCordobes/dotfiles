@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo ln -sf ~/dotfiles/pipewire/wireplumber/wireplumber.conf.d ~/.config/wireplumber/wireplumber.conf.d
+
 sudo pacman -S --needed --noconfirm \
   pipewire \
   wireplumber \
