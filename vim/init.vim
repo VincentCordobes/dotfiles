@@ -660,6 +660,8 @@ augroup end
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
+command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
+
 " Using CocList
 " Show all diagnostics
 nnoremap <silent> <space>k  :<C-u>CocList diagnostics<cr>
@@ -767,6 +769,11 @@ let g:goyo_width = 80
 let g:table_mode_disable_mappings = 1
 let g:table_mode_disable_tableize_mappings = 1
 "}}}
+
+
+" vim-tex {{{
+" let g:vimtex_view_method = 'zathura'
+" }}}
 
 " }}}
 

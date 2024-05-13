@@ -15,6 +15,6 @@ profile Home {
 
 profile Work {
   output eDP-1 position 740,1440
-  output "HP Inc. HP Z27n G2 6CM8051T7J" position 0,0
+  output DP-2 position 0,0
 }
 
