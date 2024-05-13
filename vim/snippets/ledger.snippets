@@ -35,35 +35,35 @@ endsnippet
 snippet pel "Plan Epargne Logement"
 `!v strftime("%Y/%m/%d")` * PEL
 	Assets:Savings:PEL                                    €45.00
-	Assets:Checking:Perso
+	Assets:Checking:CMUT:CurrentAccount
 $0
 endsnippet
 
 snippet phone "Free mobile"
 `!v strftime("%Y/%m/%d")` * Phone
 	Expenses:Utilities                                    €19.99
-	Assets:Checking:Perso
+	Assets:Checking:CMUT:CurrentAccount
 $0
 endsnippet
 
 snippet internet "Orange internet"
 `!v strftime("%Y/%m/%d")` * Orange
 	Expenses:Utilities                                    €30.99
-	Assets:Checking:Perso
+	Assets:Checking:CMUT:CurrentAccount
 $0
 endsnippet
 
 snippet alan "Alan mutuelle"
 `!v strftime("%Y/%m/%d")` * Alan
 	Expenses:Insurance                                    €57.00
-	Assets:Checking:Perso
+	Assets:Checking:CMUT:CurrentAccount
 $0
 endsnippet
 
 snippet revolut "Top up revolut"
 `!v strftime("%Y/%m/%d")` * Top up rev
 	Assets:Checking:Revolut                             €${1:amount}
-	Assets:Checking:Perso
+	Assets:Checking:CMUT:CurrentAccount
 $0
 endsnippet
 
@@ -83,48 +83,48 @@ endsnippet
 snippet loan "loan"
 `!v strftime("%Y/%m/%d")` * Rmbt Prêt
 	Liabilities:Loans                                   €${1:debit}
-	Assets:Checking:Perso
+	Assets:Checking:CMUT:CurrentAccount
 $0
 endsnippet
 
 snippet habitation "Assurance Habitation"
 `!v strftime("%Y/%m/%d")` * Assurance Habitation 
 	Expenses:Insurance                                   €21.45
-	Assets:Checking:Perso
+	Assets:Checking:CMUT:CurrentAccount
 $0
 endsnippet
 
 snippet charges "Charges appart"
 `!v strftime("%Y/%m/%d")` * Charges Les Jardins de la Nive
 	Expenses:Charges                                     €${1:debit}
-	Assets:Checking:Perso
+	Assets:Checking:CMUT:CurrentAccount
 $0
 endsnippet
 
 snippet edf "EDF"
 `!v strftime("%Y/%m/%d")` * EDF
 	Expenses:Home                                         €111.00
-	Assets:Checking:Perso
+	Assets:Checking:CMUT:CurrentAccount
 $0
 endsnippet
 
 snippet eau "Tres. Bayonne Munici"
 `!v strftime("%Y/%m/%d")` * Tres. Bayonne Munici
 	Expenses:Eau                                           €19.80
-	Assets:Checking:Perso
+	Assets:Checking:CMUT:CurrentAccount
 $0
 endsnippet
 
 snippet edm "Enfant du Mekong association"
 `!v strftime("%Y/%m/%d")` * Enfant du Mekong asso
 	Expenses:Donations:EDM                                €90.00
-	Assets:Checking:Perso
+	Assets:Checking:CMUT:CurrentAccount
 $0
 endsnippet
 
 snippet tiime "tiime"
 `!v strftime("%Y/%m/%d")` * Tree For Dev
-	Assets:Checking:Perso                               €${1:debit}
+	Assets:Checking:CMUT:CurrentAccount                               €${1:debit}
 	Assets:Checking:Tiime
 $0
 endsnippet
