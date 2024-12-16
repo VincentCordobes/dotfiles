@@ -170,7 +170,7 @@
     "interval": 2,
     "format-wifi": "",
     "tooltip-format-wifi": " {signalStrength}%",
-    "format-alt": "⇅ {bandwidthUpOctets} {bandwidthDownOctets}",
+    "format-alt": "⇵ {bandwidthDownOctets} {bandwidthUpOctets}",
     "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
     "format-linked": " {ifname} (No IP)",
     "format-disconnected": "⚠ Disconnected"

@@ -8,6 +8,7 @@
   "python.linting.mypyEnabled": true,
   "coc.preferences.promptInput": false,
   "coc.source.file.ignoreHidden": false,
+  "colors.enable": true,
   "codeLens.enable": false,
   "typescript.autoClosingTags": false,
   "diagnostic.showDeprecated": true,

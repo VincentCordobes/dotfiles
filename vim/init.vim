@@ -148,11 +148,11 @@ augroup END
 " let g:python_host_prog = '/Users/vincent/.pyenv/versions/neovim2/bin/python'
 " let g:python3_host_prog = '/Users/vincent/.pyenv/versions/neovim3/bin/python'
 
-"" Scrolling
-if !has('gui_running')
-  map <ScrollWheelUp> <C-Y>
-  map <ScrollWheelDown> <C-E>
-endif
+" "" Scrolling
+" if !has('gui_running')
+"   map <ScrollWheelUp> <C-Y>
+"   map <ScrollWheelDown> <C-E>
+" endif
 
 "" Turn off swap file
 set noswapfile
@@ -167,7 +167,6 @@ let mapleader = "\<space>"
 nnoremap <space> <Nop>
 
 autocmd filetype crontab setlocal nobackup nowritebackup
-
 
 "" Define some extra filetype recognition
 augroup filetypes
@@ -263,6 +262,7 @@ function! s:configureTheme(color)
     source ~/dotfiles/vim/custom_light.vim
   else
     colorscheme nord
+    hi! link QuickFixLine Search
     " hi StatusLine guibg=#d8dee9 guifg=#3b4252
     hi DiffDelete guifg=NONE guibg=#5a414d gui=NONE
     " hi DiffDelete guifg=#383E50 guibg=#333947 
@@ -406,13 +406,14 @@ endfun
 " tcomment {{{
 " let g:tcomment#filetype#guess = 1
 " let g:tcomment#filetype#guess_typescriptreact = 1
+
 " }}}
 
 " nvim-treesitter {{{
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "rust", "javascript", "typescript", "tsx", "css", "ocaml", "ocamllex", "bash", "python" },
+  ensure_installed = { "rust", "javascript", "typescript","lua" , "tsx", "css", "ocaml", "ocamllex", "bash", "python" },
   highlight = {
     enable = true,              -- false will disable the whole extension
   },
@@ -633,6 +634,8 @@ nmap <silent> <leader>ci <Plug>(coc-implementation)
 nmap <silent> <leader>cr <Plug>(coc-rename)
 nmap <silent> <leader>ca  <Plug>(coc-codeaction-line)
 vmap <silent> <leader>ca  <Plug>(coc-codeaction-selected)
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>

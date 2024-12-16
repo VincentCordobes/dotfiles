@@ -51,6 +51,7 @@ compinit
 # User configuration                      #
 ###########################################
 
+export NVIM_APPNAME=nvimlua
 export GPG_TTY=$(tty)
 export EDITOR=nvim
 export PAGER=less
@@ -294,8 +295,8 @@ sshreviewapp() {
   ssh -o StrictHostKeyChecking=no -o "UserKnownHostsFile /dev/null" -i ~/.ssh/id_rsa -L 28030:127.0.0.1:27017 -J vincent.cordobes@bastion.dev1.fonciamillenium.net -t vincent.cordobes@$1 "cd /tmp/localstack ; bash"
 }
 
-fwtoday() {
-  watson report --day --project foncia --current
+wsum() {
+  watson report --day --current --project $1
 }
 
 fwyesterday() {
