@@ -58,14 +58,6 @@ vim.opt.foldenable = false
 vim.opt.statusline = "%<%f %h%m%r   %=%y  %{&fileencoding?&fileencoding:&encoding}  %-10.(%l,%v%) %P"
 
 
--- Setup lazy.nvim
-require("lazy").setup({
-  spec = {
-    
-  },
-  change_detection = { notify = false },
-})
-
 vim.api.nvim_create_user_command("Grep", function(opts) 
   local cmd = string.format('silent grep! %s', opts.args)
   vim.cmd(cmd)
@@ -107,4 +99,23 @@ vim.keymap.set("n", "<leader><space>", "<cmd>noh<cr>", { desc = "Clear hlsearch"
 -- Dont go to the next occurence on * search 
 vim.keymap.set("n", "*", [[:let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>]], { desc = "Star search", silent = true })
 
--- vim.keymap.set("n", "<leader>a", ":Grep<space>", { desc = "Grep with grepprg" })
+vim.keymap.set('v', '>', '>gv')
+vim.keymap.set('v', '<', '<gv')
+
+vim.api.nvim_create_augroup('qf', { clear = true })
+-- Open quickfix after grep
+vim.api.nvim_create_autocmd('QuickFixCmdPost', {
+  group = 'qf',
+  pattern = '*grep*',
+  callback = function()
+    vim.cmd('cwindow')
+  end
+})
+
+-- Setup lazy.nvim
+require("lazy").setup({
+  spec = {
+    { import = "plugins" },
+  },
+  change_detection = { notify = false },
+})
