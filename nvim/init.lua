@@ -1,7 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -39,7 +38,7 @@ vim.opt.title = true
 -- Search
 vim.opt.ignorecase = true -- Automatically reread changed files without asking me anything
 vim.opt.smartcase = true  -- ... but not if it begins with upper case
-vim.opt.grepprg = "rg --vimgrep --smart-case --hidden"
+vim.opt.grepprg = "rg --vimgrep --smart-case --hidden --no-messages"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 
 vim.opt.linebreak = true
@@ -67,33 +66,42 @@ require("lazy").setup({
   change_detection = { notify = false },
 })
 
-
--- test %
--- test
-
 vim.api.nvim_create_user_command("Grep", function(opts) 
   local cmd = string.format('silent grep! %s', opts.args)
-  print(cmd)
   vim.cmd(cmd)
 end,
 { desc = "Pretty grep", nargs = "+", complete = "file_in_path", range = true })
 
+function map(tbl, f)
+  local t = {}
+  for k,v in pairs(tbl) do
+    t[k] = f(v)
+  end
+  return t
+end
 
-
-vim.keymap.set("n", "<leader>a", ":Grep<space>")
+vim.keymap.set("n", "<leader>a", ':Grep<space>""<left>', { desc = "Grep" })
 vim.keymap.set("v", "<leader>a", function()
-  local region = vim.fn.getregion(
+  local lines = vim.fn.getregion(
     vim.fn.getpos("v"),
     vim.fn.getpos("."),
     { type = vim.fn.mode() }
   )
-
-  local selection = table.concat(region, "\n")
-
-  vim.api.nvim_input("<Esc>:Grep " .. selection)
-  -- vim.cmd('Grep')
-  -- '"ay :Grep <c-r>=expand(@a)<cr>'
-end)
+  local is_multiline = #lines > 1
+  if is_multiline then
+    -- default to regex pattern
+    local lines = map(lines, function(line) 
+      return vim.fn.escape(line, '.*[]^${}()|?+\\')
+    end)
+    local line = table.concat(lines, "\\n")
+    local line = vim.fn.escape(line, '|')
+    return string.format('<esc>:Grep -U -- %s', vim.fn.shellescape(line, 1))
+  else
+    local line = lines[1]
+    local line = vim.fn.escape(line, '|')
+    return string.format('<esc>:Grep -F -- %s', vim.fn.shellescape(line, 1))
+  end
+end, { expr = true, desc = "Grep visual selection" })
 vim.keymap.set("n", "<leader><space>", "<cmd>noh<cr>", { desc = "Clear hlsearch", silent = true })
 
 -- Dont go to the next occurence on * search 
