@@ -4,6 +4,7 @@ return {
     ---@module 'oil'
     ---@type oil.SetupOpts
     opts = {},
+    event = "VeryLazy",
     config = function()
       require("oil").setup({
         win_options = {
@@ -23,6 +24,10 @@ return {
         keymaps_help = {
           border = "solid",
         },
+        use_default_keymaps = true,
+        keymaps = {
+          ["<C-p>"] = false,
+        }
       })
       vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     end

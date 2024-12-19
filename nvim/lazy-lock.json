@@ -1,6 +1,11 @@
 {
+  "fzf": { "branch": "master", "commit": "0476a65fca287a1cd17ae3cbdfd8155eb0fb40ad" },
   "fzf-lua": { "branch": "main", "commit": "026ee1f7210ea132ab59783eb8919eea970aa476" },
+  "fzf.vim": { "branch": "master", "commit": "556f45e79ae5e3970054fee4c4373472604a1b4e" },
   "lazy.nvim": { "branch": "main", "commit": "7e6c863bc7563efbdd757a310d17ebc95166cef3" },
+  "lists.vim": { "branch": "main", "commit": "33ced550dc7cc9b9025f2b8b5428bee1d32f355c" },
   "nvim-treesitter": { "branch": "master", "commit": "102bc74e093ef54aab57a368db15befeb9ba9d58" },
-  "oil.nvim": { "branch": "master", "commit": "dba037598843973b8c54bc5ce0318db4a0da439d" }
+  "oil.nvim": { "branch": "master", "commit": "dba037598843973b8c54bc5ce0318db4a0da439d" },
+  "wiki-ft.vim": { "branch": "master", "commit": "10e3aa7ee58ae5351fc9ba0d692877a34cc99f08" },
+  "wiki.vim": { "branch": "master", "commit": "8cc3f584cc20424f776fb60932c6ac265f526e6a" }
 }

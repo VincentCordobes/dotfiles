@@ -18,7 +18,7 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
-vim.opt.conceallevel = 2
+vim.opt.conceallevel = 0
 vim.opt.scrolloff = 8
 vim.opt.showmatch = true
 vim.opt.hidden = true
@@ -111,6 +111,11 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost', {
     vim.cmd('cwindow')
   end
 })
+
+
+-- Disable some plugins
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- Setup lazy.nvim
 require("lazy").setup({

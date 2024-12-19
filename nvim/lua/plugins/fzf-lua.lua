@@ -1,8 +1,16 @@
 return {
   {
     "ibhagwan/fzf-lua",
+    enabled = false,
     config = function()
-      require("fzf-lua").setup({'fzf-native'})
+      require("fzf-lua").setup({
+        winopts = {
+          row = 1,
+          width = 1,
+          height = 0.40,
+          border = "none"
+        },
+      })
       vim.keymap.set("n", "<c-P>", require('fzf-lua').files, { desc = "Fzf Files" })
       vim.keymap.set("n", "<leader>ff", require('fzf-lua').files, { desc = "Fzf Files" })
       vim.keymap.set("n", "<leader>fb", require('fzf-lua').buffers, { desc = "Fzf Buffers" })
