@@ -1,0 +1,9 @@
+vim.api.nvim_create_augroup("qf", { clear = true })
+-- Open quickfix after grep
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  group = "qf",
+  pattern = "*grep*",
+  callback = function()
+    vim.cmd("cwindow")
+  end,
+})

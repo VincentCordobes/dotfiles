@@ -1,10 +1,12 @@
 {
+  "conform.nvim": { "branch": "master", "commit": "70019124aa4f2e6838be9fbd2007f6d13b27a96d" },
   "fzf": { "branch": "master", "commit": "0476a65fca287a1cd17ae3cbdfd8155eb0fb40ad" },
   "fzf-lua": { "branch": "main", "commit": "026ee1f7210ea132ab59783eb8919eea970aa476" },
   "fzf.vim": { "branch": "master", "commit": "556f45e79ae5e3970054fee4c4373472604a1b4e" },
   "gitsigns.nvim": { "branch": "main", "commit": "5f808b5e4fef30bd8aca1b803b4e555da07fc412" },
   "lazy.nvim": { "branch": "main", "commit": "7e6c863bc7563efbdd757a310d17ebc95166cef3" },
   "lists.vim": { "branch": "main", "commit": "33ced550dc7cc9b9025f2b8b5428bee1d32f355c" },
+  "mini.bufremove": { "branch": "main", "commit": "285bdac9596ee7375db50c0f76ed04336dcd2685" },
   "nvim-treesitter": { "branch": "master", "commit": "102bc74e093ef54aab57a368db15befeb9ba9d58" },
   "oil.nvim": { "branch": "master", "commit": "dba037598843973b8c54bc5ce0318db4a0da439d" },
   "wiki-ft.vim": { "branch": "master", "commit": "10e3aa7ee58ae5351fc9ba0d692877a34cc99f08" },

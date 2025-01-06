@@ -1,6 +1,6 @@
 return {
   {
-    'stevearc/oil.nvim',
+    "stevearc/oil.nvim",
     ---@module 'oil'
     ---@type oil.SetupOpts
     opts = {},
@@ -27,9 +27,11 @@ return {
         use_default_keymaps = true,
         keymaps = {
           ["<C-p>"] = false,
-        }
+        },
       })
-      vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-    end
-  }
+      vim.keymap.set("n", "-", "<CMD>Oil<CR>", {
+        desc = "Open parent directory",
+      })
+    end,
+  },
 }
