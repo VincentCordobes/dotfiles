@@ -74,7 +74,6 @@ zle -N edit-command-line
 bindkey "^F" edit-command-line
 
 # Aliases
-alias open='xdg-open'
 alias vim='nvim'
 alias e='nvim'
 alias vimdiff='nvim -d'
@@ -98,6 +97,9 @@ alias w="pkill -SIGRTMIN+8 waybar && watson"
 # alias wi="wiki"
 # alias wj="wjournal"
 
+open() {
+  xdg-open $@ & disown
+}
 goal() {
   vim `ls -dA ~/Dropbox/wiki/goal_* | tail -1`
 }

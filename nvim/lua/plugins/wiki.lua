@@ -2,6 +2,7 @@ return {
   {
     "lervag/wiki.vim",
     init = function()
+      vim.g.lists_filetypes = { 'md' }
       vim.g.wiki_mappings_use_defaults = "local"
       vim.g.wiki_mappings_local_journal = {
         ['<plug>(wiki-journal-prev)'] = '<C-Up>',
@@ -42,7 +43,11 @@ return {
   },
   {
     "lervag/wiki-ft.vim",
-    dependencies = { "lervag/wiki.vim" }
+    dependencies = { "lervag/wiki.vim" },
+    init = function()
+    end,
+    config = function()
+    end,
   },
   {
     'lervag/lists.vim',

@@ -53,6 +53,7 @@ vim.opt.formatoptions = "tlcqjr1nw"
 -- 1: Don't break a line after a one-letter word.
 -- n: Recognize numbered lists
 -- w: format=flowed
+vim.opt.list = true
 
 vim.opt.foldenable = false
 vim.opt.statusline = "%<%f %h%m%r   %=%y  %{&fileencoding?&fileencoding:&encoding}  %-10.(%l,%v%) %P"
@@ -102,6 +103,13 @@ vim.keymap.set("n", "*", [[:let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls
 vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('v', '<', '<gv')
 
+vim.keymap.set("n", "<Up>", "gk")
+vim.keymap.set("n", "<Down>", "gj")
+vim.keymap.set("n", "k", "gk")
+vim.keymap.set("n", "j", "gj")
+
+vim.keymap.set("x", "Q", ":'<,'>:normal @q<CR>")
+
 vim.api.nvim_create_augroup('qf', { clear = true })
 -- Open quickfix after grep
 vim.api.nvim_create_autocmd('QuickFixCmdPost', {
@@ -112,6 +120,13 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost', {
   end
 })
 
+vim.api.nvim_create_user_command("FlowedCopy", function()
+  local old_tw = vim.o.textwidth
+  vim.o.textwidth = 999999999
+  vim.cmd("silent normal! gvgqgvy")
+  vim.o.textwidth = old_tw
+  vim.cmd("silent normal! gvgq")
+end, { range = true })
 
 -- Disable some plugins
 vim.g.loaded_netrw = 1

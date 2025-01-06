@@ -29,3 +29,5 @@
 	plus-style = "#dfe9d8 #405543"
 	plus-emph-style = "#dfe9d8 #47704c"
 	syntax-theme = Nord
+[init]
+	defaultBranch = main
