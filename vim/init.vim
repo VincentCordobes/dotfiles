@@ -6,7 +6,7 @@ call plug#begin('~/.config/nvim/plugged')
 "" Common
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-vinegar'
+Plug 'stevearc/oil.nvim'
 
 " https://github.com/nvim-treesitter/nvim-treesitter/issues/2996
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit': 'e4df422'}
@@ -19,7 +19,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-rhubarb'
 
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
-Plug 'tomtom/tcomment_vim' " comment stuff out
+" Plug 'tomtom/tcomment_vim' " comment stuff out
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips' 
@@ -71,6 +71,11 @@ Plug 'vim-scripts/LanguageTool',  { 'for': ['vimwiki', 'markdown', 'tex', 'plain
 Plug 'VincentCordobes/vim-translate'
 " Plug '~/code/vim-translate'
 Plug 'ledger/vim-ledger', { 'for': 'ledger' }
+
+
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'kristijanhusak/vim-dadbod-completion'
 
 call plug#end()
 
@@ -315,6 +320,33 @@ nmap <silent> <leader>q :call ToggleList("Quickfix List", 'c')<CR>
 nnoremap <silent><c-k> :call ListNavigate('previous')<CR>
 nnoremap <silent><c-j> :call ListNavigate('next')<CR>
 
+lua <<EOF
+      require("oil").setup({
+        win_options = {
+          number = false,
+          signcolumn = "yes",
+        },
+        skip_confirm_for_simple_edits = false,
+        view_options = {
+          show_hidden = true,
+        },
+        confirmation = {
+          border = "solid",
+        },
+        progress = {
+          border = "solid",
+        },
+        keymaps_help = {
+          border = "solid",
+        },
+        use_default_keymaps = true,
+        keymaps = {
+          ["<C-p>"] = false,
+        },
+      })
+EOF
+nnoremap <silent> - :Oil<CR>
+
 "" Buffer navigation
 " nnoremap <C-h> :bprevious<CR>
 " nnoremap <C-l> :bnext<CR>
@@ -432,6 +464,8 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 " }}}
+
+
 
 " vim-markdown {{{
 let g:lists_filetypes = ['md']
@@ -601,6 +635,7 @@ let g:wiki_ui_method = {
 " }}}
 
 "coc.nvim {{{
+" autocmd BufRead,BufNewFile .env :silent! CocDisable
 hi CocErrorFloat ctermfg=1 guifg=#BF616A
 hi CocErrorSign ctermfg=1 guifg=#BF616A
 hi link CocHighlightText CursorColumn

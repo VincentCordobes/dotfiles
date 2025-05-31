@@ -51,7 +51,7 @@ compinit
 # User configuration                      #
 ###########################################
 
-export NVIM_APPNAME=nvimlua
+# export NVIM_APPNAME=nvimlua
 export GPG_TTY=$(tty)
 export EDITOR=nvim
 export PAGER=less
@@ -77,6 +77,8 @@ bindkey "^F" edit-command-line
 alias vim='nvim'
 alias e='nvim'
 alias vimdiff='nvim -d'
+alias lightmode="gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'"
+alias darkmode="gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
 
 alias ls='ls --color=auto'
 alias lsa='ls -lAh'

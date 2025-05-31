@@ -13,11 +13,17 @@
   "typescript.autoClosingTags": false,
   "diagnostic.showDeprecated": true,
   "coc.preferences.formatOnSave": true,
-  "tsserver.trace.server": "verbose",
+  "prettier.disableLanguages": ["markdown", "wiki"],
   "tsserver.useLocalTsdk": true,
   "tsserver.maxTsServerMemory": 6072,
-  "eslint.codeActionsOnSave.mode": "all",
+  "css.lint.unknownAtRules": "ignore",
+  // "eslint.codeActionsOnSave.mode": "all",
   "eslint.autoFixOnSave": true,
+  // "tailwindCSS.experimental.classRegex": [
+  //   ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  // ],
+  "tailwindCSS.colorDecorators": false,
+  // "eslint.autoFixOnSave": true,
   "eslint.probe": [
     "javascript",
     "javascriptreact",
@@ -69,5 +75,8 @@
     }
   },
   "Lua.hint.paramType": false,
-  "Lua.telemetry.enable": false
+  "Lua.telemetry.enable": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

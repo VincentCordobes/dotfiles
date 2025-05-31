@@ -45,3 +45,5 @@
 
 /home/vincent/.mongodb
 node_modules
+**/node_modules
+/home/vincent/.mozilla
