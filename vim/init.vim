@@ -184,6 +184,7 @@ augroup filetypes
   " autocmd BufNewFile,BufRead *.css set filetype=scss
   autocmd BufNewFile,BufRead zprofile set filetype=zsh
   autocmd BufNewFile,BufRead *.md set filetype=wiki
+  autocmd BufNewFile,BufRead .env* set filetype=conf
   autocmd BufWritePost *.scratchpad.md :FlowedCopy
 augroup END
 

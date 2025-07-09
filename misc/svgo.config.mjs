@@ -26,6 +26,7 @@ export default {
           "-inkscape-*",
           "line-height",
           "stroke-width",
+          "aria-label",
         ],
         elemSeparator: ":",
         preserveCurrentColor: false,
