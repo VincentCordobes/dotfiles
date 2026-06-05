@@ -114,6 +114,7 @@ input type:touchpad {
 }
 
 
+
 ###################################
 ### Key bindings
 ###################################
@@ -150,10 +151,10 @@ bindsym XF86MonBrightnessUp          exec brightnessctl set +5%
 bindsym $mod+XF86MonBrightnessDown   exec brightnessctl set 1%
 bindsym $mod+XF86MonBrightnessUp     exec brightnessctl set 100%
 
-bindsym Shift+XF86MonBrightnessDown     exec ddcutil --bus 12 setvcp 10 - 10
-bindsym Shift+XF86MonBrightnessUp       exec ddcutil --bus 12 setvcp 10 + 10
-bindsym $mod+Shift+XF86MonBrightnessDown  exec ddcutil --bus 12 setvcp 10 - 50
-bindsym $mod+Shift+XF86MonBrightnessUp  exec ddcutil --bus 12 setvcp 10 + 50
+bindsym Shift+XF86MonBrightnessDown     exec ddcutil --bus 14 setvcp 10 - 10
+bindsym Shift+XF86MonBrightnessUp       exec ddcutil --bus 14 setvcp 10 + 10
+bindsym $mod+Shift+XF86MonBrightnessDown  exec ddcutil --bus 14 setvcp 10 - 50
+bindsym $mod+Shift+XF86MonBrightnessUp  exec ddcutil --bus 14 setvcp 10 + 50
 
 # Audio
 
@@ -272,7 +273,7 @@ bindsym $mod+a focus parent
 
 # Screenshot
 bindsym --release Print                     exec capture-screen-area
-bindsym --release XF86Launch2   exec capture-screen
+bindsym --release XF86SelectiveScreenshot   exec capture-screen
 
 # Screencast
 bindsym Shift+Print   exec record-screen-area
@@ -302,6 +303,8 @@ for_window [app_id="btopapp"] {
   move scratchpad
   scratchpad show
 }
+
+bindsym $mod+Shift+g exec $term --directory /home/vincent/lab zsh -ic 'codex --sandbox read-only --ask-for-approval on-request'
 
 bindsym $mod+e exec swaymsg [app_id=draftpad] scratchpad show || exec $termfloat --class="draftpad" scratchpad ; exec swaymsg [app_id=draftpad] resize set 800px 638px ; exec swaymsg [app_id=draftpad] move position center
 for_window [app_id="draftpad"] {

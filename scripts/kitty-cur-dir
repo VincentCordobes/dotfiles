@@ -1,0 +1,7 @@
+#!/bin/bash
+cwd=$(kitty @ ls 2>/dev/null | jq -r '.[] | select(.is_focused==true) | .tabs[] | select(.is_active==true) | .windows[] | select(.is_focused==true) | .cwd' 2>/dev/null)
+
+if [ -z "$cwd" ] || [ "$cwd" = "null" ]; then
+    cwd="$HOME"
+fi
+exec kitty --single-instance --directory="$cwd"

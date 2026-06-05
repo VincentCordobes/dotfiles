@@ -1,5 +1,7 @@
 {
-  "notification.disabledProgressSources": ["*"],
+  "notification.disabledProgressSources": [
+    "*"
+  ],
   "python.linting.flake8Enabled": true,
   "diagnostic.locationlistUpdate": true,
   "diagnostic.errorSign": "✘",
@@ -7,23 +9,27 @@
   "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
   "coc.preferences.promptInput": false,
+  "biome.enable": false,
+  "oxc.oxfmt.enable": true,
+  "typescript.format.enable": false,
+  "javascript.format.enable": false,
+  "eslint.format.enable": false,
+  "eslint.autoFixOnSave": false,
+  "prettier.enable": false,
   "coc.source.file.ignoreHidden": false,
   "colors.enable": true,
   "codeLens.enable": false,
   "typescript.autoClosingTags": false,
   "diagnostic.showDeprecated": true,
   "coc.preferences.formatOnSave": true,
-  "prettier.disableLanguages": ["markdown", "wiki"],
+  "prettier.disableLanguages": [
+    "markdown",
+    "wiki"
+  ],
   "tsserver.useLocalTsdk": true,
   "tsserver.maxTsServerMemory": 6072,
   "css.lint.unknownAtRules": "ignore",
-  // "eslint.codeActionsOnSave.mode": "all",
-  "eslint.autoFixOnSave": true,
-  // "tailwindCSS.experimental.classRegex": [
-  //   ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
-  // ],
   "tailwindCSS.colorDecorators": false,
-  // "eslint.autoFixOnSave": true,
   "eslint.probe": [
     "javascript",
     "javascriptreact",
@@ -38,45 +44,59 @@
     "typescriptreact"
   ],
   "typescript.showUnused": false,
-  /* "rust-analyzer.lens.enable": false, */
   "rust-analyzer.check.command": "clippy",
   "inlayHint.enable": false,
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh", "zsh", "bash"],
-      "ignoredRootPaths": ["~"]
+      "args": [
+        "start"
+      ],
+      "filetypes": [
+        "sh",
+        "zsh",
+        "bash"
+      ],
+      "ignoredRootPaths": [
+        "~"
+      ]
     },
-    /* "prose": { */
-    /*   "command": "~/code/prose-language-server/build/index.js", */
-    /*   "args": ["--stdio"], */
-    /*   "trace.server":"verbose", */
-    /*   "filetypes": ["markdown"] */
-    /* }, */
     "ocaml": {
       "command": "opam",
-      "args": ["config", "exec", "--", "ocamllsp"],
-      "filetypes": ["ocaml"]
+      "args": [
+        "config",
+        "exec",
+        "--",
+        "ocamllsp"
+      ],
+      "filetypes": [
+        "ocaml"
+      ]
     },
     "haskell": {
       "command": "haskell-language-server",
-      "args": ["--lsp"],
+      "args": [
+        "--lsp"
+      ],
       "rootPatterns": [
         "*.cabal",
         "stack.yaml",
         "cabal.project",
         "package.yaml"
       ],
-      "filetypes": ["haskell", "lhaskell"],
+      "filetypes": [
+        "haskell",
+        "lhaskell"
+      ],
       "initializationOptions": {
         "languageServerHaskell": {}
       }
     }
   },
   "Lua.hint.paramType": false,
-  "Lua.telemetry.enable": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.organizeImports.biome": false,
+    "source.fixAll.biome": false,
+    "source.fixAll.eslint": false
   }
 }

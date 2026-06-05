@@ -31,15 +31,24 @@
 /home/vincent/code
 /home/vincent/dotfiles
 /home/vincent/scripts
+/home/vincent/Downloads
 /home/vincent/go
 /home/vincent/.docker
 /home/vincent/.nvm
+home/vincent/.vscode/extensions
 
 /home/vincent/.local/lib
 /home/vincent/.local/share/Trash
 /home/vincent/.local/share/TelegramDesktop
 /home/vincent/.local/share/pnpm
+/home/vincent/.local/share/nvim
 /home/vincent/.local/share/airshipper
+/home/vincent/.local/share/zed
+/home/vincent/.local/zed.app
+/home/vincent/.local/share/claude
+/home/vincent/.local/share/torbrowser
+/home/vincent/.local/share/citron
+/home/vincent/.local/share/eden
 
 /home/vincent/.opam
 
@@ -47,3 +56,24 @@
 node_modules
 **/node_modules
 /home/vincent/.mozilla
+/home/vincent/.claude
+/home/vincent/.bun
+/home/vincent/.config/Code
+/home/vincent/.config/Cursor
+/home/vincent/.config/Code - OSS
+/home/vincent/.config/Zelda64Recompiled
+/home/vincent/.config/MarioKart64Recompiled
+/home/vincent/.config/Signal
+/home/vincent/.config/coc
+/home/vincent/.config/Docker Desktop
+/home/vincent/.config/BraveSoftware
+/home/vincent/.config/REAPER
+/home/vincent/.config/vivaldi
+/home/vincent/.config/Mattermost
+/home/vincent/.config/libreoffice
+/home/vincent/.config/opencode
+/home/vincent/.config/via-nativia
+/home/vincent/.config/Bitwarden
+/home/vincent/.config/torbrowser
+
+

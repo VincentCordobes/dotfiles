@@ -9,8 +9,20 @@ profile Home1 {
 
 profile Home {
   # output eDP-1 enable position 420,1080
-  output eDP-1 enable position 1920,700
+  # On the right
+  output eDP-1 enable position 1920,600
   output "ASUSTek COMPUTER INC ASUS PA279 0x00003300" enable scale 2 mode 3840x2160@60Hz position 0,0
+
+  ### On the left
+  #output eDP-1 enable position 0,600
+  #output "ASUSTek COMPUTER INC ASUS PA279 0x00003300" enable scale 2 mode 3840x2160@60Hz position 1080,0
+}
+
+
+profile Tv {
+  output eDP-1 enable scale 2 position 0,720
+
+  output "LG Electronics LG TV SSCR2 0x01010101" enable mode 1920x1080@60Hz position 0,0
 }
 
 profile Work {
@@ -18,3 +30,7 @@ profile Work {
   output DP-2 position 0,0
 }
 
+profile SocialGouv {
+  output eDP-1 enable scale 2 position 300,1050
+  output DP-5 enable mode 1680x1050@59.883Hz position 0,0
+}

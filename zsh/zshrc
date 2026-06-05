@@ -79,6 +79,7 @@ alias e='nvim'
 alias vimdiff='nvim -d'
 alias lightmode="gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'"
 alias darkmode="gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
+alias codexp='codex --sandbox read-only --ask-for-approval on-request'
 
 alias ls='ls --color=auto'
 alias lsa='ls -lAh'
@@ -118,7 +119,7 @@ if [ -e /usr/share/fzf ]; then
 fi
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob \!.git'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_COMMAND='fd -a -H -t f -E .git'
 
 _fzf_complete_preps() {
   _fzf_complete --min-height 15 -- "$@" < <(
@@ -273,6 +274,8 @@ ledgerdit() {
   vim "+ normal Gk" ~/Dropbox/data/ledger.dat
 }
 
+export LEDGER_FILE=~/Dropbox/data/ledger.dat
+
 tophistory() {
   history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n"${1:-10}"
 }
@@ -300,26 +303,16 @@ sshreviewapp() {
 }
 
 wsum() {
-  watson report --day --current --project $1
+  project=$(watson status --project 2>/dev/null)
+
+  if [ -z "$project" ]; then
+    echo "No current Watson project"
+    return 1
+  fi
+
+  watson report --day --current --project "$project"
 }
 
-fwyesterday() {
-  yesterday=$(date -v-1d +%Y-%m-%d)
-  watson report --from "$yesterday" --to "$yesterday" --project foncia --current
-}
-
-
-
-wyesterday() {
-  project=$1
-  from=$2
-  to=$3
-  yesterday=$(date -v-1d +%Y-%m-%d)
-
-  watson add "$project" \
-    --from "$yesterday $from" \
-    --to "$yesterday $to"
-}
 
 reloadAudio() {
   sudo rmmod snd_sof_pci_intel_tgl
@@ -337,6 +330,10 @@ export PNPM_HOME="/home/vincent/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
 
 load_env() {
   set -a
@@ -346,4 +343,11 @@ load_env() {
     source .env
   fi
   set +a
+}
+
+fp() {
+  local selected
+  selected=$(fd -t f -a | fzf) || return
+  printf '%s' "$selected" | wl-copy
+  printf '%s\n' "$selected"
 }

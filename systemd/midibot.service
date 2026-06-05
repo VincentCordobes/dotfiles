@@ -1,0 +1,19 @@
+[Unit]
+Description=Download MIDI files linked from a YouTube description
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+DynamicUser=yes
+StateDirectory=midibot
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+EnvironmentFile=/etc/midibot/midibot.env
+ExecStart=/usr/local/bin/midibot --paths ${STATE_DIRECTORY}/downloads --download-archive ${STATE_DIRECTORY}/archive.txt ${MIDIBOT_URL}
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target

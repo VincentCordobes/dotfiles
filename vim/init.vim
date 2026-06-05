@@ -10,7 +10,7 @@ Plug 'stevearc/oil.nvim'
 
 " https://github.com/nvim-treesitter/nvim-treesitter/issues/2996
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit': 'e4df422'}
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'main', 'do': ':TSUpdate'}
 " Plug 'nvim-treesitter/playground'
 
 "" Git
@@ -53,6 +53,8 @@ Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 " Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 " Plug 'zchee/deoplete-jedi',          { 'for': 'python' }
 
+
+Plug 'martineausimon/nvim-lilypond-suite'
 
 "" rust
 Plug 'cespare/vim-toml'
@@ -322,6 +324,20 @@ nnoremap <silent><c-k> :call ListNavigate('previous')<CR>
 nnoremap <silent><c-j> :call ListNavigate('next')<CR>
 
 lua <<EOF
+
+      require('nvls').setup({
+       lilypond = {
+          options = {
+            pdf_viewer = "zathura",
+          },
+        },
+      })
+
+      vim.keymap.set("v", "<leader>qp", ":lua require('nvls.player').quickplayer()<CR>", {
+        desc = "LilyPond quickplayer selection",
+        silent = true,
+      })
+
       require("oil").setup({
         win_options = {
           number = false,
@@ -445,24 +461,31 @@ endfun
 " nvim-treesitter {{{
 
 lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "rust", "javascript", "typescript","lua" , "tsx", "css", "ocaml", "ocamllex", "bash", "python" },
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-  },
-  indent = {
-    enable = true
-  },
-  incremental_selection = {
-    enable = true,
-    -- keymaps = {
-    --   init_selection = "<CR>",
-    --   scope_incremental = "<TAB>",
-    --   node_incremental = "<CR>",
-    --   node_decremental = "<BS>",
-    -- },
-  },
-}
+require('nvim-treesitter').install({
+  'rust',
+  'javascript',
+  'typescript',
+  'tsx',
+  'lua',
+  'css',
+  'bash',
+  'python',
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'rust', 'javascript', 'typescript', 'typescriptreact' },
+  callback = function()
+    -- syntax highlighting, provided by Neovim
+    vim.treesitter.start()
+    -- folds, provided by Neovim
+    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.wo.foldmethod = 'expr'
+    -- indentation, provided by nvim-treesitter
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
+})
+
+
 EOF
 " }}}
 

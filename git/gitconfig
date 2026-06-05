@@ -1,7 +1,7 @@
 [user]
 	name = Vincent Cordobes
 	email = vincent.cordobes@gmail.com
-	signingkey = B343EAD2142E7D1B
+  #signingkey = B343EAD2142E7D1B
 [core]
 	editor = nvim
   pager = delta --paging=always
@@ -16,7 +16,7 @@
 [rebase]
 	autoStash = true
 [commit]
-	gpgsign = true
+  #gpgsign = true
 [sendemail]
 	smtpserver = /usr/bin/msmtp
 	from = vcordo@outlook.fr

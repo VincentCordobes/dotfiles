@@ -1,9 +1,7 @@
 {
   "dependencies": {
     "coc-css": ">=2.0.0",
-    "coc-eslint": ">=1.5.8",
     "coc-json": ">=1.7.1",
-    "coc-prettier": ">=9.3.1",
     "coc-python": ">=1.2.13",
     "coc-rust-analyzer": ">=0.72.1",
     "coc-sumneko-lua": ">=0.0.35",
@@ -14,9 +12,13 @@
     "coc-yaml": ">=1.9.0",
     "coc-cssmodules": ">=1.1.1",
     "@yaegassy/coc-tailwindcss3": ">=0.5.26",
-    "coc-db": ">=0.0.44"
+    "coc-db": ">=0.0.44",
+    "coc-biome": ">=1.8.0",
+    "coc-eslint": ">=3.0.15",
+    "coc-prettier": ">=11.0.1",
+    "coc-oxc": ">=0.2.0"
   },
   "disabled": [],
   "locked": [],
-  "lastUpdate": 1747651410134
+  "lastUpdate": 1777455082820
 }
